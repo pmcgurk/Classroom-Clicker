@@ -1,28 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Programming/Coding Assignment
-% LaTeX Template
-%
-% This template has been downloaded from:
-% http://www.latextemplates.com
-%
-% Original author:
-% Ted Pavlic (http://www.tedpavlic.com)
-%
-% Note:
-% The \lipsum[#] commands throughout this template generate dummy text
-% to fill the template out. These commands should all be removed when 
-% writing assignment content.
-%
-% This template uses a Perl script as an example snippet of code, most other
-% languages are also usable. Configure them in the "CODE INCLUSION 
-% CONFIGURATION" section.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
 \documentclass{article}
 
 \usepackage{fancyhdr} % Required for custom headers
@@ -35,6 +10,7 @@
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{amsmath}
 \usepackage{titlesec}
+\usepackage{pgfgantt}
 
 \setcounter{secnumdepth}{4}
 
@@ -58,7 +34,7 @@
 % Set up the header and footer
 \pagestyle{fancy}
 \lhead{\hmwkAuthorName} % Top left header
-\chead{Individual Project Scope and Outline Plan} % Top center head
+\chead{Individual Project Scope and Outline Plan (Draft)} % Top center head
 \rhead{\today}
 \lfoot{\lastxmark} % Bottom left footer
 \cfoot{\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
@@ -138,43 +114,106 @@
 %\maketitle
 
 \section{Overview}
-An overview of what the project is to achieve. This should be reasonably substantial ? either two or three paragraphs in length. \\
-\lipsum[2]
+(An overview of what the project is to achieve. )
 
-\lipsum[4]
+The aim of this project is to provide an alternative way of gauging the current opinion on a lecture in a way which is easy and requires the least amount of dedicated hardware as possible. 
 
-\lipsum[5]
+(more...)
+
 
 \section{Achievable Objectives}
-A preliminary list of achievable objectives for the project. \\
-\lipsum[2]
+(A preliminary list of achievable objectives for the project. )
+
+\begin{enumerate}
+	\item Peer to Peer network through Wi-Fi direct.
+	\item Interface with ``Lecturer'' and ``Student'' versions.
+	\item Ability to set questions on ``Lecturer'' account.
+	\item Ability to answer questions on ``Student'' account. 
+	\item Use of some sort of display to display opinions.
+	\item Ability to access interface through various devices. i.e. mobile, laptop, tablet.
+\end{enumerate}
 
 \section{Survey of Related Work}
 
-A preliminary survey of related work.
+(A preliminary survey of related work.)
 
-\lipsum[6]
+https://www1.iclicker.com/
 
+http://www.audienceresponse.com/
+
+http://www.clikapad.com/
+
+http://www.replysystems.com/
 
 \section{Methodology}
 
-A brief overview of the methodology to be followed (i.e., how the specification, design, implementation and verification of the project will be approached).
+(A brief overview of the methodology to be followed (i.e., how the specification, design, implementation and verification of the project will be approached).)
 
-\lipsum[10]
+There is a number of ways to design this project. One idea is to design native applications that work together through Wi-Fi direct. A native app for the lecturer side of things, and a native app for mobile devices for the students. However, I feel like this is unflexable and limits the capabilities of the application. 
 
+My approach to the implementation is to design one single app, a web application. This app will be set up depending on what type of account the user logs in with. For example, the app will allow the user to own ``Classes'', which will contain ``Lectures'', which will contain ``Questions'', if the user is set to be a ``Lecturer''. If the user is set as a ``Student'', it will be enrolled in ``Classes'', and be able to answer the questions within the lecture specified.
+
+This single app will programmed in HTML5 and JavaScript, and will be hosted on a Raspberry Pi with a touch screen attached, with the devices accessing the application as a local website. The touch screen will allow the lecturer to set questions from the devices, however, the same Lecturer interface could be accessed from a Wi-Fi direct enabled device of the lecturers choosing, such as a laptop or mobile phone. 
+
+The project will be designed in such a way as to allow it to be univerisally welcoming to students and lecturers of all abilities. Human Computer Interacting will be of high importance when designing the interface.
+
+Verification of the project will be done by using a variety of devices as ``Dummy'' student and lecturers, assigning and completing different questions.
 
 \section{Evaluation}
-A brief overview of how the end product will be evaluated.
-
-\lipsum[11]
+This project will be evaluated on how well it works within the classroom setting. It will also be evaluated on how easy it is to set up for both the student and the lecturer, and how easy each of the specific functions for each user is to use. 
 
 \section{Scheduling}
-An initial project plan scheduling the development of the project from now until the project submission deadline.
+(An initial project plan scheduling the development of the project from now until the project submission deadline.)
+
+\begin{centering}
+\begin{ganttchart}[
+    canvas/.append style={fill=none, draw=black!5, line width=.75pt},
+    hgrid style/.style={draw=black!5, line width=.75pt},
+    vgrid={*1{draw=black!5, line width=.75pt}},
+    title/.style={draw=none, fill=none},
+    title label font=\bfseries\footnotesize,
+    title label node/.append style={below=7pt},
+    include title in canvas=false,
+    bar label font=\mdseries\small\color{black!70},
+    bar label node/.append style={left=2cm},
+    bar/.append style={draw=none, fill=black!63},
+    bar incomplete/.append style={fill=barblue},
+    bar progress label font=\mdseries\footnotesize\color{black!70},
+    group incomplete/.append style={fill=groupblue},
+    group left shift=0,
+    group right shift=0,
+    group height=.5,
+    group peaks tip position=0,
+    group label node/.append style={left=.6cm},
+    group progress label font=\bfseries\small,
+    link/.style={-latex, line width=1.5pt, linkred},
+    link label font=\scriptsize\bfseries,
+    link label node/.append style={below left=-2pt and 0pt}
+  ]{1}{16}
+  \gantttitle{Project Schedule}{16} \\
+  \gantttitlelist{8,...,12,1,2,3,4,5,6,7,8,9,10,11}{1} \\
+  \ganttmilestone{Project Poster Day}{4} \\
+      \ganttmilestone{Phase 1 Report}{8} \\
+      \ganttmilestone{Phase 2 Report}{12} \\
+  \ganttbar{Project Specification/Plan}{1}{4} \\
+    \ganttbar{Project Poster}{1}{4} \\
+    \ganttbar{Wi-Fi Direct P2P}{2}{3} \\
+  \ganttbar{Database}{4}{5} \\
+  \ganttbar{Accounts}{4}{4} \\
+    \ganttbar{Questions}{5}{5} \\
+  \ganttbar{Lecturer Web App}{6}{8} \\
+    \ganttbar{Lecturer Interface}{6}{7} \\
+    \ganttbar{Student Web App}{9}{11} \\
+        \ganttbar{Student Interface}{9}{10} \\
+      \ganttbar{Final Testing and Refactoring}{12}{15} \\
+\ganttmilestone{Final Submission}{16}
+\end{ganttchart}
+\end{centering}
 
 \section{Marking}
-A choice of marking scheme (see the section Marking Schemes below) to be used to assess the project, together with the reasons for choosing that particular scheme.
+(A choice of marking scheme (see the section Marking Schemes below) to be used to assess the project, together with the reasons for choosing that particular scheme.)
 
-Probably "Software Development-based Project".
+(Probably "Software Development-based Project")
 
 %----------------------------------------------------------------------------------------
 
