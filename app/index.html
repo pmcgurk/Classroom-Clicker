@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" name="theme-color" content="#43a047">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="img/icon.png" />
+    <link rel="apple-touch-icon" href="img/icon.png" />
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
+    <title>Clicker</title>
+</head>
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper green">
+                <a class="brand-logo center">
+                    <span id="pageName" class="logo center section-btn" value="home">Clicker</span>
+                </a>
+                <a data-activates="mobile" class="button-collapse show-on-large"><i class="mdi-navigation-menu right"></i></a>
+                <ul class="side-nav" id="mobile">
+                    <li><a class="pageChangerButton header logo" value="home">Clicker</a>
+                    </li>
+                    <div class="divider"></div>
+                    <li><a class="pageChangerButton header" value="student">Student Layout</a>
+                    </li>
+                    <li><a class="pageChangerButton header" value="lecturer">Lecturer Layout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="green lighten-5">
+    <div id="home" class="page container" style="display: none;">
+        <div id="welcomeDiv">
+            <h4>Welcome layout</h4>
+        </div>
+    </div>
+    <div id="student" class="page" style="display: block;">
+        <div id="studentDiv" class="valign-wrapper">
+            <div class="row">
+                <div id="questionNotifcation" class="col s12 m12 l12 white-text green lighten-1">
+                    <div id="previousButton" class="col s4">
+                        <h6>Previous</h6> </div>
+                    <div id="previousButton" class="col s4">
+                        <h5 id="questionNumber" class="flow-text">Question 1</h5>
+                    </div>
+                    <div id="fowardButton" class="col s4 right-align">
+                        <h6>Next</h6> </div>
+                </div>
+                <div id="currentQuestion" class="col s12 ">
+                    <div class="questionDiv card green white-text col s12 m12 l6">
+                        <div id="questionTextDiv" class="container" style="height: 45vh">
+                            <h5 id="questionText" class="flow-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique lacinia iaculis. Nulla facilisi. Sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
+                        </div>
+                    </div>
+                    <div class="buttonDiv center col s12 m12 l12">
+                        <a class="waves-effect waves-light btn green">A</a>
+                        <a class="waves-effect waves-light btn red">B</a>
+                        <a class="waves-effect waves-light btn blue">C</a>
+                        <a class="waves-effect waves-light btn yellow darken-2">D</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="lecturer" class="page container" style="display: none;">
+        <div id=" lecturerDiv ">
+            <h4>Lecturer layout</h4>
+        </div>
+    </div>
+</main>
+<footer class="page-footer green darken-1 ">
+    <div class="footer-copyright ">
+        <div class="container ">
+            © Paul McGurk
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
+<script src="js/materialize.min.js "></script>
+<script src="js/js.js "></script>
+
+</html>
