@@ -19,8 +19,6 @@
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
-\newcommand{\tab}{\hspace{7 mm}}
-
 % Margins
 \topmargin=-0.45in
 \evensidemargin=0in
@@ -34,14 +32,13 @@
 % Set up the header and footer
 \pagestyle{fancy}
 \lhead{\hmwkAuthorName} % Top left header
-\chead{Individual Project Scope and Outline Plan (Draft)} % Top center head
+\chead{Individual Project Scope and Outline Plan} % Top center head
 \rhead{\today}
 \lfoot{\lastxmark} % Bottom left footer
 \cfoot{\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
 \renewcommand\headrulewidth{0.4pt} % Size of the header rule
 \renewcommand\footrulewidth{0.4pt} % Size of the footer rule
 
-\setlength\parindent{0pt} % Removes all indentation from paragraphs
 
 %----------------------------------------------------------------------------------------
 %	DOCUMENT STRUCTURE COMMANDS
@@ -114,16 +111,13 @@
 %\maketitle
 
 \section{Overview}
-(An overview of what the project is to achieve. )
+The aim of this project is to provide an alternative way of gauging the current opinion on a lecture in a way which is easy and requires the least amount of dedicated hardware as possible. This is to reduce issues with current ``Classroom Clickers'', in that passing out the hardware and keeping track of them can be an issue with larger classes. They can also be expensive as lots of dedicated hardware is required. This reducement in dedicated hardware will be achieved by allowing any Wi-Fi direct enabled device to be used as the ``Clicker''.
 
-The aim of this project is to provide an alternative way of gauging the current opinion on a lecture in a way which is easy and requires the least amount of dedicated hardware as possible. 
+It can also be used by the lecturer to ask simple questions, for example, multiple choice. This is to allow the lecturer to survey the general understating of the current topic, allowing them to tailor their lecturer accordingly.
 
-(more...)
-
+Feedback will be given through two different ways. First of all, the screen that the lecturer uses to assign the questions (their laptop, the touchscreen on the dedicated hardware) will show an expanded version of the data. Secondly, there will be a simpled version of the data displayed to the whole class, most likely through the use of a ``Dotti''; a device with programmable LEDs, or through a device of my own creation.
 
 \section{Achievable Objectives}
-(A preliminary list of achievable objectives for the project. )
-
 \begin{enumerate}
 	\item Peer to Peer network through Wi-Fi direct.
 	\item Interface with ``Lecturer'' and ``Student'' versions.
@@ -131,39 +125,54 @@ The aim of this project is to provide an alternative way of gauging the current 
 	\item Ability to answer questions on ``Student'' account. 
 	\item Use of some sort of display to display opinions.
 	\item Ability to access interface through various devices. i.e. mobile, laptop, tablet.
+	\item Display feedback data in a simplified way, possibly through a Dotti.
 \end{enumerate}
 
 \section{Survey of Related Work}
 
-(A preliminary survey of related work.)
+\subsection{Classroom Clickers}
 
-https://www1.iclicker.com/
-
-http://www.audienceresponse.com/
-
-http://www.clikapad.com/
-
+https://www1.iclicker.com/\\
+http://www.audienceresponse.com/\\
+http://www.clikapad.com/\\
 http://www.replysystems.com/
+
+\subsection{Interactivity in the Classroom}
+
+Classroom Assessment Techniques, British Columbia Institute of Technology, 2010.\\
+http://www.bcit.ca/files/idc/pdf/ja\_assesstech.pdf\\
+Whole Class Teaching Strategies and Interactive Technology, David Longman \& Malcolm Hughes, 2006\\
+http://www.leeds.ac.uk/educol/documents/161224.doc\\
+‘‘A Meeting of Minds’’: Using Clickers for Critical Thinking and Discussion in Large Sociology Classes, Stefanie Mollborn and Angel Hoekstra, 2010\\
+http://tso.sagepub.com/content/38/1/18.full.pdf\\
+Implementation of personal response units in very large lecture classes: Student perceptions, John Barnett, 2006.\\
+http://ajet.org.au/index.php/AJET/article/download/1281/654
 
 \section{Methodology}
 
-(A brief overview of the methodology to be followed (i.e., how the specification, design, implementation and verification of the project will be approached).)
+\subsection{Possible Implementation 1}
+One idea is to design native applications that work together through Wi-Fi direct. A native app for the lecturer side of things, and a native app for mobile devices for the students. However, I feel like this is unflexable and limits the capabilities of the application. 
 
-There is a number of ways to design this project. One idea is to design native applications that work together through Wi-Fi direct. A native app for the lecturer side of things, and a native app for mobile devices for the students. However, I feel like this is unflexable and limits the capabilities of the application. 
+\subsection{Possible Implementation 2}
+Another is to have an external website that users log into from their devices. This has a number of issues. First of all, this will require the users to have internet access, possibly costly if the university does not have a reliable Wi-Fi network. Another issue is this will restrict the possibility of using Dotti as feedback. It could also have issues with security. Lastly, it could let students not at the lecturer answer questions.
 
-My approach to the implementation is to design one single app, a web application. This app will be set up depending on what type of account the user logs in with. For example, the app will allow the user to own ``Classes'', which will contain ``Lectures'', which will contain ``Questions'', if the user is set to be a ``Lecturer''. If the user is set as a ``Student'', it will be enrolled in ``Classes'', and be able to answer the questions within the lecture specified.
+\subsection{Possible Implementation 3}
+Yet another approach to the implementation is to design one single app, a web application. This app will be set up depending on what type of account the user logs in with. For example, the app will allow the user to own ``Classes'', which will contain ``Lectures'', which will contain ``Questions'', if the user is set to be a ``Lecturer''. If the user is set as a ``Student'', it will be enrolled in ``Classes'', and be able to answer the questions within the lecture specified.
 
-This single app will programmed in HTML5 and JavaScript, and will be hosted on a Raspberry Pi with a touch screen attached, with the devices accessing the application as a local website. The touch screen will allow the lecturer to set questions from the devices, however, the same Lecturer interface could be accessed from a Wi-Fi direct enabled device of the lecturers choosing, such as a laptop or mobile phone. 
+This single app will be implemented in HTML5 and JavaScript, and will be hosted on a Raspberry Pi with a touch screen attached, with the devices accessing the application as a local website. The touch screen will allow the lecturer to set questions from the devices, however, the same Lecturer interface could be accessed from a Wi-Fi direct enabled device of the lecturers choosing, such as a laptop or mobile phone. 
 
-The project will be designed in such a way as to allow it to be univerisally welcoming to students and lecturers of all abilities. Human Computer Interacting will be of high importance when designing the interface.
+\subsection{Design}
+The project will be designed in such a way as to allow it to be universally welcoming to students and lecturers of all abilities. Human Computer Interacting will be of high importance when designing the interface. The use of a Dotti as a way of showing the users feedback will be designed to give condensed data on the current question in an intuitive and unique way.
 
-Verification of the project will be done by using a variety of devices as ``Dummy'' student and lecturers, assigning and completing different questions.
+\subsection{Verification}
+Verification of the project will be done by using a variety of devices as ``Dummy'' student and lecturers, assigning and completing different questions. This will take place on the widest variety of Wi-Fi direct enabled devices, to ensure compatibility. 
 
 \section{Evaluation}
-This project will be evaluated on how well it works within the classroom setting. It will also be evaluated on how easy it is to set up for both the student and the lecturer, and how easy each of the specific functions for each user is to use. 
+This project will be evaluated on how well it works within the classroom setting. It will also be evaluated on how easy it is to set up for both the student and the lecturer, and how easy each of the specific functions for each user is to use. Opinions on the device from both students and lecturers could also be useful in showing how effective it is in a real world setting. It could also be evaluation on how much of a positive change it has on the classroom, grade and morals wise.
 
+\pagebreak
 \section{Scheduling}
-(An initial project plan scheduling the development of the project from now until the project submission deadline.)
+An initial project plan scheduling the development of the project.
 
 \begin{centering}
 \begin{ganttchart}[
@@ -197,10 +206,8 @@ This project will be evaluated on how well it works within the classroom setting
       \ganttmilestone{Phase 2 Report}{12} \\
   \ganttbar{Project Specification/Plan}{1}{4} \\
     \ganttbar{Project Poster}{1}{4} \\
-    \ganttbar{Wi-Fi Direct P2P}{2}{3} \\
-  \ganttbar{Database}{4}{5} \\
-  \ganttbar{Accounts}{4}{4} \\
-    \ganttbar{Questions}{5}{5} \\
+    \ganttbar{Investigatory Reading}{1}{3} \\
+    \ganttbar{Wi-Fi Direct P2P}{3}{5} \\
   \ganttbar{Lecturer Web App}{6}{8} \\
     \ganttbar{Lecturer Interface}{6}{7} \\
     \ganttbar{Student Web App}{9}{11} \\
@@ -211,9 +218,7 @@ This project will be evaluated on how well it works within the classroom setting
 \end{centering}
 
 \section{Marking}
-(A choice of marking scheme (see the section Marking Schemes below) to be used to assess the project, together with the reasons for choosing that particular scheme.)
-
-(Probably "Software Development-based Project")
+Experimentation-based with Significant Software Development Project
 
 %----------------------------------------------------------------------------------------
 
