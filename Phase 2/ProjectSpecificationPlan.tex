@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{pgfgantt}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.08} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{Individual Project Specification and Plan} % Top center head
+\rhead{December 9th 2015}
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Individual Project Specification and Plan} % Assignment title
+\newcommand{\hmwkDueDate}{Wednesday, 9th December} % Due date
+\newcommand{\hmwkClass}{Individual Project Specification and Plan} % Course/class
+\newcommand{\hmwkClassTime}{} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Paul McGurk} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\textmd{\textbf{Individual Project Specification and Plan}}\\
+}
+
+\author{\textbf{\hmwkAuthorName}}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\section{Requirements}
+\subsection{Functional}
+\subsubsection{Lecture Side Requirements}
+\begin{enumerate}
+	\item Log in to system and access Lecturer interface.
+	\item Create ``Classes'' that contain questions.
+	\item Set questions.
+	\item Customise question settings, such as: 
+	\begin{enumerate}
+		\item question visibility (Hidden, Public)
+		\item answers options available (A, B, C, D or True/False, etc.)
+		\item answers visibility (Shown after answer is given, or all users respond, etc)
+	\end{enumerate}
+	\item View responses to questions visualised in a clear way (Graphs, etc)
+	\item Have the option to display the responses on a Dotti like device.
+\end{enumerate}
+\subsubsection{Student Side Requirements}
+\begin{enumerate}
+	\item Log in to system and access Student interface.
+	\item Join ``Classes''.
+	\item Answer questions.
+	\item Get feedback on answer depending on question settings.
+\end{enumerate}
+\subsection{Non-functional}
+\subsubsection{System Requirements}
+\begin{enumerate}
+	\item Accessible by users of all abilities and professions.
+	\item Usable in a classroom setting i.e. set up in the limited time of a lecture.
+	\item Cheap enough to be deployed throughout the campus.
+	\item Portable enough to be moved from classroom to classroom.
+	\item Secure enough to store users passwords, possible exam questions. Encrypted.
+	\item Flexible, as different courses have different questions.
+\end{enumerate}
+\section{Technology Used}
+\subsection{Raspberry Pi}
+A Raspberry Pi is a credit card-sized single-board computer developed by the Raspberry Pi Foundation. It is useful in this project as it is cheap, portable, and powerful enough to perform well enough to do what is required by this project. 
+
+It will be used as a local Web server that hosts the web application and is accessible through connecting to it on a wi-fi direct enabled device.
+
+\subsection{JavaScript}
+JavaScript is a client based, high-level programming language. It is used largely on Web Applications. 
+
+This is what the main chunk project will largely be written in, using AJAX to send, and retrieve, data from the database.
+
+\subsection{JQuery}
+JQuery is a framework for JavaScript which brings loads of additional features to it, including better mobile compatibility. 
+
+\subsection{Materialize}
+Materialize is a JavaScript framework, built heavily around JQuery, that allows users to create websites that follow the Google Material design. It also allows websites to be responsive depending on screen size, making it ideal for this application as it will be used over a range of devices.
+
+This is used as the framework for the Web Application.
+
+\subsection{Wi-Fi Direct}
+Wi-Fi direct is a Wi-Fi standard that enables devices to connect and communicate without using a wireless access point. It communicates with more than one device simultaneously at Wi-Fi speeds.
+
+This will be used to connect the various Wi-Fi direct enabled devices to the Raspberry Pi so the devices are able to access the local Web application files stored on the Pi.
+
+\subsection{MySQL}
+MySQL is a database management system. 
+
+This will be used to store the various information required for the web application, such as Student accounts, Lecturer accounts, Questions, Classes, etc. 
+
+\section{Software Development Process}
+Probably Prototyping
+
+\section{Evaluation}
+Evaluation will involve a live preview of the system in the intended environment with the target end users; a lecturer and students. These users will be recruited by contacting lecturers and inquiring if it would be a system they would be interested in, with students in the class optionally choosing to use the system within the setting or not.
+
+Participants will be expected to simply use the system in place of a normal class-room clicker, with questions being set by the lecturer and the students answering them on their Wi-Fi direct enabled devices. \\
+
+\subsection{Questionnaires}
+\subsubsection{Students}
+\begin{enumerate}
+	\item General opinion on ``Classroom Clicker'' systems.
+	\item Usability of the system (compared with previous similar systems, if used).
+\end{enumerate}
+
+\subsubsection{Lecturers}
+\begin{enumerate}
+	\item General opinion on ``Classroom Clicker'' systems.
+	\item Usability of the system (compared with previous similar systems, if used).
+	\item Likeliness of using system again as a learning tool.
+\end{enumerate}
+No personal information is required for this evaluation, and therefore will not be asked for.
+
+\section{Risks}
+\subsection{Wi-Fi Direct}
+There is a possibility that Wi-Fi Direct will not be able to implement the idea of the application fully. This is due to the peer-to-peer nature of the standard. This is still under investigation at this point, with various alternative systems as a fallback, for example:
+\begin{enumerate}
+	\item Using the Raspberry Pi as a Wi-Fi access point to access the local Web server.
+	\item Taking the Raspberry Pi out of the equation, and using a remote Web server for the Web application.
+\end{enumerate}
+%----------------------------------------------------------------------------------------
+
+\end{document}
