@@ -105,40 +105,50 @@
 \author{\textbf{\hmwkAuthorName}}
 
 %----------------------------------------------------------------------------------------
-
 \begin{document}
+%\tableofcontents
+\newpage
+\section{Overview}
+\subsection{Introduction}
+The aim of this project is to provide an alternative way of gauging the current opinion on a lecture, as well as set questions, in a way which is easy and requires the least amount of dedicated hardware as possible. This is to reduce issues with current ``Classroom Clickers'', in that passing out the hardware and keeping track of them can be an issue with larger classes. They can also be expensive as lots of dedicated hardware is required. This reducement in dedicated hardware will be achieved by allowing any Wi-Fi direct enabled device to be used as the ``Clicker''.
+
+It can also be used by the lecturer to ask simple questions, for example, multiple choice. This is to allow the lecturer to survey the general understating of the current topic, allowing them to tailor their lecturer accordingly.
+
+Feedback will be given through two different ways. First of all, the screen that the lecturer uses to assign the questions (their laptop, the touchscreen on the dedicated hardware) will show an expanded version of the data. Secondly, there will be a simpled version of the data displayed to the whole class, most likely through the use of a ``Dotti''; a device with programmable LEDs, or through a device of my own creation.
+
 \section{Requirements}
 \subsection{Functional}
 \subsubsection{Lecture Side Requirements}
 \begin{enumerate}
-	\item Log in to system and access Lecturer interface.
-	\item Create ``Classes'' that contain questions.
-	\item Set questions.
-	\item Customise question settings, such as: 
+	\item Must log in to system and access Lecturer interface.
+	\item Must set questions.
+	\item Must view responses to questions visualised in a clear way (Graphs, etc)
+	\item Should customise question settings, such as: 
 	\begin{enumerate}
 		\item question visibility (Hidden, Public)
 		\item answers options available (A, B, C, D or True/False, etc.)
 		\item answers visibility (Shown after answer is given, or all users respond, etc)
 	\end{enumerate}
-	\item View responses to questions visualised in a clear way (Graphs, etc)
-	\item Have the option to display the responses on a Dotti like device.
+	\item Could create ``Classes'' that contain questions.
+	\item Could have the option to display the responses on a Dotti like device.
 \end{enumerate}
 \subsubsection{Student Side Requirements}
 \begin{enumerate}
-	\item Log in to system and access Student interface.
-	\item Join ``Classes''.
-	\item Answer questions.
-	\item Get feedback on answer depending on question settings.
+	\item Must answer questions.
+	\item Must get feedback on answer depending on question settings.
+	\item Must access Student interface.
+	\item Should log in to system.
+	\item Could join ``Classes'' owned by Lecturers.
 \end{enumerate}
+
 \subsection{Non-functional}
-\subsubsection{System Requirements}
 \begin{enumerate}
-	\item Accessible by users of all abilities and professions.
-	\item Usable in a classroom setting i.e. set up in the limited time of a lecture.
-	\item Cheap enough to be deployed throughout the campus.
-	\item Portable enough to be moved from classroom to classroom.
-	\item Secure enough to store users passwords, possible exam questions. Encrypted.
-	\item Flexible, as different courses have different questions.
+	\item Must be Accessible by users of all abilities and professions.
+	\item Must be Usable in a classroom setting i.e. set up in the limited time of a lecture.
+	\item Must be Secure enough to store users passwords, possible exam questions. Encrypted.
+	\item Should be Cheap enough to be deployed throughout the campus.
+	\item Should be Portable enough to be moved from classroom to classroom.
+	\item Could be Flexible, as different courses have different questions.
 \end{enumerate}
 \section{Technology Used}
 \subsection{Raspberry Pi}
@@ -146,13 +156,15 @@ A Raspberry Pi is a credit card-sized single-board computer developed by the Ras
 
 It will be used as a local Web server that hosts the web application and is accessible through connecting to it on a wi-fi direct enabled device.
 
-\subsection{JavaScript}
-JavaScript is a client based, high-level programming language. It is used largely on Web Applications. 
+\subsection{JavaScript and JQuery}
+JavaScript is a client based, high-level programming language. It is used largely on Web Applications. JQuery is a framework for JavaScript which brings loads of additional features to it, including better mobile compatibility. 
 
 This is what the main chunk project will largely be written in, using AJAX to send, and retrieve, data from the database.
 
-\subsection{JQuery}
-JQuery is a framework for JavaScript which brings loads of additional features to it, including better mobile compatibility. 
+\subsection{MySQL and PHP}
+MySQL is a database management system. PHP is a backend language that works well with MySQL.
+
+These will be used to store and access the various information required for the web application, such as Student accounts, Lecturer accounts, Questions, Classes, etc. 
 
 \subsection{Materialize}
 Materialize is a JavaScript framework, built heavily around JQuery, that allows users to create websites that follow the Google Material design. It also allows websites to be responsive depending on screen size, making it ideal for this application as it will be used over a range of devices.
@@ -164,18 +176,28 @@ Wi-Fi direct is a Wi-Fi standard that enables devices to connect and communicate
 
 This will be used to connect the various Wi-Fi direct enabled devices to the Raspberry Pi so the devices are able to access the local Web application files stored on the Pi.
 
-\subsection{MySQL}
-MySQL is a database management system. 
-
-This will be used to store the various information required for the web application, such as Student accounts, Lecturer accounts, Questions, Classes, etc. 
+\subsection{Technology Stack Diagram}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{stackdiagram.png}
+\end{center}
 
 \section{Software Development Process}
-Probably Prototyping
+This web application with be implemented in a mixture of HTML5, CSS3 for the GUI, JavaScript for the client based functionality, PHP for the client to server communication and MySQL for the database functionality.
+
+How this web application will be access is still under consideration, seeing as Wi-Fi direct has been difficult to set up in a way that is useful for this project. However, many alternatives are available, with some outlined in the ``Risks'' section of this report.
+
+This should not affect the development of the web application, and the implementation of the functionality of the project will be the priority, with Wi-Fi direct, or alternatives to, will be investigated during this time as well.
+
+\subsection{Example User Flow}
+\begin{center}
+    \center\includegraphics[width=0.8\textwidth]{userflow.png}
+\end{center}
 
 \section{Evaluation}
+\subsection{Method}
 Evaluation will involve a live preview of the system in the intended environment with the target end users; a lecturer and students. These users will be recruited by contacting lecturers and inquiring if it would be a system they would be interested in, with students in the class optionally choosing to use the system within the setting or not.
 
-Participants will be expected to simply use the system in place of a normal class-room clicker, with questions being set by the lecturer and the students answering them on their Wi-Fi direct enabled devices. \\
+Participants will be expected to simply use the system in place of a normal class-room clicker, with questions being set by the lecturer and the students answering them on their Wi-Fi direct enabled devices. 
 
 \subsection{Questionnaires}
 \subsubsection{Students}
@@ -192,13 +214,16 @@ Participants will be expected to simply use the system in place of a normal clas
 \end{enumerate}
 No personal information is required for this evaluation, and therefore will not be asked for.
 
+
 \section{Risks}
 \subsection{Wi-Fi Direct}
-There is a possibility that Wi-Fi Direct will not be able to implement the idea of the application fully. This is due to the peer-to-peer nature of the standard. This is still under investigation at this point, with various alternative systems as a fallback, for example:
+There is a possibility that Wi-Fi Direct will not be able to implement the idea of the application fully. This is due to the peer-to-peer nature of the standard, as well as the potential of lack of comparability with non-android phones. This is still under investigation at this point, with various alternative systems as a fallback, for example:
 \begin{enumerate}
 	\item Using the Raspberry Pi as a Wi-Fi access point to access the local Web server.
 	\item Taking the Raspberry Pi out of the equation, and using a remote Web server for the Web application.
 \end{enumerate}
-%----------------------------------------------------------------------------------------
+
+
+
 
 \end{document}
