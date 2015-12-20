@@ -27,9 +27,15 @@
                     <li><a class="pageChangerButton header logo" value="home">Clicker</a>
                     </li>
                     <div class="divider"></div>
-                    <li><a class="pageChangerButton header" value="student">Student Layout</a>
+                    <li><a class="pageChangerButton header" value="studentWelcome">Student Welcome</a>
                     </li>
-                    <li><a class="pageChangerButton header" value="lecturer">Lecturer Layout</a>
+                    <li><a class="pageChangerButton header" value="studentQuestions">Student Questions</a>
+                    </li>
+                    <li><a class="pageChangerButton header" value="studentQuestion">Student Question</a>
+                    </li>
+                    <li><a class="pageChangerButton header" value="lecturerWelcome">Lecturer Layout</a>
+                    </li>
+                    <li><a class="pageChangerButton header" value="lecturerQuestions">Lecturer Questions</a>
                     </li>
                 </ul>
             </div>
@@ -38,29 +44,33 @@
 </header>
 <main class="green lighten-5">
     <div id="home" class="page container" style="display: none;">
-        <div id="welcomeDiv">
-            <h4>Welcome layout</h4>
-        </div>
+        No Account Type Welcome Page
     </div>
-    <div id="student" class="page" style="display: block;">
-        <div id="studentDiv" class="valign-wrapper">
-            <div class="row">
-                <div id="questionNotifcation" class="col s12 m12 l12 white-text green lighten-1">
+    <div id="student" class="valign-wrapper">
+        <div class="row">
+            <div id="studentWelcome" class="page" style="display: none;">
+                <h4>Student Welcome layout</h4>
+            </div>
+            <div id="studentQuestions" class="page" style="display: none;">
+                <h4>Where the list of questions are</h4>
+            </div>
+            <div id="studentQuestion" class="page" style="display: none;">
+                <div id="questionNotifaction" class="col s12 white-text green lighten-1">
                     <div id="previousButton" class="col s4">
                         <h6>Previous</h6> </div>
                     <div id="previousButton" class="col s4">
-                        <h5 id="questionNumber" class="flow-text">Question 1</h5>
+                        <h6 id="questionNumber" class="center-align flow-text">Question 1</h6>
                     </div>
                     <div id="fowardButton" class="col s4 right-align">
                         <h6>Next</h6> </div>
                 </div>
-                <div id="currentQuestion" class="col s12 ">
-                    <div class="questionDiv card green white-text col s12 m12 l6">
+                <div id="currentQuestion" class="center col s12">
+                    <div class="questionDiv card green white-text col s12">
                         <div id="questionTextDiv" class="container" style="height: 45vh">
-                            <h5 id="questionText" class="flow-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tristique lacinia iaculis. Nulla facilisi. Sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
+                            <h5 id="questionText" class="flow-text">Lorem ipsum dolor sit amet, psum dolor sit amet psum dolor sit amet consectetur adipiscing elit. Praesent tristique lacinia iaculis. Nulla facilisi. Sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
                         </div>
                     </div>
-                    <div class="buttonDiv center col s12 m12 l12">
+                    <div class="buttonDiv center col s12">
                         <a class="waves-effect waves-light btn green">A</a>
                         <a class="waves-effect waves-light btn red">B</a>
                         <a class="waves-effect waves-light btn blue">C</a>
@@ -70,9 +80,14 @@
             </div>
         </div>
     </div>
-    <div id="lecturer" class="page container" style="display: none;">
-        <div id=" lecturerDiv ">
-            <h4>Lecturer layout</h4>
+    <div id="lecturer" class="container">
+        <div class="row">
+            <div id="lecturerWelcome" class="page" style="display: none;">
+                <h4>Lecturer Welcome layout</h4>
+            </div>
+            <div id="lecturerQuestions" class="page" style="display: none;">
+                <h4>Lecturer Questions page</h4>
+            </div>
         </div>
     </div>
 </main>
