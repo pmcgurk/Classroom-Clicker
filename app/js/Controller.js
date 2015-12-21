@@ -3,6 +3,11 @@ function Controller() {
         view = new View();
     //console.log("Controller Created");
 
+    var setUsername = function () {
+        model.setUsername("Paul");
+        view.setUsername(model.getUsername());
+    }
+
     this.init = function () {
         // console.log("Controller Init");
         model.init();
@@ -16,6 +21,9 @@ function Controller() {
             this.switchView(localStorage.lastPage);
             //console.log(localStorage.lastPage);
         }
+
+        // debug methods, remove below //
+        setUsername();
     };
 
     this.switchView = function (lastPage) {
