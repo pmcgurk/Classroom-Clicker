@@ -20,13 +20,15 @@
         <nav>
             <div class="nav-wrapper green">
                 <a class="brand-logo center">
-                    <span id="pageName" class="logo center section-btn" value="home">Clicker</span>
+                    <span id="pageName" class="logo center" value="home">Clicker</span>
                 </a>
                 <a data-activates="mobile" class="button-collapse show-on-large"><i class="mdi-navigation-menu right"></i></a>
                 <ul class="side-nav" id="mobile">
                     <li><a class="pageChangerButton header logo" value="home">Clicker</a>
                     </li>
                     <div class="divider"></div>
+                    <li><a class="pageChangerButton header" value="loginPage">Login Page</a>
+                    </li>
                     <li><a class="pageChangerButton header" value="studentWelcome">Student Welcome</a>
                     </li>
                     <li><a class="pageChangerButton header" value="studentQuestions">Student Questions</a>
@@ -37,19 +39,36 @@
                     </li>
                     <li><a class="pageChangerButton header" value="lecturerQuestions">Lecturer Questions</a>
                     </li>
+                    <li><a id="logout">Logout</a>
+                    </li>
+                    <div class="divider"></div>
+                    <li><a class="pageChangerButton header" value="about">About</a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </div>
 </header>
 <main class="green lighten-5">
-    <div id="home" class="page container" style="display: none;">
-        No Account Type Welcome Page
+    <div id="loginPage" class="page welcome-text" style="display: none;">
+        <div class="center">
+            <br>
+            <br>
+            <br>
+            <br>
+            <h5 class="logo">Welcome.</h5>
+            <br>
+            <p>Please login to continue.</p>
+            <a id="loginButton" class="waves-effect waves-light btn green">Login</a>
+            <br>
+        </div>
     </div>
-    <div id="student" class="valign-wrapper">
+    <div id="student">
         <div class="row">
             <div id="studentWelcome" class="page" style="display: none;">
-                <h4>Student Welcome layout</h4>
+                <div class="container">
+                    <h4>Student Welcome layout</h4>
+                </div>
             </div>
             <div id="studentQuestions" class="page" style="display: none;">
                 <h4>Where the list of questions are</h4>
@@ -80,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div id="lecturer" class="container">
+    <div id="lecturer">
         <div class="row">
             <div id="lecturerWelcome" class="page" style="display: none;">
                 <h4>Lecturer Welcome layout</h4>
@@ -91,15 +110,17 @@
         </div>
     </div>
 </main>
-<footer class="page-footer green darken-1 ">
-    <div class="footer-copyright ">
-        <div class="container ">
+<footer class="page-footer green darken-1">
+    <div class="footer-copyright">
+        <div class="container">
             © Paul McGurk
         </div>
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
-<script src="js/materialize.min.js "></script>
-<script src="js/js.js "></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.min.js"></script>
+<script src="js/Model.js"></script>
+<script src="js/View.js"></script>
+<script src="js/Controller.js"></script>
 
 </html>

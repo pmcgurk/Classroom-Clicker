@@ -12,17 +12,11 @@
   .logo {
       font-family: 'Exo 2', sans-serif;
   }
-  
-  .welcome-text-wrapper {
-      height: 75vh;
-  }
-  
   .welcome-text {
       display: block;
       margin-left: auto;
       margin-right: auto;
   }
-  
   footer.page-footer {
       margin: 0;
   }
