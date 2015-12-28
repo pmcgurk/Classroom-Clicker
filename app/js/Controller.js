@@ -5,7 +5,6 @@ function Controller() {
 
     var setUsername = function () {
         model.setUsername("Paul");
-        view.setUsername(model.getUsername());
     }
 
     this.init = function () {
@@ -24,6 +23,8 @@ function Controller() {
 
         // debug methods, remove below //
         setUsername();
+        model.setUserType("student");
+        this.update();
     };
 
     this.switchView = function (lastPage) {
@@ -46,6 +47,10 @@ function Controller() {
                 }
             }
         }
+    };
+
+    this.update = function () {
+        view.update(model.update());
     };
 }
 
