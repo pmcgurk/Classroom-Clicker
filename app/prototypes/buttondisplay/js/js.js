@@ -7,12 +7,20 @@ function Model() {
     };
 
     this.displayButtons = function () {
+        var buttonSource = $("#buttonTemplate").html(),
+            buttonTemplate = Handlebars.compile(buttonSource);
+
         var buttonjson = JSON.parse($('#buttonjson').val());
         console.log(buttonjson);
         var buttonHTML = "";
         for (var i = 0; i < buttonjson.length; i++) {
             var button = buttonjson[i];
-            buttonHTML = buttonHTML + "<a class = 'waves-effect waves-light btn " + button.colour + "' value='" + button.value + "'>" + button.text + "</a> ";
+            data = {
+                "colour": button.colour,
+                "value": button.value,
+                "text": button.text
+            };
+            buttonHTML = buttonHTML + buttonTemplate(data);
         }
         $('#buttonDisplay').html(buttonHTML);
     };
