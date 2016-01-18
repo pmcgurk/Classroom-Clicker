@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" name="theme-color" content="#43a047">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="../../css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="img/icon.png" />
+    <link rel="apple-touch-icon" href="img/icon.png" />
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
+    <title>Clicker</title>
+</head>
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper green">
+                <a class="brand-logo center">
+                    <span id="pageName" class="logo center" value="home">Edit Class Prototype</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="green lighten-5 white-text">
+    <div class="col s12 m12 l12">
+        <div class="container">
+            <div class="row">
+                <br>
+                <div class="green">
+                    <div class="container">
+                        <br>
+                        <h5>Edit Class</h5>
+                        <div id="addquestionsection">
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="" disabled selected>Choose your class</option>
+                                    <option value="1">CS408</option>
+                                    <option value="2">CS409</option>
+                                    <option value="3">CS410</option>
+                                    <option value="3">new class...</option>
+                                </select>
+                                <label>Class</label>
+                            </div>
+                        </div>
+                        <h5>Class Visible?</h5>
+                        <div class="switch">
+                            <label>
+                                No
+                                <input type="checkbox">
+                                <span class="lever"></span> Yes
+                            </label>
+                        </div>
+                        <br>
+                        <h5>Enrolled Students</h5>
+                        <ul>
+                            <li>John Smith (remove)</li>
+                            <li>John Smith (remove)</li>
+                            <li>John Smith (remove)</li>
+                            <li>John Smith (remove)</li>
+                            <li>John Smith (remove)</li>
+                            <li>John Smith (remove)</li>
+                            <li>John Smith (remove)</li>
+                        </ul>
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <div class="green">
+                    <div class="container">
+                        <br>
+                        <h5>Choose which lecture to edit</h5>
+                        <div class="input-field col s12">
+                            <select>
+                                <option value="" disabled selected>Choose your lecture</option>
+                                <option value="1">Lecture 1 - 01/03/16</option>
+                                <option value="2">Lecture 2 - 08/03/16</option>
+                                <option value="3">Lecture 3 - 15/03/16</option>
+                                <option value="3">new lecture...</option>
+                            </select>
+                            <label>Class</label>
+                        </div>
+                        <br>
+                        <h5>Allow Students to rate your lecturer throughout the class? </h5>
+                        <div class="switch">
+                            <label>
+                                No
+                                <input type="checkbox">
+                                <span class="lever"></span> Yes
+                            </label>
+                        </div>
+                        <br>
+                    </div>
+
+                </div>
+                <br>
+                <div class="green">
+                    <div class="container">
+                        <div id="questions">
+                            <br>
+                            <h4>Question 1</h4>
+                            <div class="switch">
+                                <label>
+                                    hidden
+                                    <input type="checkbox">
+                                    <span class="lever"></span> visible
+                                </label>
+                            </div>
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                            <label for="textarea1">Question</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <h5>Answer Type</h5>
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="1" selected>Multiple Choice</option>
+                                    <option value="2">Input Box</option>
+                                </select>
+                                <label>Class</label>
+                            </div>
+                            (if multiple choice:)
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="0" selected disabled>select from presets</option>
+                                    <option value="1">true / false</option>
+                                    <option value="2">ABCD</option>
+                                    <option value="3">1234</option>
+                                    <option value="3">custom...</option>
+                                </select>
+                                <label>Class</label>
+                            </div>
+                            <br> (if custom:)
+                            <div class="buttonCreator">
+                                <h5>Button Creator</h5> Number of Options:
+                                <input id="optionNumber" type="text">
+                                <div class="buttonOptions">
+                                    display the number of options above.
+                                    <br>Option 1:
+                                    <br>Button Text
+                                    <br>Button Colour
+                                    <br>Button Value
+                                    <br>Correct?
+                                    <br>
+                                    <br>Option 2:
+                                    <br>Button Text
+                                    <br>Button Colour
+                                    <br>Button Value
+                                    <br>
+                                    <br>Correct?
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <br>
+                        </div>
+                        <div class="center-align">
+                            <a id="addQuestionForm" class="waves-effect waves-light btn deep-purple">Add More Questions</a>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-align">
+                    <br>
+                    <a id="saveQuestions" class="waves-effect waves-light btn deep-purple">Save</a>
+                    <br>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="page-footer green darken-1">
+    <div class="footer-copyright">
+        <div class="container">
+            © Paul McGurk
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="../../js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
+<script src="js/js.js"></script>
+<script id="buttonTemplate" type="text/x-handlebars-template">
+    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}'>{{text}}</a>
+</script>
+<script id="questionFormTemplate" type="text/x-handlebars-template">
+    <br>
+    <h4>Question {{questionnumber}}</h4>
+    <div class="switch">
+        <label>
+            hidden
+            <input type="checkbox">
+            <span class="lever"></span> visible
+        </label>
+    </div>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Question</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <h5>Answer Type</h5>
+    <div class="input-field col s12">
+        <select>
+            <option value="1" selected>Multiple Choice</option>
+            <option value="2">Input Box</option>
+        </select>
+        <label>Class</label>
+    </div>
+    (if multiple choice:)
+    <div class="input-field col s12">
+        <select>
+            <option value="0" selected disabled>select from presets</option>
+            <option value="1">true / false</option>
+            <option value="2">ABCD</option>
+            <option value="3">1234</option>
+            <option value="3">custom...</option>
+        </select>
+        <label>Class</label>
+    </div>
+    <br> (if custom:)
+    <div class="buttonCreator">
+        <h5>Button Creator</h5> Number of Options:
+        <input id="optionNumber" type="text">
+        <div class="buttonOptions">
+            display the number of options above.
+            <br>Option 1:
+            <br>Button Text
+            <br>Button Colour
+            <br>Button Value
+            <br>Correct?
+            <br>
+            <br>Option 2:
+            <br>Button Text
+            <br>Button Colour
+            <br>Button Value
+            <br>
+            <br>Correct?
+        </div>
+    </div>
+    <div class="divider"></div>
+    <br>
+</script>
+
+</html>

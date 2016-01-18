@@ -12,11 +12,13 @@
   .logo {
       font-family: 'Exo 2', sans-serif;
   }
+  
   .welcome-text {
       display: block;
       margin-left: auto;
       margin-right: auto;
   }
+  
   footer.page-footer {
       margin: 0;
   }
@@ -36,4 +38,64 @@
   page {
       <!--display: none;
       -->
+  }
+  
+  .card {
+      overflow: visible;
+  }
+  /* label color */
+  
+  .input-field label {
+      color: #FFF;
+  }
+  /* label focus color */
+  
+  .input-field input[type=text]:focus + label {
+      color: #FFF;
+  }
+  /* label underline focus color */
+  
+  .input-field input[type=text]:focus {
+      border-bottom: 1px solid #FFF;
+      box-shadow: 0 1px 0 0 #FFF;
+  }
+  /* valid color */
+  
+  .input-field input[type=text].valid {
+      border-bottom: 1px solid #FFF;
+      box-shadow: 0 1px 0 0 #FFF;
+  }
+  /* invalid color */
+  
+  .input-field input[type=text].invalid {
+      border-bottom: 1px solid #FFF;
+      box-shadow: 0 1px 0 0 #FFF;
+  }
+  /* icon prefix focus color */
+  
+  .input-field .prefix.active {
+      color: #FFF;
+  }
+  
+  textarea.materialize-textarea:focus:not([readonly]) + label {
+      color: #FFF;
+  }
+  
+  label {
+      color: #FFF;
+  }
+  
+  .switch label input[type="checkbox"]:checked + .lever::after {
+      background-color: #673AB7;
+  }
+  
+  .switch label input[type="checkbox"]:checked + .lever {
+      background-color: #673AB7;
+  }
+  
+  .dropdown-content li > span {
+      font-size: 1.2rem;
+      color: #673AB7;
+      display: block;
+      padding: 1rem;
   }
