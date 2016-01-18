@@ -1,4 +1,4 @@
-function Model() {
+function Prototype() {
     //console.log("Model Created");
     this.init = function () {
         console.log("init");
@@ -7,22 +7,38 @@ function Model() {
     };
 
     this.displayButtons = function () {
+        var data = JSON.parse($('#buttonjson').val());
         var buttonSource = $("#buttonTemplate").html(),
-            buttonTemplate = Handlebars.compile(buttonSource);
-
-        var buttonjson = JSON.parse($('#buttonjson').val());
-        console.log(buttonjson);
-        var buttonHTML = "";
-        for (var i = 0; i < buttonjson.length; i++) {
-            var button = buttonjson[i];
-            data = {
+            buttonTemplate = Handlebars.compile(buttonSource),
+            buttonHTML = "";
+        for (var i = 0; i < data.length; i++) {
+            var button = data[i];
+            values = {
                 "colour": button.colour,
                 "value": button.value,
                 "text": button.text
-            };
-            buttonHTML = buttonHTML + buttonTemplate(data);
+            }
+            buttonHTML = buttonHTML + buttonTemplate(values);
         }
         $('#buttonDisplay').html(buttonHTML);
+    };
+
+    // function which takes a JSON of button information and returns the constructed HTML code.
+    this.constructButtons = function (data) {
+        var buttonSource = $("#buttonTemplate").html(),
+            buttonTemplate = Handlebars.compile(buttonSource),
+            buttonHTML = "";
+        for (var i = 0; i < data.length; i++) {
+            var button = data[i];
+            values = {
+                "colour": button.colour,
+                "value": button.value,
+                "text": button.text
+            }
+            buttonHTML = buttonHTML + buttonTemplate(values);
+        }
+        console.log("Button HTML code created: " + buttonHTML);
+        return buttonHTML;
     };
 
     this.preset = function () {
@@ -73,12 +89,11 @@ function Model() {
         }]
         var presets = [truefalsejson, ABCDjson, numjson];
         $('#buttonjson').val(JSON.stringify(presets[$(this).attr("value")]));
-
     };
 
 }
 
 $(document).ready(function () {
-    var model = new Model();
-    model.init();
+    var p = new Prototype();
+    p.init();
 });
