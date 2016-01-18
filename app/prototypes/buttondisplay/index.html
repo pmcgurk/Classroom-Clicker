@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" name="theme-color" content="#43a047">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="../../css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="img/icon.png" />
+    <link rel="apple-touch-icon" href="img/icon.png" />
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
+    <title>Clicker</title>
+</head>
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper green">
+                <a class="brand-logo center">
+                    <span id="pageName" class="logo center" value="home">Button Prototype</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="green lighten-5">
+    <div class="row">
+        <div class="col s12 m4 l4">
+            <div class="container">
+                <h5>Insert ButtonJson here or choose from Presets</h5>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="buttonjson" class="materialize-textarea"></textarea>
+                            <label for="buttonjson">Button JSON</label>
+                        </div>
+                    </div>
+                </form>
+                <h5>Presets: </h5>
+                <a class="waves-effect waves-light btn red presetselect" value="0">T/F</a>
+                <a class="waves-effect waves-light btn red presetselect" value="1">ABCD</a>
+                <a class="waves-effect waves-light btn red presetselect" value="2">1234</a>
+                <br>
+                <br>
+                <a class="waves-effect waves-light btn green" id="displaybuttons">Display</a>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div id="studentQuestion" class="page col s12 m8 l8">
+            <div id="questionNotifaction" class="col s12 white-text green lighten-1">
+                <div id="previousButton" class="col s4">
+                    <h6>Previous</h6> </div>
+                <div id="previousButton" class="col s4">
+                    <h6 id="questionNumber" class="center-align flow-text">Question 1</h6>
+                </div>
+                <div id="fowardButton" class="col s4 right-align">
+                    <h6>Next</h6> </div>
+            </div>
+            <div id="currentQuestion" class="center col s12">
+                <div class="questionDiv card green white-text col s12">
+                    <div id="questionTextDiv" class="container" style="height: 45vh">
+                        <h5 id="questionText" class="flow-text">An example of a possible layout of a question. Lorem ipsum dolor sit amet, sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
+                    </div>
+                </div>
+                <div id="buttonDisplay" class="center-align col s12">
+                    <a class="waves-effect waves-light btn red">True</a> <a class="waves-effect waves-light btn blue">False</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="page-footer green darken-1">
+    <div class="footer-copyright">
+        <div class="container">
+            © Paul McGurk
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="../../js/materialize.min.js"></script>
+<script src="js/js.js"></script>
+
+</html>
