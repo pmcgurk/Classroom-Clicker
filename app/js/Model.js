@@ -2,6 +2,7 @@ function Model() {
     //console.log("Model Created");
     var username = "",
         userType = "";
+
     this.init = function () {
         //console.log("Model Init");
     };
@@ -27,22 +28,45 @@ function Model() {
     };
 
     this.getClasses = function () {
-        var classes = [{
-            lecturer: "A. Lecturer",
-            lectures: "test"
-        }, {
-            lecturer: "A. N. Another",
-            lectures: "test2"
-        }]
-        return classes;
-    }
+        return $.getValues("php/getClasses.php", null);
+    };
 
+    this.getLectures = function (cid) {
+        return $.getValues("php/getLectures.php", {
+            "cid": cid
+        });
+    };
+
+    this.getQuestions = function (lid) {
+        return $.getValues("php/getQuestions.php", {
+            "lid": lid
+        });
+    };
+
+    //*** Update Function ***//
     this.update = function () {
-        var updateData = {
+        var updateData = {};
+        updateData = {
             "username": this.getUsername(),
             "usertype": this.getUserType(),
-            "classes": this.getClasses()
+            "classes": JSON.parse(this.getClasses())
         };
         return updateData;
     }
+
+    jQuery.extend({
+        getValues: function (url, data) {
+            var response = null;
+            $.ajax({
+                url: url,
+                type: 'get',
+                data: data,
+                async: false,
+                success: function (data) {
+                    response = data;
+                }
+            });
+            return response;
+        }
+    });
 }

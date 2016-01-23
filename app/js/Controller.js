@@ -14,18 +14,37 @@ function Controller() {
         $('.button-collapse').sideNav({
             closeOnClick: true
         });
-        $('.pageChangerButton').click(this.switchView)
         if (localStorage.lastPage != null) {
             // loads last used page, mostly for testing
             this.switchView(localStorage.lastPage);
             //console.log(localStorage.lastPage);
         }
 
+        //*** Buttons ***//
+        // this uses a proxy to get the scope right within the button
+        $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
+        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
+        $(document).on("click", ".refreshClasses", model.getClasses);
+        $('.pageChangerButton').click(this.switchView)
+
         // debug methods, remove below //
         setUsername();
         model.setUserType("student");
         this.update();
+        //setInterval(this.update, 500);
     };
+
+    this.selectClass = function (event) {
+        var lectures = model.getLectures($(event.currentTarget).attr("value"));
+        view.setLectures(JSON.parse(lectures));
+        this.switchView('studentLectures');
+    }
+
+    this.selectLecture = function (event) {
+        var questions = model.getQuestions($(event.currentTarget).attr("value"));
+        view.setQuestions(JSON.parse(questions));
+        this.switchView('studentQuestions');
+    }
 
     this.switchView = function (lastPage) {
         var view = $(this).attr("value");
@@ -43,13 +62,16 @@ function Controller() {
                 } else {
                     $('#' + divs[i].id).show();
                     // console.log("showing " + divs[i].id);
-                    localStorage.lastPage = divs[i].id;
+                    if (view == 'studentLecturesList' || view == 'studentQuestionList') {
+                        localStorage.lastPage = divs[i].id;
+                    }
                 }
             }
         }
     };
 
     this.update = function () {
+        //console.log('update');
         view.update(model.update());
     };
 }

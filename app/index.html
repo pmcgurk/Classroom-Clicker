@@ -13,12 +13,13 @@
     <link rel="icon" href="img/icon.png" />
     <link rel="apple-touch-icon" href="img/icon.png" />
     <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Clicker</title>
 </head>
 <header>
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper green">
+            <div class="nav-wrapper green darken-1">
                 <a class="brand-logo center">
                     <span id="pageName" class="logo center" value="home">Clicker</span>
                 </a>
@@ -31,8 +32,7 @@
                     </li>
                     <li><a class="pageChangerButton header" value="studentWelcome">Student Welcome</a>
                     </li>
-                    <li><a class="pageChangerButton header" value="studentQuestions">Student Questions</a>
-                    </li>
+
                     <li><a class="pageChangerButton header" value="studentQuestion">Student Question</a>
                     </li>
                     <li><a class="pageChangerButton header" value="lecturerWelcome">Lecturer Layout</a>
@@ -59,7 +59,7 @@
             <h5 class="logo">Welcome.</h5>
             <br>
             <p>Please login to continue.</p>
-            <a id="loginButton" class="waves-effect waves-light btn green">Login</a>
+            <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
             <br>
         </div>
     </div>
@@ -75,17 +75,68 @@
     </div>
     <div id="student">
         <div class="row">
-            <div id="studentWelcome" class="page container" style="display: none;">
+            <div id="studentWelcome" class="page" style="display: none;">
+                <div class="green">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
+                        <br>
+                        <!--<h5>You are logged in as a <span class="userTypeDisplay">ERR</span>.</h5>
+                        <br>
+                        <br>-->
+                    </div>
+                </div>
                 <br>
-                <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
+                <div class="green">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Enrolled Classes <a class="refreshClasses btn-floating purple right-align"><i class="material-icons">update</i></a></h5>
+                        <br>
+                    </div>
+                    <ul class="collection studentClasses"></ul>
+                    <div class="center-align">
+                        <a class="btn purple">Join Class</a>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div id="studentLectures" class="page" style="display: none;">
+                <div class="green">
+                    <div class="container  white-text">
+                        <br>
+                        <h5 class="className">Class Name</h5>
+                        <br>
+                    </div>
+                </div>
                 <br>
-                <h5>You are logged in as a <span class="userTypeDisplay">ERR</span>.</h5>
-                <br>
-                <h5>Classes you're enrolled in:</h5>
-                <h5 class="studentClasses">ERR</h5>
+                <div class="green">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Lectures</h5>
+                        <br>
+                    </div>
+                    <ul class="collection studentLecturesList"></ul>
+                    <br>
+                </div>
             </div>
             <div id="studentQuestions" class="page" style="display: none;">
-                <h4>Where the list of questions are</h4>
+                <div class="green">
+                    <div class="container white-text">
+                        <br>
+                        <h5 class="lectureTitle">Lecture Title</h5>
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <div class="green">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Questions</h5>
+                        <br>
+                    </div>
+                    <ul class="collection studentQuestionList"></ul>
+                    <br>
+                </div>
             </div>
             <div id="studentQuestion" class="page" style="display: none;">
                 <div id="questionNotifaction" class="col s12 white-text green lighten-1">
@@ -143,8 +194,60 @@
 </footer>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
 <script src="js/Model.js"></script>
 <script src="js/View.js"></script>
 <script src="js/Controller.js"></script>
+<script id="buttonTemplate" type="text/x-handlebars-template">
+    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}'>{{text}}</a>
+</script>
+<script id="classesTemplate" type="text/x-handlebars-template">
+    <li class="collection-item">
+        <a class="black-text" value="{{cid}}">
+            <span class="title">{{code}}: {{name}}</span>
+            <p>{{lecturer}}
+                <br> Description of Class
+            </p>
+        </a>
+        <div class="center-align">
+            <a class="classSelectionButton btn purple" value="{{cid}}">
+            Show Lectures
+        </a>
+        </div>
+        <!--<a class="lectureSelectionButton btn purple" value="1">
+            Lecture Selection Debug Button
+        </a>-->
+    </li>
+</script>
+<script id="lecturesTemplate" type="text/x-handlebars-template">
+    <li class="collection-item">
+        <a class="black-text">
+            <span class="title">{{date}}: {{title}}</span>
+            <p>{{description}}
+            </p>
+        </a>
+        </div>
+        <a class="lectureSelectionButton btn purple" value="{{lid}}">
+            Open
+        </a>
+    </li>
+</script>
+
+<script id="questionsTemplate" type="text/x-handlebars-template">
+    <li class="collection-item">
+        <a class="black-text">
+            <span class="title">Question {{qnum}}</span>
+            <p>
+                <br><a class="btn" value="{{qid}}">Go To Question Page</a>
+                <br>
+                <br>Info (to be moved to question page):
+                <br>text: {{text}},
+                <br>Buttons: (to be moved to question page)
+                <br>{{{buttonHTML}}}
+            </p>
+        </a>
+        </div>
+    </li>
+</script>
 
 </html>
