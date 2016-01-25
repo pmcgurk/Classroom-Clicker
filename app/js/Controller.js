@@ -24,6 +24,7 @@ function Controller() {
         // this uses a proxy to get the scope right within the button
         $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
+        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
         $(document).on("click", ".refreshClasses", model.getClasses);
         $('.pageChangerButton').click(this.switchView)
 
@@ -44,6 +45,12 @@ function Controller() {
         var questions = model.getQuestions($(event.currentTarget).attr("value"));
         view.setQuestions(JSON.parse(questions));
         this.switchView('studentQuestions');
+    }
+
+    this.selectQuestion= function (event) {
+        var question = model.getQuestion($(event.currentTarget).attr("value"));
+        view.setQuestion(JSON.parse(question));
+        this.switchView('studentQuestion');
     }
 
     this.switchView = function (lastPage) {

@@ -15,25 +15,39 @@ function View() {
     }
 
     this.setClasses = function (data) {
-        var source = $("#classesTemplate").html(),
-            template = Handlebars.compile(source),
+        var HTML = "No Classes";
+        if (data != {}) {
+            var source = $("#classesTemplate").html(),
+                template = Handlebars.compile(source);
             HTML = "";
-        for (var i = 0; i < data.length; i++) {
-            HTML = HTML + template(data[i]);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isvisible == 0) {
+                    data[i].greyed = true;
+                }
+                HTML = HTML + template(data[i]);
+            }
         }
         $(".studentClasses").html(HTML);
         $('.className').html(data[0].code + ": " + data[0].name);
     };
 
     this.setLectures = function (data) {
-        var source = $("#lecturesTemplate").html(),
-            template = Handlebars.compile(source),
+        var HTML = "No Lectures";;
+        if (data != {}) {
+            var source = $("#lecturesTemplate").html(),
+                template = Handlebars.compile(source);
             HTML = "";
-        for (var i = 0; i < data.length; i++) {
-            HTML = HTML + template(data[i]);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isvisible == 0) {
+                    data[i].greyed = true;
+                }
+                console.log(data[i]);
+                HTML = HTML + template(data[i]);
+            }
         }
         $(".studentLecturesList").html(HTML);
         $('.lectureTitle').html(data[0].title);
+
     };
 
     this.setQuestions = function (data) {
@@ -43,9 +57,24 @@ function View() {
         for (var i = 0; i < data.length; i++) {
             data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
             data[i].qnum = i + 1; // gets question number
+            if (data[i].isvisible == 0) {
+                data[i].greyed = true;
+            }
             HTML = HTML + template(data[i]);
         }
+        if (HTML == "") {
+            HTML = "No Questions.";
+        }
         $(".studentQuestionList").html(HTML);
+    };
+
+    this.setQuestion = function (data) {
+        var source = $("#questionTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        data.buttonHTML = this.constructButtons(JSON.parse(data.buttontype));
+        HTML = HTML + template(data);
+        $("#studentQuestion").html(HTML);
     };
 
     this.constructButtons = function (data) {

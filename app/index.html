@@ -134,7 +134,10 @@
                         <h5>Questions</h5>
                         <br>
                     </div>
-                    <ul class="collection studentQuestionList"></ul>
+                    <ul class="collection studentQuestionList">
+                    <li class="collectionItem">
+                        <span class="title">No Questions Add Yet.</span>
+                        </li></ul>
                     <br>
                 </div>
             </div>
@@ -202,52 +205,87 @@
     <a class='waves-effect waves-light btn {{colour}}' value='{{value}}'>{{text}}</a>
 </script>
 <script id="classesTemplate" type="text/x-handlebars-template">
-    <li class="collection-item">
-        <a class="black-text" value="{{cid}}">
-            <span class="title">{{code}}: {{name}}</span>
-            <p>{{lecturer}}
-                <br> Description of Class
+    {{#if greyed}}
+    <li class="collection-item grey" onclick="Materialize.toast('Class not Public', 2000)">
+        <a class="white-text" >
+            <span class="logo">{{code}}: {{name}}</span>
+            <p>{{description}}
+                <br> {{realname}}
             </p>
         </a>
-        <div class="center-align">
-            <a class="classSelectionButton btn purple" value="{{cid}}">
-            Show Lectures
+        </div>
+    </li>
+    {{else}}
+    <li class="collection-item purple classSelectionButton" value="{{cid}}">
+        <a class="white-text classSelectionButton" value="{{cid}}">
+            <span class="logo">{{code}}: {{name}}</span>
+            <p>{{description}}
+                <br> {{realname}}
+            </p>
         </a>
         </div>
-        <!--<a class="lectureSelectionButton btn purple" value="1">
-            Lecture Selection Debug Button
-        </a>-->
     </li>
+    {{/if}}
 </script>
 <script id="lecturesTemplate" type="text/x-handlebars-template">
-    <li class="collection-item">
-        <a class="black-text">
+    {{#if greyed}}
+    <li class="collection-item grey" onclick="Materialize.toast('Lecture Not Public', 2000)">
+        <a class="white-text">
             <span class="title">{{date}}: {{title}}</span>
             <p>{{description}}
             </p>
         </a>
         </div>
-        <a class="lectureSelectionButton btn purple" value="{{lid}}">
-            Open
-        </a>
     </li>
-</script>
-
-<script id="questionsTemplate" type="text/x-handlebars-template">
-    <li class="collection-item">
-        <a class="black-text">
-            <span class="title">Question {{qnum}}</span>
-            <p>
-                <br><a class="btn" value="{{qid}}">Go To Question Page</a>
-                <br>
-                <br>Info (to be moved to question page):
-                <br>text: {{text}},
-                <br>Buttons: (to be moved to question page)
-                <br>{{{buttonHTML}}}
+    {{else}}
+    <li class="collection-item lectureSelectionButton purple" value="{{lid}}">
+        <a class="white-text">
+            <span class="title">{{date}}: {{title}}</span>
+            <p>{{description}}
             </p>
         </a>
         </div>
     </li>
+    {{/if}}
+</script>
+
+<script id="questionsTemplate" type="text/x-handlebars-template">
+    {{#if greyed}}
+    <li class="collection-item grey" onclick="Materialize.toast('Question Not Public', 2000)" </li>
+        <a class="white-text">
+            <span class="title">Question {{qnum}}</span>
+        </a>
+        </div>
+    </li>
+    {{else}}
+    <li class="collection-item questionSelectionButton purple" value="{{qid}}">
+        <a class="white-text">
+            <span class="title">Question {{qnum}}</span>
+        </a>
+        </div>
+    </li>
+    {{/if}}
+</script>
+<script id="questionTemplate" type="text/x-handlebars-template">
+    <div id="questionNotifaction" class="col s12 white-text green valign-wrapper">
+        <div class="questionSelectionButton col s4 valign" value="{{qnump}}">
+            <h6>{{#if qnump}}Previous{{/if}}</h6> </div>
+        <div class="col s4">
+            <h6 id="questionNumber" class="center-align flow-text valign">Question {{qnum}}</h6>
+        </div>
+        <div class="questionSelectionButton col s4 right-align valign" value="{{qnumn}}">
+            <h6>{{#if qnumn}}Next{{/if}}</h6> </div>
+    </div>
+    <div id="currentQuestion" class="center col s12">
+        <div class="questionDiv card green white-text col s12 ">
+            <div id="questionTextDiv" class="container" style="height: 45vh">
+                <h5 id="questionText" class="flow-text">{{text}}</h5>
+            </div>
+        </div>
+        <div class="buttonDiv center col s12">
+            {{{buttonHTML}}}
+        </div>
+    </div>
 </script>
 
 </html>
