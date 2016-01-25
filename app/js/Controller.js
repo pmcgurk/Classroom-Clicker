@@ -14,26 +14,39 @@ function Controller() {
         $('.button-collapse').sideNav({
             closeOnClick: true
         });
+        $('select').material_select();
         if (localStorage.lastPage != null) {
             // loads last used page, mostly for testing
             this.switchView(localStorage.lastPage);
             //console.log(localStorage.lastPage);
         }
 
-        //*** Buttons ***//
+        this.setButtons();
+        this.update();
+        // debug methods, remove below //
+        setUsername();
+        model.setUserType("student");
+        // debug method end //
+        //setInterval(this.update, 500);
+    };
+
+    this.setButtons = function () {
         // this uses a proxy to get the scope right within the button
         $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
         $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
+        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
+        $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
+        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".refreshClasses", model.getClasses);
-        $('.pageChangerButton').click(this.switchView)
+        $('.pageChangerButton').click(this.switchView);
+        //$(document).on("click", ".presetselect", this.preset);
 
-        // debug methods, remove below //
-        setUsername();
-        model.setUserType("student");
-        this.update();
-        //setInterval(this.update, 500);
-    };
+    }
+    
+    this.saveEditClass = function () {
+        model.saveEditClass(view.getEditClassInfo());
+    }
 
     this.selectClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
@@ -47,7 +60,7 @@ function Controller() {
         this.switchView('studentQuestions');
     }
 
-    this.selectQuestion= function (event) {
+    this.selectQuestion = function (event) {
         var question = model.getQuestion($(event.currentTarget).attr("value"));
         view.setQuestion(JSON.parse(question));
         this.switchView('studentQuestion');

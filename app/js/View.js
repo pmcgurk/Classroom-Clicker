@@ -32,7 +32,7 @@ function View() {
     };
 
     this.setLectures = function (data) {
-        var HTML = "No Lectures";;
+        var HTML = "No Lectures";
         if (data != {}) {
             var source = $("#lecturesTemplate").html(),
                 template = Handlebars.compile(source);
@@ -68,6 +68,15 @@ function View() {
         $(".studentQuestionList").html(HTML);
     };
 
+    this.addMoreEditQuestions = function () {
+        var source = $("#questionEditTemplate").html(),
+            template = Handlebars.compile(source),
+            data = {"qnum": 1},
+            HTML = template(data);
+        $("#questions").append(HTML);
+        $('select').material_select();
+    };
+
     this.setQuestion = function (data) {
         var source = $("#questionTemplate").html(),
             template = Handlebars.compile(source),
@@ -76,6 +85,25 @@ function View() {
         HTML = HTML + template(data);
         $("#studentQuestion").html(HTML);
     };
+
+    // takes the data from the edit class divs and constructs a JSON
+    this.getEditClassInfo = function () {
+        //TODO get class visibility, name etc changes.
+        var classEdited = {},
+            questions = [];
+        for (var i = 0; i < $('.questionForm').length; i++) {
+            var question = {};
+            question.visible = $('.questionForm').find('input[name="switch"]')[i].checked;
+            question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
+            question.buttons = $('.questionForm').find('div[name="buttons"]')[i].innerText;
+            questions.push(question);
+        }
+        classEdited.questions = questions;
+        classEdited.cid = 1;
+        classEdited.visibile = 1;
+        classEdited.name = "Embedded Systems";
+        return classEdited;
+    }
 
     this.constructButtons = function (data) {
         var buttonSource = $("#buttonTemplate").html(),

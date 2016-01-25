@@ -43,6 +43,11 @@ function Model() {
         });
     };
 
+    this.saveEditClass = function (data) {
+        console.log("Editing class: " + data.cid);
+        console.log(data);
+    };
+
     this.getQuestion = function (qid) {
         var q = JSON.parse(questions);
         for (var i = 0; i < q.length; i++) {
