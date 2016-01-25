@@ -1,7 +1,8 @@
 function Model() {
     //console.log("Model Created");
     var username = "",
-        userType = "";
+        userType = "",
+        userQuestions = [];
 
     this.init = function () {
         //console.log("Model Init");
@@ -38,9 +39,10 @@ function Model() {
     };
 
     this.getQuestions = function (lid) {
-        return $.getValues("php/getQuestions.php", {
+        userQuestions = $.getValues("php/getQuestions.php", {
             "lid": lid
         });
+        return userQuestions;
     };
 
     this.saveEditClass = function (data) {
@@ -49,7 +51,7 @@ function Model() {
     };
 
     this.getQuestion = function (qid) {
-        var q = JSON.parse(questions);
+        var q = JSON.parse(userQuestions);
         for (var i = 0; i < q.length; i++) {
             if (q[i].qid == qid) {
                 q[i].qnum = i + 1;
