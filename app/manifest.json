@@ -1,0 +1,15 @@
+{
+    "short_name": "Clicker",
+    "name": "Clicker",
+    "icons": [
+        {
+            "src": "img/logo.png",
+            "type": "image/png",
+            "sizes": "192x192"
+    }
+  ],
+    "background_color": "#4CAF50",
+    "theme_color": "#4CAF50",
+    "display": "standalone",
+    "orientation": "portrait"
+}
