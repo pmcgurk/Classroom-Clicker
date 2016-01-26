@@ -1,6 +1,4 @@
 function View() {
-    //console.log("View Created");
-
     this.init = function () {
         //console.log("View Init");
     };
@@ -13,6 +11,10 @@ function View() {
     this.setUserType = function (data) {
         $(".userTypeDisplay").text(data);
     }
+
+    this.submitAnswer = function (data) {
+        Materialize.toast(data, 1000);
+    };
 
     this.setClasses = function (data) {
         var HTML = "No Classes";
@@ -71,7 +73,9 @@ function View() {
     this.addMoreEditQuestions = function () {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
-            data = {"qnum": 1},
+            data = {
+                "qnum": 1
+            },
             HTML = template(data);
         $("#questions").append(HTML);
         $('select').material_select();
@@ -81,7 +85,7 @@ function View() {
         var source = $("#questionTemplate").html(),
             template = Handlebars.compile(source),
             HTML = "";
-        data.buttonHTML = this.constructButtons(JSON.parse(data.buttontype));
+        data.buttonHTML = this.constructButtons(JSON.parse(data.buttontype), data.qid);
         HTML = HTML + template(data);
         $("#studentQuestion").html(HTML);
     };
@@ -105,16 +109,18 @@ function View() {
         return classEdited;
     }
 
-    this.constructButtons = function (data) {
+    this.constructButtons = function (data, qid) {
         var buttonSource = $("#buttonTemplate").html(),
             buttonTemplate = Handlebars.compile(buttonSource),
             buttonHTML = "";
         for (var i = 0; i < data.length; i++) {
             var button = data[i];
+            button.qid = qid;
             values = {
                 "colour": button.colour,
                 "value": button.value,
-                "text": button.text
+                "text": button.text,
+                "qid": button.qid
             }
             buttonHTML = buttonHTML + buttonTemplate(data[i]);
         }

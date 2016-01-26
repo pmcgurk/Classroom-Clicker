@@ -1,5 +1,4 @@
 function Model() {
-    //console.log("Model Created");
     var username = "",
         userType = "",
         userQuestions = [];
@@ -9,23 +8,28 @@ function Model() {
     };
 
     this.getUsername = function () {
-        //console.log("Username is: " + username);
         return username;
     };
 
     this.setUsername = function (newUsername) {
         username = newUsername;
-        //console.log("Username set to: " + username);
     };
 
     this.getUserType = function () {
-        //console.log("UserType is: " + userType);
         return userType;
     };
 
     this.setUserType = function (newUserType) {
         userType = newUserType;
-        //console.log("UserType set to: " + userType);
+    };
+
+    this.saveEditClass = function (data) {
+        console.log("Editing class: " + data.cid);
+        console.log(data);
+    };
+
+    this.submitAnswer = function (data) {
+        return $.getValues("php/submitAnswer.php", data);
     };
 
     this.getClasses = function () {
@@ -43,11 +47,6 @@ function Model() {
             "lid": lid
         });
         return userQuestions;
-    };
-
-    this.saveEditClass = function (data) {
-        console.log("Editing class: " + data.cid);
-        console.log(data);
     };
 
     this.getQuestion = function (qid) {
