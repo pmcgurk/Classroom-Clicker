@@ -95,12 +95,15 @@ function View() {
     this.setResponses = function (data) {
         $(".responsesList").text(JSON.stringify(data));
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
-        var values = [], labels = [], cdata = [], colours = ["#f44336", "#4caf50", "#2196f3", "#ffeb3b"];
+        var values = [],
+            labels = [],
+            cdata = [],
+            colours = ["#f44336", "#4caf50", "#2196f3", "#ffeb3b"];
         for (var i = 0; i < data.length; i++) {
             values.push(data[i].value);
             labels.push(data[i].value);
         }
-        jQuery.unique(labels);
+        labels = this.uniqueValues(values);
         for (var i = 0; i < labels.length; i++) {
             cdata.push({
                 "value": this.countValues(values, labels[i]),
@@ -109,8 +112,8 @@ function View() {
             });
         }
         var myNewChart = new Chart(ctx);
-        var myPieChart = new Chart(ctx).Pie(cdata, {});
-        //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
+        //var myPieChart = new Chart(ctx).Pie(cdata, {});
+        var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
     };
 
     this.countValues = function (array, value) {
@@ -122,6 +125,15 @@ function View() {
         }
         return total;
     };
+
+    this.uniqueValues = function (array) {
+        var newArray = [];
+        for (var i = 0, j = array.length; i < j; i++) {
+            if (newArray.indexOf(array[i]) == -1)
+                newArray.push(array[i]);
+        }
+        return newArray;
+    }
 
     //** GUI info getters **/
     // takes the data from the edit class divs and constructs a JSON
