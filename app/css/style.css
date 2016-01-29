@@ -86,16 +86,27 @@
   }
   
   .switch label input[type="checkbox"]:checked + .lever::after {
-      background-color: #673AB7;
+      background-color: #9c27b0;
   }
   
   .switch label input[type="checkbox"]:checked + .lever {
-      background-color: #673AB7;
+      background-color: #9c27b0;
   }
   
   .dropdown-content li > span {
       font-size: 1.2rem;
-      color: #673AB7;
+      color: #9c27b0;
       display: block;
       padding: 1rem;
+  }
+  
+  input[type=password].valid {
+      border-bottom: 1px solid #9c27b0;
+  }
+  
+  input[type=password]:focus:not([readonly])+label {
+      color: #FFFFFF;
+  }
+  input[type=password]:focus:not([readonly]) {
+      border-bottom: 1px solid #FFFFFF;
   }

@@ -15,7 +15,7 @@
     <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <title>Clicker</title>
+    <title>Clicker | Login</title>
 </head>
 <header>
     <div class="navbar-fixed">
@@ -29,243 +29,49 @@
                     <li><a class="pageChangerButton header logo" value="home">Clicker</a>
                     </li>
                     <div class="divider"></div>
-                    <li><a class="pageChangerButton header" value="loginPage">Login Page</a>
+                    <li><a class="pageChangerButton header" value="aboutPage">About</a>
                     </li>
-                    <li><a class="pageChangerButton header" value="studentWelcome">Student Welcome</a>
-                    </li>
-                    </li>
-                    <li><a class="pageChangerButton header" value="lecturerWelcome">Lecturer Layout</a>
-                    </li>
-                    <li><a class="pageChangerButton header" value="lecturerQuestions">Lecturer Questions</a>
-                        <li><a class="pageChangerButton header" value="lecturerEditClass">Lecturer Edit Class</a>
-                        </li>
-                        <li><a id="logout">Logout</a>
-                        </li>
-                        <div class="divider"></div>
-                        <li><a class="pageChangerButton header" value="aboutPage">About</a>
-                        </li>
                 </ul>
             </div>
         </nav>
     </div>
 </header>
 <main class="green lighten-5">
-    <div id="loginPage" class="page welcome-text" style="display: none;">
-        <div class="center">
-            <br>
-            <br>
+    <div id="home" class="page welcome-text center">
+        <br>
+        <br>
+        <br>
+        <div class="green white-text col">
             <br>
             <br>
             <h5 class="logo">Welcome.</h5>
             <br>
-            <p>Please login to continue.</p>
+            <div class="row green">
+                <form id="logininfo" class="col s12">
+                    <div class="row">
+                        <div class="input-field">
+                            <input id="username" type="text" class="validate">
+                            <label for="username">username</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">password</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            Please log in to continue.
+            <br>
+            <br>
             <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
             <br>
-        </div>
-    </div>
-    <div id="home" class="page welcome-text" style="display: none;">
-        <div class="center">
             <br>
-            <br>
-            <br>
-            <br>
-            <h5 class="logo">Home.</h5>
             <br>
         </div>
-    </div>
-    <div id="student">
-        <div class="row">
-            <div id="studentWelcome" class="page" style="display: none;">
-                <div class="green">
-                    <div class="container white-text">
-                        <br>
-                        <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="green">
-                    <div class="container white-text">
-                        <br>
-                        <h5>Enrolled Classes <a class="refreshClasses btn-floating purple right-align"><i class="material-icons">update</i></a></h5>
-                        <br>
-                    </div>
-                    <ul class="collection studentClasses"></ul>
-                    <div class="center-align">
-                        <a class="btn purple">Join Class</a>
-                    </div>
-                    <br>
-                </div>
-            </div>
-            <div id="studentLectures" class="page" style="display: none;">
-                <div class="green">
-                    <div class="container  white-text">
-                        <br>
-                        <h5 class="className">Class Name</h5>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="green">
-                    <div class="container white-text">
-                        <br>
-                        <h5>Lectures</h5>
-                        <br>
-                    </div>
-                    <ul class="collection studentLecturesList"></ul>
-                    <br>
-                </div>
-            </div>
-            <div id="studentQuestions" class="page" style="display: none;">
-                <div class="green">
-                    <div class="container white-text">
-                        <br>
-                        <h5 class="lectureTitle">Lecture Title</h5>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="green">
-                    <div class="container white-text">
-                        <br>
-                        <h5>Questions</h5>
-                        <br>
-                    </div>
-                    <ul class="collection studentQuestionList">
-                        <li class="collectionItem">
-                            <span class="title">No Questions Add Yet.</span>
-                        </li>
-                    </ul>
-                    <br>
-                </div>
-            </div>
-            <div id="studentQuestion" class="page" style="display: none;">
-                <div id="questionNotifaction" class="col s12 white-text green lighten-1">
-                    <div id="previousButton" class="col s4">
-                        <h6>Previous</h6> </div>
-                    <div id="previousButton" class="col s4">
-                        <h6 id="questionNumber" class="center-align flow-text">Question 1</h6>
-                    </div>
-                    <div id="fowardButton" class="col s4 right-align">
-                        <h6>Next</h6> </div>
-                </div>
-                <div id="currentQuestion" class="center col s12">
-                    <div class="questionDiv card green white-text col s12">
-                        <div id="questionTextDiv" class="container" style="height: 45vh">
-                            <h5 id="questionText" class="flow-text">An example of a possible layout of a question. Lorem ipsum dolor sit amet, sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
-                        </div>
-                    </div>
-                    <div class="buttonDiv center col s12">
-                        <a class="waves-effect waves-light btn green">A</a>
-                        <a class="waves-effect waves-light btn red">B</a>
-                        <a class="waves-effect waves-light btn blue">C</a>
-                        <a class="waves-effect waves-light btn yellow darken-2">D</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="lecturer">
-        <div class="row">
-            <div id="lecturerWelcome" class="page container" style="display: none;">
-                <br>
-                <h5>Welcome, <span class="usernameDisplay">Username</span>.</h5>
-                <br>
-                <h5>You are logged in as a lecturer.</h5>
-            </div>
-            <div id="lecturerEditClass" class="page" style="display: none;">
-                <div class="white-text">
-                    <div class="green">
-                        <div class="container">
-                            <br>
-                            <h5>Edit Class</h5>
-                            <div id="addquestionsection">
-                                <div class="input-field col s12">
-                                    <select>
-                                        <option value="" disabled selected>Choose your class</option>
-                                        <option value="1">CS408</option>
-                                        <option value="2">CS409</option>
-                                        <option value="3">CS410</option>
-                                        <option value="3">new class...</option>
-                                    </select>
-                                    <label>Class</label>
-                                </div>
-                            </div>
-                            <h5>Class Visible?</h5>
-                            <div class="switch">
-                                <label>
-                                    No
-                                    <input type="checkbox">
-                                    <span class="lever"></span> Yes
-                                </label>
-                            </div>
-                            <br>
-                            <h5>Enrolled Students</h5>
-                            <ul>
-                                <li>John Smith (remove)</li>
-                                <li>John Smith (remove)</li>
-                                <li>John Smith (remove)</li>
-                                <li>John Smith (remove)</li>
-                                <li>John Smith (remove)</li>
-                                <li>John Smith (remove)</li>
-                                <li>John Smith (remove)</li>
-                            </ul>
-                            <br>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="green">
-                        <div class="container">
-                            <br>
-                            <h5>Choose which lecture to edit</h5>
-                            <div class="input-field col s12">
-                                <select>
-                                    <option value="" disabled selected>Choose your lecture</option>
-                                    <option value="1">Lecture 1 - 01/03/16</option>
-                                    <option value="2">Lecture 2 - 08/03/16</option>
-                                    <option value="3">Lecture 3 - 15/03/16</option>
-                                    <option value="3">new lecture...</option>
-                                </select>
-                                <label>Class</label>
-                            </div>
-                            <br>
-                            <h5>Allow Students to rate your lecturer throughout the class? </h5>
-                            <div class="switch">
-                                <label>
-                                    No
-                                    <input type="checkbox">
-                                    <span class="lever"></span> Yes
-                                </label>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="green">
-                        <div class="container">
-                            <div id="questions">
+        <br>
+        <a href="lecturer/index.html" class="btn purple">Lecturer App</a>
 
-                            </div>
-                            <div class="center-align">
-                                <br>
-                                <a id="addMoreQuestionsButton" class="waves-effect waves-light btn deep-purple">Add More Questions</a>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="center-align">
-                        <br>
-                        <a class="waves-effect waves-light btn deep-purple questionEditSaveButton">Save</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-            </div>
-            <div id="lecturerQuestions" class="page" style="display: none;">
-                <h4>Lecturer Questions page</h4>
-            </div>
-        </div>
+        <a href="student/index.html" class="btn purple">Student App</a>
     </div>
     <div id="aboutPage" class="page container" style="display: none;">
         <h4>About this Project</h4>
