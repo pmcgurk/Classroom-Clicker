@@ -93,7 +93,6 @@ function View() {
     };
 
     this.setResponses = function (data) {
-        $(".responsesList").text(JSON.stringify(data));
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
             labels = [],
@@ -112,8 +111,8 @@ function View() {
             });
         }
         var myNewChart = new Chart(ctx);
-        //var myPieChart = new Chart(ctx).Pie(cdata, {});
-        var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
+        var myPieChart = new Chart(ctx).Pie(cdata, {});
+        //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
     };
 
     this.countValues = function (array, value) {

@@ -107,6 +107,13 @@
   input[type=password]:focus:not([readonly])+label {
       color: #FFFFFF;
   }
+  
   input[type=password]:focus:not([readonly]) {
       border-bottom: 1px solid #FFFFFF;
   }
+  
+  .responseDisplay {
+      height: 50vh;
+      width: 50vw;
+      
+}
