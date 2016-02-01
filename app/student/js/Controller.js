@@ -22,7 +22,7 @@ function Controller() {
             closeOnClick: true
         });
         $('select').material_select();
-        this.switchView('studentWelcome');
+        this.switchView('home');
     };
 
     this.setButtons = function () {
@@ -42,7 +42,7 @@ function Controller() {
     };
 
     this.setUsername = function () {
-        model.setUsername("Paul");
+        model.setUsername("Student");
     };
 
     this.setUserType = function () {
@@ -68,19 +68,19 @@ function Controller() {
     this.selectClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         view.setLectures(JSON.parse(lectures));
-        this.switchView('studentLectures');
+        this.switchView('lectures');
     };
 
     this.selectLecture = function (event) {
         var questions = model.getQuestions($(event.currentTarget).attr("value"));
         view.setQuestions(JSON.parse(questions));
-        this.switchView('studentQuestions');
+        this.switchView('questions');
     };
 
     this.selectQuestion = function (event) {
         var question = model.getQuestion($(event.currentTarget).attr("value"));
         view.setQuestion(JSON.parse(question));
-        this.switchView('studentQuestion');
+        this.switchView('question');
     };
 
     this.switchView = function (data) {
@@ -95,7 +95,11 @@ function Controller() {
                     $('#' + divs[i].id).hide();
                     //console.log("hiding " + divs[i].id);
                 } else {
-                    $('#' + divs[i].id).show();
+                    if ($('#' + divs[i].id).is(':visible')) {
+                        // console.log("already on it");
+                    } else {
+                        $('#' + divs[i].id).show();
+                    }
                     //console.log("showing " + divs[i].id);
                 }
             }

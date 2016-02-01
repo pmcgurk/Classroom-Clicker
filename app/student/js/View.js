@@ -31,7 +31,7 @@ function View() {
                 HTML = HTML + template(data[i]);
             }
         }
-        $(".studentClasses").html(HTML);
+        $(".classes").html(HTML);
         $('.className').html(data[0].code + ": " + data[0].name);
     };
 
@@ -49,7 +49,7 @@ function View() {
                 HTML = HTML + template(data[i]);
             }
         }
-        $(".studentLecturesList").html(HTML);
+        $(".lecturesList").html(HTML);
         $('.lectureTitle').html(data[0].title);
 
     };
@@ -69,7 +69,7 @@ function View() {
         if (HTML == "") {
             HTML = "No Questions.";
         }
-        $(".studentQuestionList").html(HTML);
+        $(".questionList").html(HTML);
     };
 
     this.addMoreEditQuestions = function () {
@@ -89,34 +89,13 @@ function View() {
             HTML = "";
         data.buttonHTML = this.constructButtons(JSON.parse(data.buttontype), data.qid);
         HTML = HTML + template(data);
-        $("#studentQuestion").html(HTML);
+        $("#question").html(HTML);
     };
 
     this.setResponses = function (data) {
         console.log(data);
         $(".responsesList").html(data);
     };
-
-
-    //** GUI info getters **/
-    // takes the data from the edit class divs and constructs a JSON
-    this.getEditClassInfo = function () {
-        //TODO get class visibility, name etc changes.
-        var classEdited = {},
-            questions = [];
-        for (var i = 0; i < $('.questionForm').length; i++) {
-            var question = {};
-            question.visible = $('.questionForm').find('input[name="switch"]')[i].checked;
-            question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
-            question.buttons = $('.questionForm').find('div[name="buttons"]')[i].innerText;
-            questions.push(question);
-        }
-        classEdited.questions = questions;
-        classEdited.cid = 1;
-        classEdited.visibile = 1;
-        classEdited.name = "Embedded Systems";
-        return classEdited;
-    }
 
     this.constructButtons = function (data, qid) {
         var buttonSource = $("#buttonTemplate").html(),
