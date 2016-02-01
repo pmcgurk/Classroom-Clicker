@@ -25,7 +25,6 @@ function Controller() {
     };
 
     this.login = function () {
-        console.log("hello");
         model.login(view.getLogin());
     };
 

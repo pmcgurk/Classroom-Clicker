@@ -12,7 +12,7 @@ function Model() {
         } else if (response == 0) {
             window.location = window.location + "/student/";
         } else {
-            
+            Materialize.toast("Error Logging In: " + response, 2000);
         }
     };
     

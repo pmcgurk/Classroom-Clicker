@@ -10,13 +10,13 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         echo "{$row[4]}";
         
     }
-	else echo "err-wrongdata";
+	else echo "Account Not Found";
 } else {
     if (!isset($_POST['username']) && !isset($_POST['password']))
-		echo "err-nodata";
+		echo "Form is empty";
 	else if (!isset($_POST['username']))
-		echo "err-nousername";
+		echo "No Username Provided";
 	else if (!isset($_POST['password']))
-		echo "err-nopw";
+		echo "No Password Provided";
 }
 ?>
