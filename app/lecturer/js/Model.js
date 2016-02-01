@@ -53,7 +53,12 @@ function Model() {
         return responses = $.getValues("php/getResponses.php", {
             "qid": qid
         });
-    }
+    };
+    
+    this.logout = function () {
+        //TODO remove user data from session and stuff
+        window.location = "/project/";
+    };
 
     this.getQuestion = function (qid) {
         var q = JSON.parse(userQuestions);

@@ -36,7 +36,10 @@ function Controller() {
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
+        $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".refreshClasses", model.getClasses);
+        
+        // selects
         $(document).on("change", ".responseQuestionSelect", $.proxy(this.getResponsesSelect, this));
         $('.pageChangerButton').click(this.switchView);
         //$(document).on("click", ".presetselect", this.preset);
@@ -86,11 +89,15 @@ function Controller() {
         var responses = model.getResponses($(event.currentTarget).attr("value"));
         view.setResponses(JSON.parse(responses));
     };
-    
+
     this.getResponsesSelect = function (event) {
         var responses = model.getResponses($(event.currentTarget).val());
         view.setResponses(JSON.parse(responses));
-    }
+    };
+
+    this.logout = function () {
+        model.logout();
+    };
 
     this.switchView = function (data) {
         var view = $(this).attr("value");

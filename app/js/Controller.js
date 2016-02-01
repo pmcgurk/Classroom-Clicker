@@ -19,8 +19,14 @@ function Controller() {
     this.setButtons = function () {
         // this uses a proxy to get the scope right within the button
         $('.pageChangerButton').click(this.switchView);
+        $('#loginButton').click(this.login);
         //$(document).on("click", ".presetselect", this.preset);
 
+    };
+
+    this.login = function () {
+        console.log("hello");
+        model.login(view.getLogin());
     };
 
     this.switchView = function (data) {

@@ -2,7 +2,18 @@ function Model() {
     
     this.init = function() {
         
-        
+    };
+    
+    this.login = function (data) {  
+        var response = $.getValues("php/login.php", data),
+            url = "";
+        if (response == 1) {
+            window.location = window.location + "/lecturer/";
+        } else if (response == 0) {
+            window.location = window.location + "/student/";
+        } else {
+            
+        }
     };
     
     jQuery.extend({
@@ -10,7 +21,7 @@ function Model() {
             var response = null;
             $.ajax({
                 url: url,
-                type: 'get',
+                type: 'post',
                 data: data,
                 async: false,
                 success: function (data) {
