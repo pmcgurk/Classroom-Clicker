@@ -22,8 +22,7 @@ function Controller() {
             closeOnClick: true
         });
         $('select').material_select();
-
-        this.switchView('home');
+        view.switchView('home');
     };
 
     this.setButtons = function () {
@@ -36,12 +35,13 @@ function Controller() {
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
+        $(document).on("click", ".backButton", this.backbutton) ;
         $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".refreshClasses", model.getClasses);
         
         // selects
         $(document).on("change", ".responseQuestionSelect", $.proxy(this.getResponsesSelect, this));
-        $('.pageChangerButton').click(this.switchView);
+        $('.pageChangerButton').click(view.switchView);
         //$(document).on("click", ".presetselect", this.preset);
 
     };
@@ -69,23 +69,23 @@ function Controller() {
     this.selectClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         view.setLectures(JSON.parse(lectures));
-        this.switchView('lectures');
+        view.switchView('lectures');
     };
 
     this.selectLecture = function (event) {
         var questions = model.getQuestions($(event.currentTarget).attr("value"));
         view.setQuestions(JSON.parse(questions));
-        this.switchView('questions');
+        view.switchView('questions');
     };
 
     this.selectQuestion = function (event) {
         var question = model.getQuestion($(event.currentTarget).attr("value"));
         view.setQuestion(JSON.parse(question));
-        this.switchView('question');
+        view.switchView('question');
     };
 
     this.getResponses = function (event) {
-        this.switchView('responses');
+        view.switchView('responses');
         var responses = model.getResponses($(event.currentTarget).attr("value"));
         view.setResponses(JSON.parse(responses));
     };
@@ -98,31 +98,11 @@ function Controller() {
     this.logout = function () {
         model.logout();
     };
-
-    this.switchView = function (data) {
-        var view = $(this).attr("value");
-        if (typeof data == "string") {
-            view = data
-        }
-        var divs = document.getElementsByTagName('div');
-        for (var i = 0; i < divs.length; i++) {
-            if (divs[i].className.indexOf("page") > -1) {
-                if (divs[i].id != view) {
-                    $('#' + divs[i].id).hide();
-                    //console.log("hiding " + divs[i].id);
-                } else {
-                    if ($('#' + divs[i].id).is(':visible')) {
-                        console.log("already on it");
-                    } else {
-                        $('#' + divs[i].id).show();
-                    }
-                    
-                    //console.log("showing " + divs[i].id);
-                }
-            }
-        }
+    
+    this.backbutton = function () {
+        view.goBack();
     };
-
+    
     this.update = function () {
         //console.log('update');
         view.update(model.update());

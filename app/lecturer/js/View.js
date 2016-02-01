@@ -1,5 +1,7 @@
 function View() {
-    var chart;
+    var chart,
+        lastpage,
+        curpage;
     this.init = function () {
         //console.log("View Init");
     };
@@ -188,6 +190,36 @@ function View() {
             buttonHTML = buttonHTML + buttonTemplate(data[i]);
         }
         return buttonHTML;
+    };
+
+    this.goBack = function () {
+        this.switchView(lastpage);
+    };
+    
+    this.switchView = function (data) {
+        var view = $(this).attr("value");
+        if (typeof data == "string") {
+            view = data
+        }
+        var divs = document.getElementsByTagName('div');
+        for (var i = 0; i < divs.length; i++) {
+            if (divs[i].className.indexOf("page") > -1) {
+                if (divs[i].id != view) {
+                    $('#' + divs[i].id).hide();
+                    //console.log("hiding " + divs[i].id);
+                } else {
+                    if ($('#' + divs[i].id).is(':visible')) {
+                        // console.log("already on it");
+                    } else {
+                        lastpage = curpage;
+                        curpage = divs[i].id;
+                        $('#' + divs[i].id).show();
+                    }
+                    //console.log("showing " + divs[i].id);
+                    //console.log("lastpage:" + lastpage);
+                }
+            }
+        }
     };
 
     this.update = function (data) {
