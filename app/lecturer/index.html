@@ -28,14 +28,14 @@
                 <ul class="side-nav" id="mobile">
                     <li><a class="pageChangerButton header logo" value="home">Clicker</a>
                     </li>
-                    <li><a class="header" href="../student/index.html">Student App</a>
-                    </li>
                     <li><a class="pageChangerButton header" value="editClass">Lecturer Edit Class</a>
                     </li>
                     <li><a class="logoutButton">Logout</a>
                     </li>
                     <div class="divider"></div>
                     <li><a class="pageChangerButton header" value="aboutPage">About</a>
+                    </li>
+                    <li><a class="header" href="../student/index.html">Student App</a>
                     </li>
                 </ul>
             </div>
@@ -117,17 +117,15 @@
     <div id="question" class="page" style="display: none;">
     </div>
     <div id="responses" class="page" style="display: none;">
-        <select class="responseQuestionSelect">
-            <option value="" disabled selected>Choose your question</option>
-            <option value="1">Question 1</option>
-            <option value="2">Question 2</option>
-            <option value="3">Question 3</option>
-        </select>
-        <!--<div class="responsesList"></div>-->
         <div class="center-align">
-            <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
+            <h5 class="responsesDisplayHeader"></h5>
+            <div class="canvasWrapper">
+                <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
+            </div>
+            <div class="responsesDisplay"></div>
+            <div class="responseQuestionSelect"></div>
         </div>
-        <a class="getResponsesButton btn" value="3">View Responses</a>
+
     </div>
     <div id="editClass" class="page" style="display: none;">
         <div class="white-text">
@@ -306,10 +304,10 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green">View {{qnum}} </a>
+                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Edit</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green">Edit {{qnum}} </a>
+                    <a class="waves-effect waves-light btn green getResponsesButton" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -317,7 +315,7 @@
         </a>
     </li>
     {{else}}
-    <li class="collection-item questionSelectionButton purple" value="{{qid}}">
+    <li class="collection-item purple" value="{{qid}}">
         <a class="white-text">
             <div class="row">
                 <div class="col s12">
@@ -326,10 +324,10 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green">View {{qnum}} </a>
+                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Edit</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green">Edit {{qnum}} </a>
+                    <a class="waves-effect waves-light btn green getResponsesButton" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>

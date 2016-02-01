@@ -1,4 +1,5 @@
 function View() {
+    var chart;
     this.init = function () {
         //console.log("View Init");
     };
@@ -57,7 +58,9 @@ function View() {
     this.setQuestions = function (data) {
         var source = $("#questionsTemplate").html(),
             template = Handlebars.compile(source),
-            HTML = "";
+            HTML = "",
+            selectHTML = "";
+        $(".responseQuestionSelect").html("");
         for (var i = 0; i < data.length; i++) {
             data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
             data[i].qnum = i + 1; // gets question number
@@ -65,11 +68,15 @@ function View() {
                 data[i].greyed = true;
             }
             HTML = HTML + template(data[i]);
+            selectHTML = selectHTML + " <a class='btn getResponsesButton' value='" + data[i].qid + "'>Q" + data[i].qnum + "</a> ";
         }
         if (HTML == "") {
             HTML = "No Questions.";
         }
+        $(".responseQuestionSelect").html(selectHTML);
         $(".questionList").html(HTML);
+        console.log(data);
+
     };
 
     this.addMoreEditQuestions = function () {
@@ -93,11 +100,15 @@ function View() {
     };
 
     this.setResponses = function (data) {
+        //$(".responsesDisplay").text(JSON.stringify(data));
+        $(".responsesDisplayHeader").html("Question ID: " + data[0].qid + "<br>Question number: " + "NA");
+        $("#canvasWrapper").empty();
+        $("#canvasWrapper").append("<canvas id='responsesCanvas' class='responseDisplay center-align'></canvas>");
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
             labels = [],
             cdata = [],
-            colours = ["#f44336", "#4caf50", "#2196f3", "#ffeb3b"];
+            colours = ["#4caf50", "#f44336", "#2196f3", "#ffeb3b"];
         for (var i = 0; i < data.length; i++) {
             values.push(data[i].value);
             labels.push(data[i].value);
@@ -110,9 +121,16 @@ function View() {
                 "color": colours[i]
             });
         }
-        var myNewChart = new Chart(ctx);
-        var myPieChart = new Chart(ctx).Pie(cdata, {});
+        chart = new Chart(ctx).Pie(cdata, {});
         //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
+    };
+
+    this.clearCanvas = function () {
+
+    };
+
+    this.updateResponses = function (data) {
+
     };
 
     this.countValues = function (array, value) {

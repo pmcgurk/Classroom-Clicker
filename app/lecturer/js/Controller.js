@@ -111,7 +111,12 @@ function Controller() {
                     $('#' + divs[i].id).hide();
                     //console.log("hiding " + divs[i].id);
                 } else {
-                    $('#' + divs[i].id).show();
+                    if ($('#' + divs[i].id).is(':visible')) {
+                        console.log("already on it");
+                    } else {
+                        $('#' + divs[i].id).show();
+                    }
+                    
                     //console.log("showing " + divs[i].id);
                 }
             }
