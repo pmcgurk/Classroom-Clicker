@@ -1,4 +1,7 @@
 function View() {
+    var chart,
+        lastpage = [],
+        curpage;
     this.init = function () {
         //console.log("View Init");
     };
@@ -92,11 +95,6 @@ function View() {
         $("#question").html(HTML);
     };
 
-    this.setResponses = function (data) {
-        console.log(data);
-        $(".responsesList").html(data);
-    };
-
     this.constructButtons = function (data, qid) {
         var buttonSource = $("#buttonTemplate").html(),
             buttonTemplate = Handlebars.compile(buttonSource),
@@ -113,6 +111,48 @@ function View() {
             buttonHTML = buttonHTML + buttonTemplate(data[i]);
         }
         return buttonHTML;
+    };
+
+    this.goBack = function () {
+        if (lastpage[0] != null || lastpage.length > 0) {
+            this.switchView(lastpage.pop());
+            lastpage.pop();
+        }
+    };
+
+    this.switchView = function (data) {
+        if (data != undefined) {
+            var view = $(this).attr("value");
+            if (typeof data == "string") {
+                view = data
+            }
+            var divs = document.getElementsByTagName('div');
+            for (var i = 0; i < divs.length; i++) {
+                if (divs[i].className.indexOf("page") > -1) {
+                    if (divs[i].id != view) {
+                        $('#' + divs[i].id).hide();
+                        //console.log("hiding " + divs[i].id);
+                    } else {
+                        if ($('#' + divs[i].id).is(':visible')) {
+                            // console.log("already on it");
+                        } else {
+                            if (curpage != undefined) {
+                                lastpage.push(curpage);
+                            }
+                            curpage = divs[i].id;
+                            $('#' + divs[i].id).show();
+                        }
+                        //console.log("showing " + divs[i].id);
+                        //console.log("lastpage:" + lastpage);
+                    }
+                }
+            }
+            if (lastpage.length > 0) {
+                $(".backButton").show();
+            } else {
+                $(".backButton").hide();
+            }
+        }
     };
 
     this.update = function (data) {

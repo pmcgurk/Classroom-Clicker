@@ -23,11 +23,6 @@ function Model() {
         userType = newUserType;
     };
 
-    this.saveEditClass = function (data) {
-        console.log("Editing class: " + data.cid);
-        console.log(data);
-    };
-
     this.submitAnswer = function (data) {
         return $.getValues("php/submitAnswer.php", data);
     };
@@ -48,12 +43,11 @@ function Model() {
         });
         return userQuestions;
     };
-    
-    this.getResponses = function (lid) {
-        return responses = $.getValues("php/getResponses.php", {
-            "lid": lid
-        });
-    }
+
+    this.logout = function () {
+        //TODO remove user data from session and stuff
+        window.location = "/project/";
+    };
 
     this.getQuestion = function (qid) {
         var q = JSON.parse(userQuestions);

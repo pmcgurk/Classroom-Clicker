@@ -22,7 +22,7 @@ function Controller() {
             closeOnClick: true
         });
         $('select').material_select();
-        this.switchView('home');
+        view.switchView('home');
     };
 
     this.setButtons = function () {
@@ -30,15 +30,11 @@ function Controller() {
         $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
         $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
-        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
-        $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
-        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
-        $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
+        $(document).on("click", ".backButton", this.backbutton);
+        $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".refreshClasses", model.getClasses);
-        $('.pageChangerButton').click(this.switchView);
-        //$(document).on("click", ".presetselect", this.preset);
-
+        $('.pageChangerButton').click(view.switchView);
     };
 
     this.setUsername = function () {
@@ -68,42 +64,27 @@ function Controller() {
     this.selectClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         view.setLectures(JSON.parse(lectures));
-        this.switchView('lectures');
+        view.switchView('lectures');
     };
 
     this.selectLecture = function (event) {
         var questions = model.getQuestions($(event.currentTarget).attr("value"));
         view.setQuestions(JSON.parse(questions));
-        this.switchView('questions');
+        view.switchView('questions');
     };
 
     this.selectQuestion = function (event) {
         var question = model.getQuestion($(event.currentTarget).attr("value"));
         view.setQuestion(JSON.parse(question));
-        this.switchView('question');
+        view.switchView('question');
     };
 
-    this.switchView = function (data) {
-        var view = $(this).attr("value");
-        if (typeof data == "string") {
-            view = data
-        }
-        var divs = document.getElementsByTagName('div');
-        for (var i = 0; i < divs.length; i++) {
-            if (divs[i].className.indexOf("page") > -1) {
-                if (divs[i].id != view) {
-                    $('#' + divs[i].id).hide();
-                    //console.log("hiding " + divs[i].id);
-                } else {
-                    if ($('#' + divs[i].id).is(':visible')) {
-                        // console.log("already on it");
-                    } else {
-                        $('#' + divs[i].id).show();
-                    }
-                    //console.log("showing " + divs[i].id);
-                }
-            }
-        }
+    this.logout = function () {
+        model.logout();
+    };
+
+    this.backbutton = function () {
+        view.goBack();
     };
 
     this.update = function () {
