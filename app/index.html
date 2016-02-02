@@ -24,29 +24,21 @@
                 <a class="brand-logo center">
                     <span id="pageName" class="logo center" value="home">Clicker</span>
                 </a>
-                <a data-activates="mobile" class="button-collapse show-on-large"><i class="mdi-navigation-menu right"></i></a>
-                <ul class="side-nav" id="mobile">
-                    <li><a class="pageChangerButton header logo" value="home">Clicker</a>
-                    </li>
-                    <div class="divider"></div>
-                    <li><a class="pageChangerButton header" value="aboutPage">About</a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </div>
 </header>
 <main class="green lighten-5">
     <div id="home" class="page welcome-text center">
-        <br>
-        <br>
-        <br>
-        <div class="green white-text col">
+        <div class="white-text">
+            <div class="green">
+                <br>
+                <h5 class="logo">Welcome.</h5>
+                <br>
+            </div>
             <br>
-            <br>
-            <h5 class="logo">Welcome.</h5>
-            <br>
-            <div class="row green">
+            <div class="green">
+                <br>
                 <form id="loginForm" class="col s12">
                     <div class="row">
                         <div class="input-field">
@@ -59,14 +51,14 @@
                         </div>
                     </div>
                 </form>
+                Please log in to continue.
+                <br>
+                <br>
+                <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
+                <br>
+                <br>
+                <br>
             </div>
-            Please log in to continue.
-            <br>
-            <br>
-            <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
-            <br>
-            <br>
-            <br>
         </div>
         <br>
         <a href="lecturer/index.html" class="btn purple">Lecturer App</a>
@@ -81,10 +73,15 @@
         </p>
     </div>
 </main>
-<footer class="page-footer green darken-1">
+<footer class="page-footer green darken-1 ">
     <div class="footer-copyright">
         <div class="container">
-            © Paul McGurk
+            <div class="col s6 left">
+                <a class="pageChangerButton white-text" value="aboutPage">About</a>
+            </div>
+            <div class="col s6 right">
+                <a class="white-text">© Paul McGurk</a>
+            </div>
         </div>
     </div>
 </footer>
@@ -94,4 +91,5 @@
 <script src="js/Model.js"></script>
 <script src="js/View.js"></script>
 <script src="js/Controller.js"></script>
+
 </html>
