@@ -1,4 +1,4 @@
-# Clicker
+# Classroom Clicker
 ### A Modern, Accessible and Flexible Class Room Clicker
 
 ## Synopsis
@@ -16,6 +16,8 @@ To allow for a wide range of devices to work with this project, it is is impleme
 ## Contributors
 
 Paul McGurk - paul@mcgurk.co
+
+Advised by Marc Roper.
 
 ## License
 
