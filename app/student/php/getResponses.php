@@ -1,6 +1,6 @@
 <?php
 
-include("connect.php");
+include("../php/connect.php");
  $result = mysql_query("SELECT * FROM responses") or die(mysql_error());
  $rows = array();
    while($r = mysql_fetch_assoc($result)) {

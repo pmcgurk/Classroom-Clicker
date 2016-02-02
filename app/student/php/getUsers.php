@@ -1,6 +1,6 @@
 <?php
 
-include("connect.php");
+include("../php/connect.php");
 $result = mysql_query("SELECT * FROM users") or die(mysql_error());
 echo "<users>";
 while ($row = mysql_fetch_array($result)) {

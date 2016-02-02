@@ -1,1 +1,0 @@
-<?php mysql_connect( "localhost", "root", ""); mysql_select_db( "clicker") or die(mysql_error()); ?>
