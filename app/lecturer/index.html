@@ -24,8 +24,8 @@
                 <a class="brand-logo center">
                     <span class="pageChangerButton logo center" value="home">Clicker</span>
                 </a>
-                <a data-activates="mobile" class="button-collapse show-on-large"><i class="mdi-navigation-menu right"></i></a>
-                <a class="right show-on-large backButton"><i class="material-icons">keyboard_arrow_up</i></a>
+                <a class="left show-on-large backButton"><i class="material-icons right">keyboard_arrow_left</i></a>
+                <a class="right show-on-large logoutButton"><i class="material-icons left">exit_to_app</i></a>
                 <ul class="side-nav" id="mobile">
                     <li><a class="pageChangerButton header logo" value="home">Clicker</a>
                     </li>
@@ -45,14 +45,6 @@
 </header>
 <main class="green lighten-5">
     <div id="home" class="page" style="display: none;">
-        <div class="green">
-            <div class="container white-text">
-                <br>
-                <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
-                <br>
-            </div>
-        </div>
-        <br>
         <div class="green">
             <div class="container white-text">
                 <br>
@@ -229,10 +221,15 @@
         </p>
     </div>
 </main>
-<footer class="page-footer green darken-1">
+<footer class="page-footer green darken-1 ">
     <div class="footer-copyright">
         <div class="container">
-            © Paul McGurk
+            <div class="col s6 left">
+                <a class="pageChangerButton white-text" value="aboutPage">About</a>
+            </div>
+            <div class="col s6 right">
+                <a class="white-text">© Paul McGurk</a>
+            </div>
         </div>
     </div>
 </footer>

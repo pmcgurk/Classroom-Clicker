@@ -1,6 +1,6 @@
 function View() {
     var chart,
-        lastpage,
+        lastpage = [],
         curpage;
     this.init = function () {
         //console.log("View Init");
@@ -193,31 +193,43 @@ function View() {
     };
 
     this.goBack = function () {
-        this.switchView(lastpage);
-    };
-    
-    this.switchView = function (data) {
-        var view = $(this).attr("value");
-        if (typeof data == "string") {
-            view = data
+        if (lastpage[0] != null || lastpage.length > 0) {
+            this.switchView(lastpage.pop());
+            lastpage.pop();
         }
-        var divs = document.getElementsByTagName('div');
-        for (var i = 0; i < divs.length; i++) {
-            if (divs[i].className.indexOf("page") > -1) {
-                if (divs[i].id != view) {
-                    $('#' + divs[i].id).hide();
-                    //console.log("hiding " + divs[i].id);
-                } else {
-                    if ($('#' + divs[i].id).is(':visible')) {
-                        // console.log("already on it");
+    };
+
+    this.switchView = function (data) {
+        if (data != undefined) {
+            var view = $(this).attr("value");
+            if (typeof data == "string") {
+                view = data
+            }
+            var divs = document.getElementsByTagName('div');
+            for (var i = 0; i < divs.length; i++) {
+                if (divs[i].className.indexOf("page") > -1) {
+                    if (divs[i].id != view) {
+                        $('#' + divs[i].id).hide();
+                        //console.log("hiding " + divs[i].id);
                     } else {
-                        lastpage = curpage;
-                        curpage = divs[i].id;
-                        $('#' + divs[i].id).show();
+                        if ($('#' + divs[i].id).is(':visible')) {
+                            // console.log("already on it");
+                        } else {
+                            if (curpage != undefined) {
+                                lastpage.push(curpage);
+                            }
+                            curpage = divs[i].id;
+                            $('#' + divs[i].id).show();
+                        }
+                        //console.log("showing " + divs[i].id);
+                        //console.log("lastpage:" + lastpage);
                     }
-                    //console.log("showing " + divs[i].id);
-                    //console.log("lastpage:" + lastpage);
                 }
+            }
+            if (lastpage.length > 0) {
+                $(".backButton").show();
+            } else {
+                $(".backButton").hide();
             }
         }
     };

@@ -33,17 +33,11 @@ function Controller() {
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
-        $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
         $(document).on("click", ".backButton", this.backbutton) ;
         $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".refreshClasses", model.getClasses);
-        
-        // selects
-        $(document).on("change", ".responseQuestionSelect", $.proxy(this.getResponsesSelect, this));
         $('.pageChangerButton').click(view.switchView);
-        //$(document).on("click", ".presetselect", this.preset);
-
     };
 
     this.setUsername = function () {
