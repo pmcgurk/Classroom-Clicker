@@ -44,7 +44,6 @@ function View() {
                 if (data[i].isvisible == 0) {
                     data[i].greyed = true;
                 }
-                console.log(data[i]);
                 HTML = HTML + template(data[i]);
             }
         }
