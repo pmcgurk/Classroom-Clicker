@@ -1,0 +1,169 @@
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{pgfgantt}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.08} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{Progress Report 1} % Top center head
+\rhead{February 5th 2016}
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Progress Report 1} % Assignment title
+\newcommand{\hmwkDueDate}{Friday, 5th of February} % Due date
+\newcommand{\hmwkClass}{Progress Report 1} % Course/class
+\newcommand{\hmwkClassTime}{} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Paul McGurk} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\textmd{\textbf{Progress Report 1}}\\
+}
+
+\author{\textbf{\hmwkAuthorName}}
+
+%----------------------------------------------------------------------------------------
+\begin{document}
+%\tableofcontents
+\newpage
+\section{Progress}
+\subsection{Application Development}
+A large chunk the application has been developed. This includes all the HTML5, PHP and JavaScript code for most of the main functions of the application, which interacts with a database.
+
+\subsubsection{General}
+The login page directs the user to the student/lecturer application depending on their account type. The main application currently does not use an actual account to populate the information on each side, but this is easily fixed and remains this way for testing purposes only.
+
+\subsubsection{Student Side}
+In the student application, a list of enrolled classes appears on the welcome page, populated from the database. Clicking on one of these classes opens a list of lectures, also populated from the database. Similarly, clicking on one of these lectures will open a list of questions available for this class and lecture. Again, clicking on one of these questions will show a questions page populated with the information of the current question, including the button layout.
+
+These buttons submit the value of their selves to the database for comparison with the current answer value. It also adds an entity into the ``responses'' table, for use with the Lecturer's ``responses'' page, described below.
+
+\subsubsection{Lecture Side}
+Similar to the student application, but shows classes which the lecturer owns. A similar hierarchy is implemented here, but with options to edit the classes/lectures/questions are featured throughout, although at this point, there is no way of editing this information other than to do it manually in the database.
+
+There is also a ``responses'' page implemented where lecturers can see responses to their questions in real time using Chart.js.
+
+\subsection{Alterations}
+\subsubsection {Wi-Fi Direct}
+After attempts to get wifi direct to do what is required of it for use as an access point to host this Web Application, it appeared that it had a lot of issues performing this. An alternative to this was also tested, ``HostAPD'', which turns the Raspberry Pi into a Wi-Fi access point, but there was also issues with this to do with constant disconnecting, and possible issues with user's devices not being able to access the internet when connected to this device, which is undesirable.
+
+At this point, the likely implementation is a remote server hosting the Web Application, with students accessing it via their web browsers like a normal website. This implementation also allows for even less dedicated hardware to be used in the setup of this service, which is an aim of this project.
+
+\subsubsection{Dotti Display}
+There was an issue with obtaining a dotti display for use in visualisation. However, after discussion with Marc Roper about alternatives, it was decided that an additional page in the Lecturer Application could be used to display the information in a more flexible way, using some sort of data visualisation library, namely, D3.js. There was an issue with D3.js being unsuitable due to using SVGs which aren't resolution dependent, and possibly being overkill for what is relatively simple data, so Chart.js was found as an alternative. This also allows even less dedicated hardware to be used in the service.
+
+\newpage
+\section{Report Structure}
+
+
+\newpage
+\section{Meetings}
+\subsubsection{30/10/15}
+Initial meeting, discussed visions for implementation.
+
+\subsubsection{06/11/15}
+Discussion about project spec and plan.
+
+\subsubsection{13/11/15}
+Discussion about issues with wi-fi direct, limits, compatibility and usefulness, etc.
+
+\subsubsection{26/11/15} 
+Issues with dotti availability, possible homebrew alternatives. Discussed how connection method is not critical at this point, and focus should be on developing the application.
+
+\subsubsection{02/11/15}
+Discussed evaluation, which is to be done with a live preview in a real setting.
+Possible initial data gathering through use of surveys to lecturers to see issues with ``clickers''.
+
+\subsubsection{03/12/15}
+Talked project spec/plan. Evaluation ideas mainly.
+
+\subsubsection{05/01/16}
+Discussed evaluation and progress. HostAPD may be out of the question, but alternative uses of pi was discussed.
+Evaluation was discussed, likely after a prototype is developed. Aim for end of January.
+
+\subsubsection{29/01/16}
+More discussion on evaluation, going with the idea of a live lecture environment. Also discussed progress report.
+
+\end{document}

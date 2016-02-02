@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" name="theme-color" content="#43a047">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="../css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="../img/icon.png" />
+    <link rel="apple-touch-icon" href="img/icon.png" />
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <title>Clicker | Student</title>
+</head>
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper green darken-1">
+                <a class="brand-logo center">
+                    <span id="pageName" class="logo center" value="home">Clicker</span>
+                </a>
+                <a class="left show-on-large backButton"><i class="material-icons right">keyboard_arrow_left</i></a>
+                <a class="right show-on-large logoutButton"><i class="material-icons left">exit_to_app</i></a>
+                <ul class="side-nav" id="mobile">
+                    <li><a class="pageChangerButton header logo" value="home">Clicker</a>
+                    </li>
+                    <div class="divider"></div>
+                    </li>
+                    <li><a class="logoutButton">Logout</a>
+                    </li>
+                    <div class="divider"></div>
+                    <li><a class="pageChangerButton header" value="aboutPage">About</a>
+                    </li>
+                    <li><a class="header" href="../lecturer/index.html">Lecturer App</a>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="green lighten-5">
+    <div class="row">
+        <div id="home" class="page" style="display: none;">
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Enrolled Classes <a class="refreshClasses btn-floating purple right-align"><i class="material-icons">update</i></a></h5>
+                    <br>
+                </div>
+                <ul class="collection classes"></ul>
+                <div class="center-align">
+                    <a class="btn purple">Join Class</a>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div id="lectures" class="page" style="display: none;">
+            <div class="green">
+                <div class="container  white-text">
+                    <br>
+                    <h5 class="className">Class Name</h5>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Lectures</h5>
+                    <br>
+                </div>
+                <ul class="collection lecturesList"></ul>
+                <br>
+            </div>
+        </div>
+        <div id="questions" class="page" style="display: none;">
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5 class="lectureTitle">Lecture Title</h5>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Questions</h5>
+                    <br>
+                </div>
+                <ul class="collection questionList">
+                    <li class="collectionItem">
+                        <span class="title">No Questions Add Yet.</span>
+                    </li>
+                </ul>
+                <br>
+            </div>
+        </div>
+        <div id="question" class="page" style="display: none;">
+            <div id="questionNotifaction" class="col s12 white-text green lighten-1">
+                <div id="previousButton" class="col s4">
+                    <h6>Previous</h6> </div>
+                <div id="previousButton" class="col s4">
+                    <h6 id="questionNumber" class="center-align flow-text">Question 1</h6>
+                </div>
+                <div id="fowardButton" class="col s4 right-align">
+                    <h6>Next</h6> </div>
+            </div>
+            <div id="currentQuestion" class="center col s12">
+                <div class="questionDiv card green white-text col s12">
+                    <div id="questionTextDiv" class="container" style="height: 45vh">
+                        <h5 id="questionText" class="flow-text">An example of a possible layout of a question. Lorem ipsum dolor sit amet, sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
+                    </div>
+                </div>
+                <div class="buttonDiv center col s12">
+                    <a class="waves-effect waves-light btn green">A</a>
+                    <a class="waves-effect waves-light btn red">B</a>
+                    <a class="waves-effect waves-light btn blue">C</a>
+                    <a class="waves-effect waves-light btn yellow darken-2">D</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="aboutPage" class="page container" style="display: none;">
+        <h4>About this Project</h4>
+        <p>The aim of this project is to provide an alternative way of gauging the current opinion on a lecture in a way which is easy and requires the least amount of dedicated hardware as possible.</p>
+        <p> This is to reduce issues with current “Classroom Clickers”, in that passing out the hardware and keeping track of them can be an issue with larger classes. They can also be expensive as lots of dedicated hardware is required.</p>
+        <p>It can also be used by the lecturer to ask simple questions, for example, multiple choice. This is to allow the lecturer to survey the general understating of the current topic, allowing them to tailor their lecturer accordingly.
+        </p>
+    </div>
+</main>
+<footer class="page-footer green darken-1 ">
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="col s6 left">
+                <a class="pageChangerButton white-text" value="aboutPage">About</a>
+            </div>
+            <div class="col s6 right">
+                <a class="white-text">© Paul McGurk</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="../js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
+<script src="js/Model.js"></script>
+<script src="js/View.js"></script>
+<script src="js/Controller.js"></script>
+<script id="buttonTemplate" type="text/x-handlebars-template">
+    <a class='waves-effect waves-light btn submitAnswerButton {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
+</script>
+<script id="classesTemplate" type="text/x-handlebars-template">
+    {{#if greyed}}
+    <li class="collection-item grey" onclick="Materialize.toast('Class not Public', 2000)">
+        <a class="white-text">
+            <span class="logo">{{code}}: {{name}}</span>
+            <p>{{description}}
+                <br> {{realname}}
+            </p>
+        </a>
+        </div>
+    </li>
+    {{else}}
+    <li class="collection-item purple classSelectionButton" value="{{cid}}">
+        <a class="white-text classSelectionButton" value="{{cid}}">
+            <span class="logo">{{code}}: {{name}}</span>
+            <p>{{description}}
+                <br> {{realname}}
+            </p>
+        </a>
+        </div>
+    </li>
+    {{/if}}
+</script>
+<script id="lecturesTemplate" type="text/x-handlebars-template">
+    {{#if greyed}}
+    <li class="collection-item grey" onclick="Materialize.toast('Lecture Not Public', 2000)">
+        <a class="white-text">
+            <span class="title">{{date}}: {{title}}</span>
+            <p>{{description}}
+            </p>
+        </a>
+        </div>
+    </li>
+    {{else}}
+    <li class="collection-item lectureSelectionButton purple" value="{{lid}}">
+        <a class="white-text">
+            <span class="title">{{date}}: {{title}}</span>
+            <p>{{description}}
+            </p>
+        </a>
+        </div>
+    </li>
+    {{/if}}
+</script>
+
+<script id="questionsTemplate" type="text/x-handlebars-template">
+    {{#if greyed}}
+    <li class="collection-item grey" onclick="Materialize.toast('Question Not Public', 2000)" </li>
+        <a class="white-text">
+            <span class="title">Question {{qnum}}</span>
+        </a>
+        </div>
+    </li>
+    {{else}}
+    <li class="collection-item questionSelectionButton purple" value="{{qid}}">
+        <a class="white-text">
+            <span class="title">Question {{qnum}}</span>
+        </a>
+        </div>
+    </li>
+    {{/if}}
+</script>
+<script id="questionTemplate" type="text/x-handlebars-template">
+    <div id="questionNotifaction" class="col s12 white-text green valign-wrapper">
+        <div class="questionSelectionButton col s4 valign" value="{{qnump}}">
+            <h6>{{#if qnump}}Previous{{/if}}</h6> </div>
+        <div class="col s4">
+            <h6 id="questionNumber" class="center-align flow-text valign">Question {{qnum}}</h6>
+        </div>
+        <div class="questionSelectionButton col s4 right-align valign" value="{{qnumn}}">
+            <h6>{{#if qnumn}}Next{{/if}}</h6> </div>
+    </div>
+    <div id="currentQuestion" class="center col s12">
+        <div class="questionDiv card green white-text col s12 ">
+            <div id="questionTextDiv" class="container" style="height: 45vh">
+                <h5 id="questionText" class="flow-text">{{text}}</h5>
+            </div>
+        </div>
+        <div class="buttonDiv center col s12">
+            {{{buttonHTML}}}
+        </div>
+    </div>
+</script>
+<script id="questionEditTemplate" type="text/x-handlebars-template">
+    <form class="questionForm">
+        <br>
+        <h4>Question {{qnum}}</h4>
+        <div class="switch">
+            <label>
+                hidden
+                <input name="switch" type="checkbox">
+                <span class="lever"></span> visible
+            </label>
+        </div>
+        <div class="row">
+            <textarea name="text" id="textarea1" class="materialize-textarea"></textarea>
+            <label for="textarea1">Question</label>
+        </div>
+        <h5>Answer Type</h5>
+        <div class="input-field col s12">
+            <select>
+                <option value="1" selected>Multiple Choice</option>
+                <option value="2">Input Box</option>
+            </select>
+            <label>Class</label>
+        </div>
+        (if multiple choice:)
+        <div class="input-field col s12">
+            <select>
+                <option value="0" selected disabled>select from presets</option>
+                <option value="1">true / false</option>
+                <option value="2">ABCD</option>
+                <option value="3">1234</option>
+                <option value="3">custom...</option>
+            </select>
+            <label>Class</label>
+        </div>
+        <br> (if custom:)
+        <div>
+            <h5>Button Creator</h5> Number of Options:
+            <input id="optionNumber" type="text">
+            <div class="buttonOptions">
+                display the number of options above.
+                <br>Option 1:
+                <br>Button Text
+                <br>Button Colour
+                <br>Button Value
+                <br>Correct?
+            </div>
+        </div>
+        <div name="buttons">
+            buttonHTMLgoeshereorsomething
+        </div>
+        <br>
+        <div class="divider"></div>
+    </form>
+</script>
+
+</html>
