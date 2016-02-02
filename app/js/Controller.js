@@ -8,6 +8,7 @@ function Controller() {
         view.init();
         this.pagesetup();
         this.setButtons();
+        this.checklogin();
     };
 
     this.pagesetup = function () {
@@ -22,6 +23,10 @@ function Controller() {
         $('#loginButton').click(this.login);
         //$(document).on("click", ".presetselect", this.preset);
 
+    };
+
+    this.checklogin = function () {
+        model.checklogin();
     };
 
     this.login = function () {
