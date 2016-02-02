@@ -110,7 +110,7 @@
 \newpage
 \section{Progress}
 \subsection{Application Development}
-A large chunk the application has been developed. This includes all the HTML5, PHP and JavaScript code for the main functions of the application, which interacts with a database to populate the application with information.
+A large chunk the application has been developed. This includes all the HTML5, PHP and JavaScript code for most of the main functions of the application, which interacts with a database.
 
 \subsubsection{General}
 The login page directs the user to the student/lecturer application depending on their account type. The main application currently does not use an actual account to populate the information on each side, but this is easily fixed and remains this way for testing purposes only.
@@ -121,7 +121,7 @@ In the student application, a list of enrolled classes appears on the welcome pa
 These buttons submit the value of their selves to the database for comparison with the current answer value. It also adds an entity into the ``responses'' table, for use with the Lecturer's ``responses'' page, described below.
 
 \subsubsection{Lecture Side}
-Similar to the student application, but shows classes which the lecturer owns. A similar hierarchy is implemented here, but with options to edit the classes/lectures/questions are features throughout, although at this point, there is no way of editing this information other than to do it manually in the database.
+Similar to the student application, but shows classes which the lecturer owns. A similar hierarchy is implemented here, but with options to edit the classes/lectures/questions are featured throughout, although at this point, there is no way of editing this information other than to do it manually in the database.
 
 There is also a ``responses'' page implemented where lecturers can see responses to their questions in real time using Chart.js.
 
@@ -132,10 +132,13 @@ After attempts to get wifi direct to do what is required of it for use as an acc
 At this point, the likely implementation is a remote server hosting the Web Application, with students accessing it via their web browsers like a normal website. This implementation also allows for even less dedicated hardware to be used in the setup of this service, which is an aim of this project.
 
 \subsubsection{Dotti Display}
-There was an issue with obtaining a dotti display for use in visualisation. However, after discussion with Marc Roper about alternatives, it was decided that an additional page in the Lecturer Application could be used to display the information in a more flexible way, using Chart.js. This also allows even less dedicated hardware to be used in the service.
+There was an issue with obtaining a dotti display for use in visualisation. However, after discussion with Marc Roper about alternatives, it was decided that an additional page in the Lecturer Application could be used to display the information in a more flexible way, using some sort of data visualisation library, namely, D3.js. There was an issue with D3.js being unsuitable due to using SVGs which aren't resolution dependent, and possibly being overkill for what is relatively simple data, so Chart.js was found as an alternative. This also allows even less dedicated hardware to be used in the service.
 
+\newpage
 \section{Report Structure}
 
+
+\newpage
 \section{Meetings}
 \subsubsection{30/10/15}
 Initial meeting, discussed visions for implementation.
@@ -161,6 +164,6 @@ Discussed evaluation and progress. HostAPD may be out of the question, but alter
 Evaluation was discussed, likely after a prototype is developed. Aim for end of January.
 
 \subsubsection{29/01/16}
-More discussion on evaluation, going with the idea of a live lecture environment.
+More discussion on evaluation, going with the idea of a live lecture environment. Also discussed progress report.
 
 \end{document}
