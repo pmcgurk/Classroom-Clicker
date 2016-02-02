@@ -57,7 +57,7 @@ function Model() {
     
     this.logout = function () {
         //TODO remove user data from session and stuff
-        window.location = "/project/";
+        window.location.href = '../';
     };
 
     this.getQuestion = function (qid) {
