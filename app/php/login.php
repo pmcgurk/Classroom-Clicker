@@ -7,7 +7,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if($row = mysql_fetch_array($result)) {
 		session_start();
 		$_SESSION['id'] = $row[0];
-        echo "{$row[4]}";
+        echo "{$row[2]}";
         
     }
 	else echo "Account Not Found";
