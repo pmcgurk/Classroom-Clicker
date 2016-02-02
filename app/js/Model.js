@@ -15,10 +15,10 @@ function Model() {
 
     this.goToApp = function (data) {
         if (data == 1) {
-            window.location = window.location + "/lecturer/";
+            window.location = window.location + "lecturer/";
             Materialize.toast("Logging in...", 2000);
         } else if (data == 0) {
-            window.location = window.location + "/student/";
+            window.location = window.location + "student/";
             Materialize.toast("Logging in...", 2000);
         } else {
             Materialize.toast("Error Logging In: " + response, 2000);

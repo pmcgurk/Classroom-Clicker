@@ -13,8 +13,7 @@ function Controller() {
     };
 
     this.debugMethods = function () {
-        this.setUsername();
-        this.setUserType();
+        this.setUser();
     };
 
     this.pagesetup = function () {
@@ -34,18 +33,14 @@ function Controller() {
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
-        $(document).on("click", ".backButton", this.backbutton) ;
+        $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".refreshClasses", model.getClasses);
         $('.pageChangerButton').click(view.switchView);
     };
 
-    this.setUsername = function () {
-        model.setUsername("Lecturer");
-    };
-
-    this.setUserType = function () {
-        model.setUserType("lecturer");
+    this.setUser = function () {
+        view.setUser(model.getUser());
     };
 
     this.submitAnswer = function (event) {
@@ -92,13 +87,12 @@ function Controller() {
     this.logout = function () {
         model.logout();
     };
-    
+
     this.backbutton = function () {
         view.goBack();
     };
-    
+
     this.update = function () {
-        //console.log('update');
         view.update(model.update());
     };
 }

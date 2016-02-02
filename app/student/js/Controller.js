@@ -13,8 +13,7 @@ function Controller() {
     };
 
     this.debugMethods = function () {
-        this.setUsername();
-        this.setUserType();
+        this.setUser();
     };
 
     this.pagesetup = function () {
@@ -37,17 +36,10 @@ function Controller() {
         $('.pageChangerButton').click(view.switchView);
     };
 
-    this.setUsername = function () {
-        model.setUsername("Student");
+    this.setUser = function () {
+        view.setUser(model.getUser());
     };
 
-    this.setUserType = function () {
-        model.setUserType("student");
-    };
-
-    this.getResponses = function (event) {
-        view.setResponses(model.getResponses($(event.currentTarget).attr("value")));
-    };
 
     this.submitAnswer = function (event) {
         var data = model.submitAnswer({
@@ -88,7 +80,6 @@ function Controller() {
     };
 
     this.update = function () {
-        //console.log('update');
         view.update(model.update());
     };
 }

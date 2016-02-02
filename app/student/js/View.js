@@ -8,14 +8,10 @@ function View() {
 
 
     //** Display Altering **/
-    this.setUsername = function (data) {
-        // console.log(data);
-        $(".usernameDisplay").text(data);
+    this.setUser = function (data) {
+        $(".usernameDisplay").text(data.username);
+        $(".userTypeDisplay").text(data.isLecturer);
     };
-
-    this.setUserType = function (data) {
-        $(".userTypeDisplay").text(data);
-    }
 
     this.submitAnswer = function (data) {
         Materialize.toast(data, 1000);
@@ -156,8 +152,6 @@ function View() {
     };
 
     this.update = function (data) {
-        this.setUsername(data.username);
         this.setClasses(data.classes);
-        this.setUserType(data.usertype);
     };
 }

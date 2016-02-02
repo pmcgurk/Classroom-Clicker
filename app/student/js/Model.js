@@ -1,26 +1,9 @@
 function Model() {
-    var username = "",
-        userType = "",
+    var user = {},
         userQuestions = [];
 
     this.init = function () {
         //console.log("Model Init");
-    };
-
-    this.getUsername = function () {
-        return username;
-    };
-
-    this.setUsername = function (newUsername) {
-        username = newUsername;
-    };
-
-    this.getUserType = function () {
-        return userType;
-    };
-
-    this.setUserType = function (newUserType) {
-        userType = newUserType;
     };
 
     this.submitAnswer = function (data) {
@@ -44,9 +27,14 @@ function Model() {
         return userQuestions;
     };
 
+    this.getUser = function () {
+        user = $.getValues("../php/getUser.php", {});
+        return JSON.parse(user);
+    };
+
     this.logout = function () {
         $.getValues("../php/logout.php", {});
-        window.location.href = '../';
+        window.location.href = '..';
     };
 
     this.getQuestion = function (qid) {
@@ -80,8 +68,6 @@ function Model() {
     this.update = function () {
         var updateData = {};
         updateData = {
-            "username": this.getUsername(),
-            "usertype": this.getUserType(),
             "classes": JSON.parse(this.getClasses())
         };
         return updateData;
