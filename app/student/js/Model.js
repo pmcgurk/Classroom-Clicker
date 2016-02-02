@@ -45,7 +45,7 @@ function Model() {
     };
 
     this.logout = function () {
-        //TODO remove user data from session and stuff
+        $.getValues("../php/logout.php", {});
         window.location.href = '../';
     };
 

@@ -48,15 +48,15 @@ function Model() {
         });
         return userQuestions;
     };
-    
+
     this.getResponses = function (qid) {
         return responses = $.getValues("php/getResponses.php", {
             "qid": qid
         });
     };
-    
+
     this.logout = function () {
-        //TODO remove user data from session and stuff
+        $.getValues("../php/logout.php", {});
         window.location.href = '../';
     };
 
