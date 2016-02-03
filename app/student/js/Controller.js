@@ -3,7 +3,6 @@ function Controller() {
         view = new View();
 
     this.init = function () {
-        // console.log("Controller Init");
         model.init();
         view.init();
         this.pagesetup();
@@ -19,16 +18,16 @@ function Controller() {
 
     this.setButtons = function () {
         // this uses a proxy to get the scope right within the button
-        $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
-        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
-        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
-        $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
-        $(document).on("click", ".backButton", this.backbutton);
-        $(document).on("click", ".logoutButton", this.logout);
-        $(document).on("click", ".refreshClasses", model.getClasses);
-        $(document).on("click", ".joinClassButton", this.joinClassesDisplay);
+        $(document).on("click touchstart", ".classSelectionButton", $.proxy(this.selectClass, this));
+        $(document).on("click touchstart", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
+        $(document).on("click touchstart", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
+        $(document).on("click touchstart", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
+        $(document).on("click touchstart", ".backButton", this.backbutton);
+        $(document).on("click touchstart", ".logoutButton", this.logout);
+        $(document).on("click touchstart", ".refreshClasses", model.getClasses);
+        $(document).on("click touchstart", '.pageChangerButton', view.switchView);
+        $(document).on("click touchstart", ".joinClassButton", this.joinClassesDisplay);
         $(document).on("keyup", "#search", $.proxy(this.searchClasses, this))
-        $('.pageChangerButton').click(view.switchView);
     };
 
     this.setUser = function () {
