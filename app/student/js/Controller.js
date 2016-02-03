@@ -13,9 +13,6 @@ function Controller() {
     };
 
     this.pagesetup = function () {
-        $('.button-collapse').sideNav({
-            closeOnClick: true
-        });
         $('select').material_select();
         view.switchView('home');
     };

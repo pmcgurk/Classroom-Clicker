@@ -13,9 +13,6 @@ function Controller() {
     };
 
     this.pagesetup = function () {
-        $('.button-collapse').sideNav({
-            closeOnClick: true
-        });
         $('select').material_select();
         view.switchView('home');
     };
@@ -37,14 +34,6 @@ function Controller() {
 
     this.setUser = function () {
         view.setUser(model.getUser());
-    };
-
-    this.submitAnswer = function (event) {
-        var data = model.submitAnswer({
-            'value': $(event.currentTarget).attr("value"),
-            'qid': $(event.currentTarget).attr("qid")
-        });
-        view.submitAnswer(data);
     };
 
     this.saveEditClass = function () {
