@@ -2,6 +2,7 @@ function View() {
     var chart,
         lastpage = [],
         curpage;
+
     this.init = function () {
         //console.log("View Init");
     };
@@ -13,10 +14,13 @@ function View() {
         $(".userTypeDisplay").text(data.isLecturer);
     };
 
+    // submit answer response display
     this.submitAnswer = function (data) {
+        // shows a toast with the response i.e. correct
         Materialize.toast(data, 1000);
     };
 
+    // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
         if (data != {}) {
@@ -34,6 +38,7 @@ function View() {
         $('.className').html(data[0].code + ": " + data[0].name);
     };
 
+    // uses handlebar templates to display list of lectures
     this.setLectures = function (data) {
         var HTML = "No Lectures";
         if (data != {}) {
@@ -52,6 +57,7 @@ function View() {
 
     };
 
+    // uses handlebar templates to display list of questions
     this.setQuestions = function (data) {
         var source = $("#questionsTemplate").html(),
             template = Handlebars.compile(source),
@@ -76,6 +82,7 @@ function View() {
 
     };
 
+    // uses handlebar templates to display new question form
     this.addMoreEditQuestions = function () {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
@@ -87,6 +94,7 @@ function View() {
         $('select').material_select();
     };
 
+    // uses handlebar templates to display current question
     this.setQuestion = function (data) {
         var source = $("#questionTemplate").html(),
             template = Handlebars.compile(source),
@@ -96,6 +104,7 @@ function View() {
         $("#question").html(HTML);
     };
 
+    // creates a Chart.js chart from data provided from responses database
     this.setResponses = function (data) {
         //$(".responsesDisplay").text(JSON.stringify(data));
         $(".responsesDisplayHeader").html("Question ID: " + data[0].qid + "<br>Question number: " + "NA");
@@ -130,6 +139,7 @@ function View() {
 
     };
 
+    // counts appearances of a value in array
     this.countValues = function (array, value) {
         var total = 0;
         for (var i = 0; i < array.length; i++) {
@@ -140,6 +150,7 @@ function View() {
         return total;
     };
 
+    // returns array of unique labels from array
     this.uniqueValues = function (array) {
         var newArray = [];
         for (var i = 0, j = array.length; i < j; i++) {
@@ -169,6 +180,7 @@ function View() {
         return classEdited;
     }
 
+    // uses handlebar templates to contruct answer buttons from JSON
     this.constructButtons = function (data, qid) {
         var buttonSource = $("#buttonTemplate").html(),
             buttonTemplate = Handlebars.compile(buttonSource),
@@ -187,6 +199,7 @@ function View() {
         return buttonHTML;
     };
 
+    // back button, using array of lastpage
     this.goBack = function () {
         if (lastpage[0] != null || lastpage.length > 0) {
             this.switchView(lastpage.pop());
@@ -194,6 +207,7 @@ function View() {
         }
     };
 
+    // switches current view to provided new view
     this.switchView = function (data) {
         if (data != undefined) {
             var view = $(this).attr("value");

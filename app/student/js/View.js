@@ -2,6 +2,7 @@ function View() {
     var chart,
         lastpage = [],
         curpage;
+
     this.init = function () {
         //console.log("View Init");
     };
@@ -13,10 +14,13 @@ function View() {
         $(".userTypeDisplay").text(data.isLecturer);
     };
 
+    // submit answer response display
     this.submitAnswer = function (data) {
+        // shows a toast with the response i.e. correct
         Materialize.toast(data, 1000);
     };
 
+    // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
         if (data != {}) {
@@ -34,6 +38,7 @@ function View() {
         $('.className').html(data[0].code + ": " + data[0].name);
     };
 
+    // uses handlebar templates to display list of lectures
     this.setLectures = function (data) {
         var HTML = "No Lectures";
         if (data != {}) {
@@ -52,6 +57,7 @@ function View() {
 
     };
 
+    // uses handlebar templates to display list of questions
     this.setQuestions = function (data) {
         var source = $("#questionsTemplate").html(),
             template = Handlebars.compile(source),
@@ -70,8 +76,8 @@ function View() {
         $(".questionList").html(HTML);
     };
 
+    // uses handlebar templates to display list of results
     this.setClassSearchResult = function (data) {
-        console.log(data);
         var HTML = "No Classes";
         if (data != {}) {
             var source = $("#classesResultTemplate").html(),
@@ -86,28 +92,8 @@ function View() {
         }
         $(".searchResult").html(HTML);
     };
-    
-    this.showClassSearchLoader = function () {
 
-            $("#searchResultPreloader").show();
-    };
-    
-    this.hideClassSearchLoader = function () {
-
-            $("#searchResultPreloader").hide();
-    };
-
-    this.addMoreEditQuestions = function () {
-        var source = $("#questionEditTemplate").html(),
-            template = Handlebars.compile(source),
-            data = {
-                "qnum": 1
-            },
-            HTML = template(data);
-        $("#questions").append(HTML);
-        $('select').material_select();
-    };
-
+    // uses handlebar templates to display current question
     this.setQuestion = function (data) {
         var source = $("#questionTemplate").html(),
             template = Handlebars.compile(source),
@@ -117,6 +103,7 @@ function View() {
         $("#question").html(HTML);
     };
 
+    // uses handlebar templates to contruct answer buttons from JSON
     this.constructButtons = function (data, qid) {
         var buttonSource = $("#buttonTemplate").html(),
             buttonTemplate = Handlebars.compile(buttonSource),
@@ -135,6 +122,7 @@ function View() {
         return buttonHTML;
     };
 
+    // back button, using array of lastpage
     this.goBack = function () {
         if (lastpage[0] != null || lastpage.length > 0) {
             this.switchView(lastpage.pop());
@@ -142,6 +130,7 @@ function View() {
         }
     };
 
+    // switches current view to provided new view
     this.switchView = function (data) {
         if (data != undefined) {
             var view = $(this).attr("value");
