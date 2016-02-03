@@ -111,6 +111,11 @@
   input[type=password]:focus:not([readonly]) {
       border-bottom: 1px solid #FFFFFF;
   }
+
+input:not([type]) {
+    height:2rem;
+    margin: 0 0 0 0;
+}
   
   .responseDisplay {
       height: 50vh;

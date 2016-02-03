@@ -33,6 +33,8 @@ function Controller() {
         $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".refreshClasses", model.getClasses);
+        $(document).on("click", ".joinClassButton", this.joinClassesDisplay);
+        $(document).on("keyup", "#search", $.proxy(this.searchClasses, this))
         $('.pageChangerButton').click(view.switchView);
     };
 
@@ -40,6 +42,18 @@ function Controller() {
         view.setUser(model.getUser());
     };
 
+    this.joinClassesDisplay = function () {
+        view.switchView('joinclass')
+    };
+
+    this.searchClasses = function (event) {
+        if ($(event.currentTarget).val().length > 0) {
+            $("#searchResultPreloader").show();
+            var data = model.getClassSearchResult($(event.currentTarget).val());
+            view.setClassSearchResult(JSON.parse(data));
+            $("#searchResultPreloader").hide();
+        }
+    };
 
     this.submitAnswer = function (event) {
         var data = model.submitAnswer({

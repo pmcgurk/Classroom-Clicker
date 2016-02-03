@@ -31,7 +31,11 @@ function Model() {
         user = $.getValues("../php/getUser.php", {});
         return JSON.parse(user);
     };
-
+    
+    this.getClassSearchResult = function (data) {
+        return $.getValues("php/searchClasses.php", {"value": data});
+    };
+    
     this.logout = function () {
         $.getValues("../php/logout.php", {});
         window.location.href = '..';

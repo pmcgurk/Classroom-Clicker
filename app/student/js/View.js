@@ -70,6 +70,33 @@ function View() {
         $(".questionList").html(HTML);
     };
 
+    this.setClassSearchResult = function (data) {
+        console.log(data);
+        var HTML = "No Classes";
+        if (data != {}) {
+            var source = $("#classesResultTemplate").html(),
+                template = Handlebars.compile(source);
+            HTML = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isvisible == 0) {
+                    data[i].greyed = true;
+                }
+                HTML = HTML + template(data[i]);
+            }
+        }
+        $(".searchResult").html(HTML);
+    };
+    
+    this.showClassSearchLoader = function () {
+
+            $("#searchResultPreloader").show();
+    };
+    
+    this.hideClassSearchLoader = function () {
+
+            $("#searchResultPreloader").hide();
+    };
+
     this.addMoreEditQuestions = function () {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),

@@ -61,7 +61,7 @@
                 </div>
                 <ul class="collection classes"></ul>
                 <div class="center-align">
-                    <a class="btn purple">Join Class</a>
+                    <a class="joinClassButton waves-effect waves-light btn purple">Join Class</a>
                 </div>
                 <br>
             </div>
@@ -110,6 +110,26 @@
         </div>
         <div id="question" class="page" style="display: none;">
             <p>You Shouldn't be seeing this.</p>
+        </div>
+        <div id="joinclass" class="page" style="display: none;">
+            <div class="green white-text">
+                <div class="container">
+                    <br>
+                    <h5>Search for a Class</h5>
+                    <br>
+                </div>
+            </div>
+            <div class="container">
+                <form>
+                    <div class="input-field">
+                        <input id="search">
+                        <div id="searchResultPreloader" class="progress" style="display: none;">
+                            <div class="indeterminate"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <ul class="collection searchResult"></ul>
         </div>
     </div>
     <div id="aboutPage" class="page container" style="display: none;">
@@ -185,7 +205,6 @@
     </li>
     {{/if}}
 </script>
-
 <script id="questionsTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
     <li class="collection-item grey" onclick="Materialize.toast('Question Not Public', 2000)" </li>
@@ -224,59 +243,16 @@
         </div>
     </div>
 </script>
-<script id="questionEditTemplate" type="text/x-handlebars-template">
-    <form class="questionForm">
-        <br>
-        <h4>Question {{qnum}}</h4>
-        <div class="switch">
-            <label>
-                hidden
-                <input name="switch" type="checkbox">
-                <span class="lever"></span> visible
-            </label>
+<script id="classesResultTemplate" type="text/x-handlebars-template">
+    <li class="collection-item purple classResultSelectionButton" value="{{cid}}">
+        <a class="white-text" value="{{cid}}">
+            <span class="logo">{{code}}: {{name}}</span>
+            <p>{{description}}
+                <br> {{realname}}
+            </p>
+        </a>
         </div>
-        <div class="row">
-            <textarea name="text" id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">Question</label>
-        </div>
-        <h5>Answer Type</h5>
-        <div class="input-field col s12">
-            <select>
-                <option value="1" selected>Multiple Choice</option>
-                <option value="2">Input Box</option>
-            </select>
-            <label>Class</label>
-        </div>
-        (if multiple choice:)
-        <div class="input-field col s12">
-            <select>
-                <option value="0" selected disabled>select from presets</option>
-                <option value="1">true / false</option>
-                <option value="2">ABCD</option>
-                <option value="3">1234</option>
-                <option value="3">custom...</option>
-            </select>
-            <label>Class</label>
-        </div>
-        <br> (if custom:)
-        <div>
-            <h5>Button Creator</h5> Number of Options:
-            <input id="optionNumber" type="text">
-            <div class="buttonOptions">
-                display the number of options above.
-                <br>Option 1:
-                <br>Button Text
-                <br>Button Colour
-                <br>Button Value
-                <br>Correct?
-            </div>
-        </div>
-        <div name="buttons">
-            buttonHTMLgoeshereorsomething
-        </div>
-        <br>
-        <div class="divider"></div>
-    </form>
+    </li>
 </script>
 
 </html>
