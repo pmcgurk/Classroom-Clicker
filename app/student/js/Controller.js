@@ -6,13 +6,9 @@ function Controller() {
         // console.log("Controller Init");
         model.init();
         view.init();
-        this.debugMethods();
         this.pagesetup();
         this.setButtons();
         this.update();
-    };
-
-    this.debugMethods = function () {
         this.setUser();
     };
 
