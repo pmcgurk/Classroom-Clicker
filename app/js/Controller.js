@@ -1,61 +1,47 @@
 function Controller() {
-    var model = new Model(),
-        view = new View();
-
     this.init = function () {
-        // console.log("Controller Init");
-        model.init();
-        view.init();
-        this.pagesetup();
-        this.setButtons();
-        this.checklogin();
-    };
-
-    this.pagesetup = function () {
-        $('.button-collapse').sideNav({
-            closeOnClick: true
-        });
-    };
-
-    this.setButtons = function () {
-        // this uses a proxy to get the scope right within the button
-        $('.pageChangerButton').click(this.switchView);
-        $('#loginButton').click(this.login);
-        //$(document).on("click", ".presetselect", this.preset);
-
-    };
-
-    this.checklogin = function () {
-        model.checklogin();
+        $(document).on("click", "#loginButton", $.proxy(this.login, this));
+        this.goToApp(JSON.parse($.getValues("php/checksession.php", {})).isLecturer);
     };
 
     this.login = function () {
-        model.login(view.getLogin());
+        // takes data from login form and checks to see if it is a valid user.
+        var response = $.getValues("php/login.php", {
+            "username": $("#loginForm :input[id=username]").val(),
+            "password": $("#loginForm :input[id=password]").val()
+        });
+        // goes to app depending on the response, which is the user type.
+        this.goToApp(response);
     };
 
-    this.switchView = function (data) {
-        var view = $(this).attr("value");
-        if (typeof data == "string") {
-            view = data
+    // takes a boolean which redirects the user to the applicable app.
+    this.goToApp = function (data) {
+        if (data == 1) {
+            window.location = window.location + "lecturer/";
+        } else if (data == 0) {
+            window.location = window.location + "student/";
+        } else {
+            Materialize.toast("Error Logging In: " + response, 2000);
         }
-        var divs = document.getElementsByTagName('div');
-        for (var i = 0; i < divs.length; i++) {
-            if (divs[i].className.indexOf("page") > -1) {
-                if (divs[i].id != view) {
-                    $('#' + divs[i].id).hide();
-                    //console.log("hiding " + divs[i].id);
-                } else {
-                    $('#' + divs[i].id).show();
-                    //console.log("showing " + divs[i].id);
+    };
+
+    // a jquery extend for nicer ajax
+    // modified from code from http://stackoverflow.com/a/3504020
+    jQuery.extend({
+        getValues: function (url, data) {
+            var response = null;
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: data,
+                async: false,
+                success: function (data) {
+                    response = data;
                 }
-            }
+            });
+            return response;
         }
-    };
-
-    this.update = function () {
-        //console.log('update');
-        view.update(model.update());
-    };
+    });
 }
 
 $(document).ready(function () {
