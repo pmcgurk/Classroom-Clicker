@@ -109,28 +109,7 @@
             </div>
         </div>
         <div id="question" class="page" style="display: none;">
-            <div id="questionNotifaction" class="col s12 white-text green lighten-1">
-                <div id="previousButton" class="col s4">
-                    <h6>Previous</h6> </div>
-                <div id="previousButton" class="col s4">
-                    <h6 id="questionNumber" class="center-align flow-text">Question 1</h6>
-                </div>
-                <div id="fowardButton" class="col s4 right-align">
-                    <h6>Next</h6> </div>
-            </div>
-            <div id="currentQuestion" class="center col s12">
-                <div class="questionDiv card green white-text col s12">
-                    <div id="questionTextDiv" class="container" style="height: 45vh">
-                        <h5 id="questionText" class="flow-text">An example of a possible layout of a question. Lorem ipsum dolor sit amet, sed non dui vel lectus laoreet mattis. Fusce in ipsum justo?</h5>
-                    </div>
-                </div>
-                <div class="buttonDiv center col s12">
-                    <a class="waves-effect waves-light btn green">A</a>
-                    <a class="waves-effect waves-light btn red">B</a>
-                    <a class="waves-effect waves-light btn blue">C</a>
-                    <a class="waves-effect waves-light btn yellow darken-2">D</a>
-                </div>
-            </div>
+            <p>You Shouldn't be seeing this.</p>
         </div>
     </div>
     <div id="aboutPage" class="page container" style="display: none;">
@@ -225,7 +204,7 @@
     {{/if}}
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
-    <div id="questionNotifaction" class="col s12 white-text green valign-wrapper">
+    <div id="questionHeader" class="col s12 white-text green valign-wrapper">
         <div class="questionSelectionButton col s4 valign" value="{{qnump}}">
             <h6>{{#if qnump}}Previous{{/if}}</h6> </div>
         <div class="col s4">
