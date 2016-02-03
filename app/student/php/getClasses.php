@@ -1,7 +1,9 @@
 <?php
 
 include("../php/connect.php");
- $result = mysql_query("SELECT classes.cid, classes.name, classes.code, classes.isvisible, classes.description, users.realname FROM classes INNER JOIN (owned) ON (classes.cid=owned.cid) INNER JOIN (users) ON (owned.uid=users.uid) INNER JOIN (enrolled) ON (classes.cid=enrolled.cid)");
+session_start();    
+$uid = $_SESSION['id'];
+ $result = mysql_query("SELECT classes.cid, classes.name, classes.code, classes.description, classes.isvisible, owned.uid, users.realname FROM (enrolled) INNER JOIN (classes) ON (enrolled.cid = classes.cid) INNER JOIN (owned) ON (classes.cid = owned.cid) INNER JOIN (users) ON (owned.uid = users.uid) WHERE enrolled.uid = {$uid}");
  $rows = array();
    while($r = mysql_fetch_assoc($result)) {
         $rows[] = $r;
