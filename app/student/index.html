@@ -26,18 +26,6 @@
                 </a>
                 <a class="left show-on-large backButton"><i class="material-icons right">keyboard_arrow_left</i></a>
                 <a class="right show-on-large logoutButton"><i class="material-icons left">power_settings_new</i></a>
-                <ul class="side-nav" id="mobile">
-                    <li><a class="pageChangerButton header logo" value="home">Clicker</a>
-                    </li>
-                    <div class="divider"></div>
-                    </li>
-                    <li><a class="logoutButton">Logout</a>
-                    </li>
-                    <div class="divider"></div>
-                    <li><a class="pageChangerButton header" value="aboutPage">About</a>
-                    </li>
-                    <li><a class="header" href="../lecturer/index.html">Lecturer App</a>
-                </ul>
             </div>
         </nav>
     </div>
@@ -163,28 +151,44 @@
 </script>
 <script id="classesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
-    <li class="collection-item grey" onclick="Materialize.toast('Class not Public', 2000)">
-        <a class="white-text">
-            <span class="logo">{{code}}: {{name}}</span>
-            <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
-            <p class="white-text">{{description}}
-                <br> {{realname}}
-            </p>
-        </a>
+    <li class="collection-item grey">
+        <div class="row">
+            <div class="col s12">
+                <span class="logo">{{code}}: {{name}}</span>
+            </div>
+            <div class="col s12">
+                <p class="white-text">{{description}}
+                    <br> {{realname}}
+                </p>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
+            </div>
         </div>
     </li>
-    <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a> 
-{{else}}
-    <li class="collection-item purple classSelectionButton" value="{{cid}}">
-        <a class="white-text classSelectionButton" value="{{cid}}">
-            <span class="logo">{{code}}: {{name}}</span>
-            <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
-            <p class="white-text">{{description}}
-                <br> {{realname}}
-            </p>
-        </a>
+    {{else}}
+    <li class="collection-item purple white-text">
+        <div class="row">
+            <div class="col s12">
+                <span class="logo">{{code}}: {{name}}</span>
+            </div>
+            <div class="col s12">
+                <p class="white-text">{{description}}
+                    <br> {{realname}}
+                </p>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect green btn classSelectionButton" value="{{cid}}">Open</a>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
+            </div>
         </div>
-    </li>{{/if}}
+    </li>
+    {{/if}}
 </script>
 <script id="lecturesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
