@@ -27,7 +27,7 @@
 \textheight=9.0in
 \headsep=0.25in
 
-\linespread{1.08} % Line spacing
+\linespread{1.01} % Line spacing
 
 % Set up the header and footer
 \pagestyle{fancy}
@@ -36,7 +36,7 @@
 \rhead{February 5th 2016}
 \lfoot{\lastxmark} % Bottom left footer
 \cfoot{\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
-\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\headrulewidth{0.2pt} % Size of the header rule
 \renewcommand\footrulewidth{0.4pt} % Size of the footer rule
 
 
@@ -108,34 +108,122 @@
 \begin{document}
 %\tableofcontents
 \newpage
+
 \section{Progress}
 \subsection{Application Development}
-A large chunk the application has been developed. This includes all the HTML5, PHP and JavaScript code for most of the main functions of the application, which interacts with a database.
-
 \subsubsection{General}
-The login page directs the user to the student/lecturer application depending on their account type. The main application currently does not use an actual account to populate the information on each side, but this is easily fixed and remains this way for testing purposes only.
+The login page directs the user to the student/lecturer application depending on their account type. The application then uses the PHP session cookie to populate the application with the user's details and enrolled classes.
 
 \subsubsection{Student Side}
-In the student application, a list of enrolled classes appears on the welcome page, populated from the database. Clicking on one of these classes opens a list of lectures, also populated from the database. Similarly, clicking on one of these lectures will open a list of questions available for this class and lecture. Again, clicking on one of these questions will show a questions page populated with the information of the current question, including the button layout.
+In the student application, a list of enrolled classes appears on the welcome page, populated from the database. Clicking on one of these classes opens a list of lectures, also populated from the database, and clicking on one of these lectures will open a list of questions available for this class and lecture. Again, clicking on one of these questions will show a populated questions page including the button layout.
 
-These buttons submit the value of their selves to the database for comparison with the current answer value. It also adds an entity into the ``responses'' table, for use with the Lecturer's ``responses'' page, described below.
+\begin{center}
+\includegraphics[width=3.1cm]{images/studenthome.png}
+\includegraphics[width=3.1cm]{images/studentlectures.png}
+\includegraphics[width=3.1cm]{images/studentquestions.png}
+\includegraphics[width=3.1cm]{images/studentquestion.png}
+\includegraphics[width=3.1cm]{images/03021602.png}
+\end{center}
+
+These buttons submit the value of their selves to the database for comparison with the current answer value. It also adds an entity into the ``responses'' table, for use with the Lecturer's ``responses'' page, described below. There is also a page for searching for classes to join, but there is no mechanism for joining these classes at this moment.
 
 \subsubsection{Lecture Side}
-Similar to the student application, but shows classes which the lecturer owns. A similar hierarchy is implemented here, but with options to edit the classes/lectures/questions are featured throughout, although at this point, there is no way of editing this information other than to do it manually in the database.
+Similar to the student application, but shows classes which the lecturer owns with options to edit the classes/lectures/questions featured throughout. Currently, there is no way of editing  other than to do it manually in the database. There is also a ``responses'' page where lecturers can see responses to their questions using Chart.js.
 
-There is also a ``responses'' page implemented where lecturers can see responses to their questions in real time using Chart.js.
+\begin{center}
+\includegraphics[width=3.1cm]{images/lecturerhome.png}
+\includegraphics[width=3.1cm]{images/lecturerlectures.png}
+\includegraphics[width=3.1cm]{images/lecturerquestions.png}
+\includegraphics[width=3.1cm]{images/lecturerresponse.png}
+\end{center}
 
 \subsection{Alterations}
 \subsubsection {Wi-Fi Direct}
 After attempts to get wifi direct to do what is required of it for use as an access point to host this Web Application, it appeared that it had a lot of issues performing this. An alternative to this was also tested, ``HostAPD'', which turns the Raspberry Pi into a Wi-Fi access point, but there was also issues with this to do with constant disconnecting, and possible issues with user's devices not being able to access the internet when connected to this device, which is undesirable.
 
-At this point, the likely implementation is a remote server hosting the Web Application, with students accessing it via their web browsers like a normal website. This implementation also allows for even less dedicated hardware to be used in the setup of this service, which is an aim of this project.
+At this point, the likely implementation is a remote server hosting the Web Application, with students accessing it via their web browsers like a normal website. This implementation also allows for even less dedicated hardware to be used in the setup of this service, which is an aim of this project. However, I will continue to look for solutions to allow the use of a Raspberry Pi as an option.
 
 \subsubsection{Dotti Display}
-There was an issue with obtaining a dotti display for use in visualisation. However, after discussion with Marc Roper about alternatives, it was decided that an additional page in the Lecturer Application could be used to display the information in a more flexible way, using some sort of data visualisation library, namely, D3.js. There was an issue with D3.js being unsuitable due to using SVGs which aren't resolution dependent, and possibly being overkill for what is relatively simple data, so Chart.js was found as an alternative. This also allows even less dedicated hardware to be used in the service.
+There was an issue with obtaining a dotti display for use in visualisation. However, after discussion with Marc Roper about alternatives, it was decided that an additional page in the Lecturer Application could be used to display the information in a more flexible way, using some sort of data visualisation library, namely, D3.js. 
+
+There was an issue with D3.js being unsuitable due to using SVGs which aren't resolution dependent, and possibly being overkill for what is relatively simple data, so Chart.js was found as an alternative. This also allows even less dedicated hardware to be used in the service.
+
+\subsection{Plan Going Forward}
+The plan at the moment is to finish the application to a usable level. At this point, there is just a few things that need implemented, including:
+\begin{itemize}
+  \item Lecturer ability to create and edit classes.
+  \item Responses page to update in real time rather than just on load.
+  \item Student ability to join classes.
+  \item More research into using a Raspberry Pi as the host, possibly in addition to remote host version of application.
+\end{itemize}
+
+This should be done within the first half of February, no later than the 10th, leaving plenty of time for evaluation and changes that come from it.
+
+After a usable version of the application is finished, evaluation will be of the main importance. Getting a concrete plan for the evaluation and applying for ethics, and after the evaluation, modifying the application on the feedback to make it as useful and as user friendly as possible. 
+
+There will also need to be extensive compatibility testing on as wide range of devices as I can, most notability, different Android versions, different browsers on each device, devices with varying screen sizes from extreme large to extreme small, and a wide range of Apple devices, but changes to the application should be minimal from these tests, as the framework used is very portable.
 
 \newpage
 \section{Report Structure}
+\section{Title Page}
+A title page with all required information
+
+\section{Abstract}
+A abstract describing the issues with modern clickers, etc.
+
+\section{Acknowledgments}
+A list of acknowledgments for the project.
+
+\section{Table of Contents}
+Table of contents.
+
+\section{Introduction}
+An introduction to the project
+\subsection{Aim}
+The aim for the project.
+
+\section{Related Work}
+\subsection{Justification for Chosen Applications}
+A list of chosen comparative applications to compare to, if I go this way.
+
+\subsection{Related Work 1}
+\subsubsection{Strengths}
+The strengths of a related work.
+
+\subsubsection{Weaknesses}
+The weakness of a related work.
+
+\section{Problem description and specification}
+A description of the problem and the specification
+
+\section{System design}
+A description of how I developed the project, and the technology used.
+
+\section{Detailed design and implementation}
+A detailed description of how the project works for maintenance, etc.
+
+\section{Verification and validation}
+Verification and validation of the project
+
+\section{Results and evaluation}
+Results and evaluation of the project
+
+\section{Summary and Conclusions}
+Summing up of the project and what I conclude from it.
+
+\section{Appendices}
+\subsection{User Guide}
+\subsubsection{Admin}
+A guide on setting up the application for the system administrator, including dependencies, database structure etc.
+
+\subsubsection{Lecturer}
+A guide on using the application for lecturers, including create a class, editing a class, adding lectures, adding questions, etc.
+
+\subsubsection{Student}
+A guide on using the application for students, including joining a class, answering questions, etc.
+
+\subsection{Log Book}
+Embedded log book
 
 
 \newpage
