@@ -15,53 +15,41 @@
     <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <title>Clicker | Log in</title>
+    <title>Clicker | About</title>
 </head>
 <header>
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper green darken-1">
-                <a class="brand-logo center">
+                <a class="brand-logo center" href="../">
                     <span class="logo center">Clicker</span>
                 </a>
             </div>
         </nav>
     </div>
 </header>
-<main class="green lighten-5 center">
+<main class="green lighten-5">
     <div id="home" class="container">
-        <div class="white-text valign-wrapper">
-            <div class="green card valign">
-                <form id="loginForm" class="col s12 container">
-                    <br>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="username" type="text" class="validate">
-                            <label for="username">username</label>
-                        </div>
-                        <div class="input-field col  s12">
-                            <input id="password" type="password" class="validate">
-                            <label for="password">password</label>
-                        </div>
-                    </div>
-                </form>
-                Please log in or register to continue.
+        <div class="card green white-text">
+            <div class=" container">
                 <br>
-                <br>
-                <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
-                <a id="registerButton" class="waves-effect waves-light btn purple">Register</a>
-                <br>
+                <h4 class="logo">About this Project</h4>
+                <p>The aim of this project is to provide an alternative way of gauging the current opinion on a lecture in a way which is easy and requires the least amount of dedicated hardware as possible.</p>
+                <p> This is to reduce issues with current “Classroom Clickers”, in that passing out the hardware and keeping track of them can be an issue with larger classes. They can also be expensive as lots of dedicated hardware is required.</p>
+                <p>It can also be used by the lecturer to ask simple questions, for example, multiple choice. This is to allow the lecturer to survey the general understating of the current topic, allowing them to tailor their lecturer accordingly.
+                </p>
+                <p>The Application itself is designed to be as accessible and as user friendly as possible, following Google's Material Design guidelines through the use of the brilliant framework, MaterializeCSS.
+                </p>
                 <br>
             </div>
         </div>
-        <br>
     </div>
 </main>
 <footer class="page-footer green darken-1 ">
     <div class="footer-copyright">
         <div class="container">
             <div class="col s6 left">
-                <a class="white-text" href="/about.html">About</a>
+                <a class="white-text" href="../about.html">About</a>
             </div>
             <div class="col s6 right">
                 <a class="white-text">© Paul McGurk</a>
@@ -71,9 +59,5 @@
 </footer>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
-<script src="js/Model.js"></script>
-<script src="js/View.js"></script>
-<script src="js/Controller.js"></script>
 
 </html>
