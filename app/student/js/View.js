@@ -90,19 +90,23 @@ function View() {
 
     // uses handlebar templates to display list of results
     this.setClassSearchResult = function (data) {
-        var HTML = "No Classes";
-        if (data != {}) {
-            var source = $("#classesResultTemplate").html(),
-                template = Handlebars.compile(source);
-            HTML = "";
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].isvisible == 0) {
-                    data[i].greyed = true;
+        if (data != "") {
+            var HTML = "No Classes";
+            if (data != {}) {
+                var source = $("#classesResultTemplate").html(),
+                    template = Handlebars.compile(source);
+                HTML = "";
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].isvisible == 0) {
+                        data[i].greyed = true;
+                    }
+                    HTML = HTML + template(data[i]);
                 }
-                HTML = HTML + template(data[i]);
             }
+            $(".searchResult").html(HTML);
+        } else {
+            $(".searchResult").empty();
         }
-        $(".searchResult").html(HTML);
     };
 
     // uses handlebar templates to display current question

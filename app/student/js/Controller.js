@@ -24,7 +24,7 @@ function Controller() {
         $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
         $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
-        $(document).on("click", ".refreshClasses", model.getClasses);
+        $(document).on("click", ".update", this.update);
         $(document).on("click", '.pageChangerButton', view.switchView);
         $(document).on("click", ".joinClassButton", this.joinClassesDisplay);
         $(document).on("click", ".classResultJoinButton", $.proxy(this.joinClass, this));
@@ -58,10 +58,11 @@ function Controller() {
 
     this.searchClasses = function (event) {
         if ($(event.currentTarget).val().length > 0) {
-            $("#searchResultPreloader").show();
             var data = model.getClassSearchResult($(event.currentTarget).val());
             view.setClassSearchResult(JSON.parse(data));
-            $("#searchResultPreloader").hide();
+        } else {
+            model.setLastSearch("");
+            view.setClassSearchResult({});
         }
     };
 

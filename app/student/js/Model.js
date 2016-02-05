@@ -1,6 +1,7 @@
 function Model() {
     var user = {},
-        userQuestions = [];
+        userQuestions = [],
+        lastSearch = "";
 
     this.init = function () {
         //console.log("Model Init");
@@ -48,9 +49,20 @@ function Model() {
     // retrieves info about classes searched for with value
     // TODO search for class code, name, lecturer, etc.
     this.getClassSearchResult = function (data) {
-        return $.getValues("php/searchClasses.php", {
-            "value": data
-        });
+        if (data != this.getLastSearch()) {
+            this.setLastSearch(data);
+            return $.getValues("php/searchClasses.php", {
+                "value": data
+            });
+        }
+    };
+
+    this.getLastSearch = function () {
+        return lastSearch;
+    };
+
+    this.setLastSearch = function (data) {
+        lastSearch = data;
     };
 
     // simple log out function
