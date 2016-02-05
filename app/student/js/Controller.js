@@ -27,6 +27,8 @@ function Controller() {
         $(document).on("click touchstart", ".refreshClasses", model.getClasses);
         $(document).on("click touchstart", '.pageChangerButton', view.switchView);
         $(document).on("click touchstart", ".joinClassButton", this.joinClassesDisplay);
+        $(document).on("click touchstart", ".classResultJoinButton", $.proxy(this.joinClass, this));
+        $(document).on("click touchstart", ".classLeaveButton", $.proxy(this.leaveClass, this));
         $(document).on("keyup", "#search", $.proxy(this.searchClasses, this))
     };
 
@@ -36,6 +38,22 @@ function Controller() {
 
     this.joinClassesDisplay = function () {
         view.switchView('joinclass')
+    };
+
+    this.joinClass = function (event) {
+        var data = model.joinClass({
+            'cid': $(event.currentTarget).attr("value")
+        });
+        view.joinClass(data);
+        this.update();
+    };
+
+    this.leaveClass = function (event) {
+        var data = model.leaveClass({
+            'cid': $(event.currentTarget).attr("value")
+        });
+        view.leaveClass(data);
+        this.update();
     };
 
     this.searchClasses = function (event) {

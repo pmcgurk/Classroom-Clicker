@@ -6,6 +6,14 @@ function Model() {
         //console.log("Model Init");
     };
 
+    this.joinClass = function (data) {
+        return $.getValues("php/joinClass.php", data);
+    };
+
+    this.leaveClass = function (data) {
+        return $.getValues("php/leaveClass.php", data);
+    };
+
     // submits answers for question
     this.submitAnswer = function (data) {
         return $.getValues("php/submitAnswer.php", data);

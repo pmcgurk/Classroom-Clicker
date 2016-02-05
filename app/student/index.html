@@ -166,23 +166,25 @@
     <li class="collection-item grey" onclick="Materialize.toast('Class not Public', 2000)">
         <a class="white-text">
             <span class="logo">{{code}}: {{name}}</span>
-            <p>{{description}}
+            <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
+            <p class="white-text">{{description}}
                 <br> {{realname}}
             </p>
         </a>
         </div>
     </li>
-    {{else}}
+    <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a> 
+{{else}}
     <li class="collection-item purple classSelectionButton" value="{{cid}}">
         <a class="white-text classSelectionButton" value="{{cid}}">
             <span class="logo">{{code}}: {{name}}</span>
-            <p>{{description}}
+            <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
+            <p class="white-text">{{description}}
                 <br> {{realname}}
             </p>
         </a>
         </div>
-    </li>
-    {{/if}}
+    </li>{{/if}}
 </script>
 <script id="lecturesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
@@ -247,7 +249,8 @@
     <li class="collection-item purple classResultSelectionButton" value="{{cid}}">
         <a class="white-text" value="{{cid}}">
             <span class="logo">{{code}}: {{name}}</span>
-            <p>{{description}}
+            <a class="waves-light waves-effect green btn classResultJoinButton right" value="{{cid}}">Join</a>
+            <p class="white-text">{{description}}
                 <br> {{realname}}
             </p>
         </a>

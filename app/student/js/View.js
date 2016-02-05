@@ -14,6 +14,18 @@ function View() {
         $(".userTypeDisplay").text(data.isLecturer);
     };
 
+    // join class response display
+    this.joinClass = function (data) {
+        // shows a toast with the response
+        Materialize.toast(data, 1000);
+    };
+
+    // leave class response display
+    this.leaveClass = function (data) {
+        // shows a toast with the response
+        Materialize.toast(data, 1000);
+    };
+
     // submit answer response display
     this.submitAnswer = function (data) {
         // shows a toast with the response i.e. correct
