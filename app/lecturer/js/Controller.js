@@ -18,17 +18,18 @@ function Controller() {
 
     this.setButtons = function () {
         // this uses a proxy to get the scope right within the button
-        $(document).on("click touchstart", ".classSelectionButton", $.proxy(this.selectClass, this));
-        $(document).on("click touchstart", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
-        $(document).on("click touchstart", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
-        $(document).on("click touchstart", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
-        $(document).on("click touchstart", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
-        $(document).on("click touchstart", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
-        $(document).on("click touchstart", ".getResponsesButton", $.proxy(this.getResponses, this));
-        $(document).on("click touchstart", ".backButton", this.backbutton);
-        $(document).on("click touchstart", ".logoutButton", this.logout);
-        $(document).on("click touchstart", ".refreshClasses", model.getClasses);
-        $(document).on("click touchstart",'.pageChangerButton', view.switchView);
+        $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
+        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
+        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
+        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
+        $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
+        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
+        $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
+        $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
+        $(document).on("click", ".update", this.update);
+        $(document).on("click", ".backButton", this.backbutton);
+        $(document).on("click", ".logoutButton", this.logout);
+        $(document).on("click", '.pageChangerButton', view.switchView);
     };
 
     this.setUser = function () {
@@ -37,6 +38,12 @@ function Controller() {
 
     this.saveEditClass = function () {
         model.saveEditClass(view.getEditClassInfo());
+    };
+
+    this.editClass = function (event) {
+        var questions = model.getQuestions($(event.currentTarget).attr("value"));
+        view.setEditClass(JSON.parse(questions));
+        view.switchView('editClass');
     };
 
     this.selectClass = function (event) {

@@ -90,9 +90,22 @@ function View() {
                 "qnum": 1
             },
             HTML = template(data);
-        $("#questions").append(HTML);
+        $("#questionsEditList").append(HTML);
         $('select').material_select();
     };
+
+    this.setEditClass = function (data) {
+        var source = $("#questionEditTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]);
+            data[i].qnum = i + 1;
+            HTML = template(data[i]);
+            console.log(HTML);
+            $("#questionsEditList").append(HTML);
+        }
+    }
 
     // uses handlebar templates to display current question
     this.setQuestion = function (data) {
