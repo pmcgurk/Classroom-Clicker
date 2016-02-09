@@ -21,7 +21,7 @@ function Controller() {
         } else if (data == 0) {
             window.location = window.location + "student/";
         } else {
-            Materialize.toast("Error Logging In: " + response, 2000);
+            Materialize.toast("Error Logging In: " + data, 2000);
         }
     };
 
