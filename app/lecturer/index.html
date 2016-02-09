@@ -126,6 +126,9 @@
     </div>
     <div id="editClass" class="page" style="display: none;">
         <div class="white-text">
+            <div class="green">
+                <h4 class="container" id="questionsEditLectureTitle"></h4>
+            </div>
             <div id="questionsEditList">
 
             </div>
@@ -304,28 +307,36 @@
     <form class="questionForm green">
         <div class="container">
             <br>
-            <h4 class="logo">Question {{qnum}}</h4>
+            <h4 class="logo">Question {{qnum}}</h4> <a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
+            <br>
             <div class="switch">
+                {{#if checked}}
                 <label>
-                    hidden
+                    invisible
+                    <input name="switch" type="checkbox" checked>
+                    <span class="lever"></span> visible
+                </label>
+                {{else}}
+                <label>
+                    invisible
                     <input name="switch" type="checkbox">
                     <span class="lever"></span> visible
                 </label>
+                {{/if}}
             </div>
             <div class="row container">
                 <textarea name="text" id="textarea1" class="materialize-textarea">{{text}}</textarea>
                 <label for="textarea1">Question</label>
             </div>
             <h5>Answer Type</h5>
-            <div name="buttons">
-                {{buttontype}}
+            <div class="row container">
+                <textarea name="buttons" id="textarea2" class="materialize-textarea">{{buttontype}}</textarea>
+                <label for="textarea2">Button JSON</label>
+                <br>
+                <br>
             </div>
-            <br>
         </div>
     </form>
-    <br>
-    <div class="divider"></div>
-    <br>
 </script>
 
 </html>

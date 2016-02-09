@@ -86,10 +86,12 @@ function View() {
     this.addMoreEditQuestions = function () {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
-            data = {
-                "qnum": 1
-            },
-            HTML = template(data);
+            HTML = "";
+
+        var data = {
+            "qnum": $('.questionForm').length + 1
+        };
+        HTML = template(data);
         $("#questionsEditList").append(HTML);
         $('select').material_select();
     };
@@ -97,14 +99,17 @@ function View() {
     this.setEditClass = function (data) {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
-            HTML = "";
+            HTML = "",
+            lid = data[0].lid;
+        $('#questionsEditLectureTitle').text(lid);
+        $("#questionsEditList").html("");
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]);
             data[i].qnum = i + 1;
+            data[i].checked = (data[i].isvisible == 0);
             HTML = template(data[i]);
-            console.log(HTML);
             $("#questionsEditList").append(HTML);
         }
+        $('.questionEditSaveButton').attr("lid", lid);
     }
 
     // uses handlebar templates to display current question
@@ -181,15 +186,13 @@ function View() {
             questions = [];
         for (var i = 0; i < $('.questionForm').length; i++) {
             var question = {};
-            question.visible = $('.questionForm').find('input[name="switch"]')[i].checked;
+            question.invisible = $('.questionForm').find('input[name="switch"]')[i].checked;
             question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
-            question.buttons = $('.questionForm').find('div[name="buttons"]')[i].innerText;
+            question.buttons = $('.questionForm').find('textarea[name="buttons"]')[i].value;
             questions.push(question);
         }
         classEdited.questions = questions;
-        classEdited.cid = 1;
-        classEdited.visibile = 1;
-        classEdited.name = "Embedded Systems";
+        classEdited.lid = $('.questionEditSaveButton').attr("lid");
         return classEdited;
     }
 
