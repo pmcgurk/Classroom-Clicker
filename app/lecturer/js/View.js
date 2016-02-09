@@ -96,11 +96,11 @@ function View() {
         $('select').material_select();
     };
 
-    this.setEditClass = function (data) {
+    this.setEditLecture = function (data) {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
             HTML = "",
-            lid = data[0].lid;
+            lid = "LECTURE ID: " + data.lid;
         $('#questionsEditLectureTitle').text(lid);
         $("#questionsEditList").html("");
         for (var i = 0; i < data.length; i++) {
@@ -180,9 +180,9 @@ function View() {
 
     //** GUI info getters **/
     // takes the data from the edit class divs and constructs a JSON
-    this.getEditClassInfo = function () {
+    this.getEditLectureInfo = function () {
         //TODO get class visibility, name etc changes.
-        var classEdited = {},
+        var lectureEdited = {},
             questions = [];
         for (var i = 0; i < $('.questionForm').length; i++) {
             var question = {};
@@ -191,9 +191,14 @@ function View() {
             question.buttons = $('.questionForm').find('textarea[name="buttons"]')[i].value;
             questions.push(question);
         }
-        classEdited.questions = questions;
-        classEdited.lid = $('.questionEditSaveButton').attr("lid");
-        return classEdited;
+        lectureEdited.questions = questions;
+        lectureEdited.lid = $('.questionEditSaveButton').attr("lid");
+        return lectureEdited;
+    }
+
+    // takes the data from the edit class divs and constructs a JSON
+    this.getEditClassInfo = function () {
+        return "WIP";
     }
 
     // uses handlebar templates to contruct answer buttons from JSON

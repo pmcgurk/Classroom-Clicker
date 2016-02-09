@@ -26,19 +26,6 @@
                 </a>
                 <a class="left show-on-large backButton"><i class="material-icons right">keyboard_arrow_left</i></a>
                 <a class="right show-on-large logoutButton"><i class="material-icons left">power_settings_new</i></a>
-                <ul class="side-nav" id="mobile">
-                    <li><a class="pageChangerButton header logo" value="home">Clicker</a>
-                    </li>
-                    <li><a class="pageChangerButton header" value="editClass">Lecturer Edit Class</a>
-                    </li>
-                    <li><a class="logoutButton">Logout</a>
-                    </li>
-                    <div class="divider"></div>
-                    <li><a class="pageChangerButton header" value="aboutPage">About</a>
-                    </li>
-                    <li><a class="header" href="../student/index.html">Student App</a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </div>
@@ -127,8 +114,20 @@
     <div id="editClass" class="page" style="display: none;">
         <div class="white-text">
             <div class="green">
-                <h4 class="container" id="questionsEditLectureTitle"></h4>
+                <div class="container">
+                    Similar to edit lecture, but for the class info.
+                </div>
             </div>
+        </div>
+    </div>
+    <div id="editLecture" class="page" style="display: none;">
+        <div class="white-text">
+            <div class="green">
+                <br>
+                <h4 class="container" id="questionsEditLectureTitle"></h4>
+                <br>
+            </div>
+            <br>
             <div id="questionsEditList">
 
             </div>
@@ -182,7 +181,7 @@
     <li class="collection-item grey">
         <div class="row">
             <div class="col s12">
-                <span class="logo">{{code}}: {{name}}</span>
+                <span class="logo white-text">{{code}}: {{name}}</span>
             </div>
             <div class="col s12">
                 <p class="white-text">{{description}}
@@ -220,21 +219,39 @@
 </script>
 <script id="lecturesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
-    <li class="collection-item grey" onclick="Materialize.toast('Lecture Not Public', 2000)">
-        <a class="white-text">
-            <span class="title">{{date}}: {{title}}</span>
-            <p>{{description}}
-            </p>
-        </a>
+    <li class="collection-item grey">
+        <div class="row">
+            <div class="col s12">
+                <span class="logo white-text">{{date}}: {{title}}</span>
+            </div>
+            <div class="col s12">
+                <p class="white-text">{{description}}
+                </p>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
+            </div>
         </div>
     </li>
     {{else}}
-    <li class="collection-item lectureSelectionButton purple" value="{{lid}}">
-        <a class="white-text">
-            <span class="title">{{date}}: {{title}}</span>
-            <p>{{description}}
-            </p>
-        </a>
+    <li class="collection-item purple">
+        <div class="row">
+            <div class="col s12">
+                <span class="logo white-text">{{date}}: {{title}}</span>
+            </div>
+            <div class="col s12">
+                <p class="white-text">{{description}}
+                </p>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
+            </div>
+            <div class="col s6">
+                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
+            </div>
         </div>
     </li>
     {{/if}}
@@ -337,6 +354,7 @@
             </div>
         </div>
     </form>
+    <br>
 </script>
 
 </html>

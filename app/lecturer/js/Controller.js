@@ -26,6 +26,7 @@ function Controller() {
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
         $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
+        $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
         $(document).on("click", ".update", this.update);
         $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
@@ -41,9 +42,15 @@ function Controller() {
     };
 
     this.editClass = function (event) {
-        var questions = model.getQuestions($(event.currentTarget).attr("value"));
-        view.setEditClass(JSON.parse(questions));
         view.switchView('editClass');
+    };
+
+    this.editLecture = function (event) {
+        var questions = JSON.parse(model.getQuestions($(event.currentTarget).attr("lid")));
+        questions.lid = $(event.currentTarget).attr("lid");
+        view.setEditLecture(questions);
+        console.log(questions);
+        view.switchView('editLecture');
     };
 
     this.selectClass = function (event) {
