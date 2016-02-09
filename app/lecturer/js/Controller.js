@@ -21,9 +21,8 @@ function Controller() {
         $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
         $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
-        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
-        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditClass, this));
+        $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditLecture, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
         $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
@@ -39,6 +38,10 @@ function Controller() {
 
     this.saveEditClass = function () {
         model.saveEditClass(view.getEditClassInfo());
+    };
+
+    this.saveEditLecture = function () {
+        model.saveEditLecture(view.getEditLectureInfo());
     };
 
     this.editClass = function (event) {

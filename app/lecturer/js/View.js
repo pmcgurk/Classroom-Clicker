@@ -100,7 +100,7 @@ function View() {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
             HTML = "",
-            lid = "LECTURE ID: " + data.lid;
+            lid = data.lid;
         $('#questionsEditLectureTitle').text(lid);
         $("#questionsEditList").html("");
         for (var i = 0; i < data.length; i++) {
@@ -189,6 +189,7 @@ function View() {
             question.invisible = $('.questionForm').find('input[name="switch"]')[i].checked;
             question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
             question.buttons = $('.questionForm').find('textarea[name="buttons"]')[i].value;
+            question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
             questions.push(question);
         }
         lectureEdited.questions = questions;

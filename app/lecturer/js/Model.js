@@ -12,6 +12,16 @@ function Model() {
         console.log(data);
     };
 
+    // compiles the edit classes interfaces JSON and sends to database
+    this.saveEditLecture = function (data) {
+        console.log("Editing Lecture: " + data.lid);
+        for (var i = 0; i < data.questions.length; i++) {
+            console.log(data.questions[i]);
+            var response = $.getValues("php/editQuestion.php", {});
+            console.log(response);
+        }
+    };
+
     // submits answers for question, not used in lecturer
     // TODO: remove
     this.submitAnswer = function (data) {

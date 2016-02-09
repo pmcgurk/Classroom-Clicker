@@ -324,7 +324,7 @@
     <form class="questionForm green">
         <div class="container">
             <br>
-            <h4 class="logo">Question {{qnum}}</h4> <a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
+            <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
             <br>
             <div class="switch">
                 {{#if checked}}
@@ -352,6 +352,7 @@
                 <br>
                 <br>
             </div>
+            <textarea name="qid" class="materialize-textarea" style="display: none;">{{qid}}</textarea>
         </div>
     </form>
     <br>
