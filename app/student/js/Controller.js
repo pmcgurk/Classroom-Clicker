@@ -13,7 +13,7 @@ function Controller() {
 
     this.pagesetup = function () {
         $('select').material_select();
-        view.switchView('joinclass');
+        view.switchView('home');
     };
 
     this.setButtons = function () {
