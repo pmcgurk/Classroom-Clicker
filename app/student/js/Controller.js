@@ -20,11 +20,14 @@ function Controller() {
         // this uses a proxy to get the scope right within the button
         $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
-        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestion, this));
+        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestionEvent, this));
+        $(document).on("click", ".nextQuestionButton", $.proxy(this.nextQuestion, this));
+        $(document).on("click", ".previousQuestionButton", $.proxy(this.previousQuestion, this));
         $(document).on("click", ".submitAnswerButton", $.proxy(this.submitAnswer, this));
         $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
         $(document).on("click", ".update", this.update);
+        $(document).on("click", ".updateQuestions", this.updateQuestions);
         $(document).on("click", '.pageChangerButton', view.switchView);
         $(document).on("click", ".joinClassButton", this.joinClassesDisplay);
         $(document).on("click", ".classResultJoinButton", $.proxy(this.joinClass, this));
@@ -35,6 +38,24 @@ function Controller() {
     this.setUser = function () {
         view.setUser(model.getUser());
     };
+
+    this.updateQuestions = function () {
+        var questions = model.getQuestions(model.getCurLecture());
+        view.setQuestions(JSON.parse(questions));
+    };
+
+    this.nextQuestion = function () {
+        this.updateQuestions();
+        model.getQuestions(model.getCurLecture());
+        this.selectQuestion(model.getNextQuestion());
+    };
+
+    this.previousQuestion = function () {
+        this.updateQuestions();
+        model.getQuestions(model.getCurLecture());
+        this.selectQuestion(model.getPreviousQuestion());
+    };
+
 
     this.joinClassesDisplay = function () {
         view.switchView('joinclass')
@@ -90,8 +111,12 @@ function Controller() {
         view.switchView('questions');
     };
 
-    this.selectQuestion = function (event) {
-        var question = model.getQuestion($(event.currentTarget).attr("value"));
+    this.selectQuestionEvent = function (event) {
+        this.selectQuestion($(event.currentTarget).attr("value"));
+    };
+
+    this.selectQuestion = function (data) {
+        var question = model.getQuestion(data);
         view.setQuestion(JSON.parse(question));
         view.switchView('question');
     };

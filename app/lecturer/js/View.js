@@ -78,8 +78,6 @@ function View() {
         }
         $(".responseQuestionSelect").html(selectHTML);
         $(".questionList").html(HTML);
-        console.log(data);
-
     };
 
     // uses handlebar templates to display new question form

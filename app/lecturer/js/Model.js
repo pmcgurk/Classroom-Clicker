@@ -1,6 +1,8 @@
 function Model() {
     var user = {},
-        userQuestions = [];
+        userQuestions = [],
+        curQuestion,
+        curLecture;
 
     this.init = function () {
         //console.log("Model Init");
@@ -42,6 +44,7 @@ function Model() {
 
     // retrieves questions for lecture lid from database
     this.getQuestions = function (lid) {
+        curLecture = lid;
         userQuestions = $.getValues("php/getQuestions.php", {
             "lid": lid
         });
@@ -61,6 +64,10 @@ function Model() {
         });
     };
 
+    this.getCurLecture = function () {
+        return curLecture;
+    };
+
     // simple log out function
     this.logout = function () {
         // setting the php session ID to null
@@ -69,9 +76,38 @@ function Model() {
         window.location.href = '..';
     };
 
+    this.getNextQuestion = function () {
+        var uQ = JSON.parse(userQuestions);
+        for (var i = 0; i < uQ.length; i++) {
+            if (uQ[i].qid == curQuestion) {
+                for (var e = i + 1; e < uQ.length; e++) {
+                    if (uQ[e].isvisible == 1) {
+                        //console.log("Next Question: " + uQ[e].qid);
+                        return uQ[e].qid;
+                    }
+                }
+            }
+        }
+    };
+
+    this.getPreviousQuestion = function () {
+        var uQ = JSON.parse(userQuestions);
+        for (var i = 0; i < uQ.length; i++) {
+            if (uQ[i].qid == curQuestion) {
+                for (var e = i - 1; e >= 0; e--) {
+                    if (uQ[e].isvisible == 1) {
+                        //console.log("Previous Question: " + uQ[e].qid);
+                        return uQ[e].qid;
+                    }
+                }
+            }
+        }
+    };
+
     // takes a qid and returns information about the question in a presentable manner
     // TODO test for visibility issues with using trys.
     this.getQuestion = function (qid) {
+        curQuestion = qid;
         // parses var containing questions of last lecture clicked on.
         var q = JSON.parse(userQuestions);
         for (var i = 0; i < q.length; i++) {

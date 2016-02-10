@@ -85,7 +85,7 @@
             <div class="green">
                 <div class="container white-text">
                     <br>
-                    <h5>Questions</h5>
+                    <h5>Questions<a class="updateQuestions btn-floating purple right"><i class="material-icons left">update</i></a></h5>
                     <br>
                 </div>
                 <ul class="collection questionList">
@@ -223,13 +223,13 @@
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
     <div id="questionHeader" class="col s12 white-text green valign-wrapper">
-        <div class="{{#if qnump}}questionSelectionButton{{/if}} col s2 valign" value="{{qnump}}">
+        <div class="{{#if qnump}}previousQuestionButton{{/if}} col s2 valign">
             <h6>{{#if qnump}}Previous{{/if}}</h6>
         </div>
         <div class="col s8">
             <h4 id="questionNumber" class="center-align">Question {{qnum}}</h4>
         </div>
-        <div class="{{#if qnumn}}questionSelectionButton{{/if}} col s2 right-align valign" value="{{qnumn}}">
+        <div class="{{#if qnumn}}nextQuestionButton{{/if}} col s2 right-align valign">
             <h6>{{#if qnumn}}Next{{/if}}</h6>
         </div>
     </div>
