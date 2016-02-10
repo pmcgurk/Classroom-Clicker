@@ -1,7 +1,11 @@
 function Controller() {
     this.init = function () {
         $(document).on("click", "#loginButton", $.proxy(this.login, this));
-        this.goToApp(JSON.parse($.getValues("php/checksession.php", {})).isLecturer);
+        try {
+            this.goToApp(JSON.parse($.getValues("php/checksession.php", {})).isLecturer);
+        } catch (err) {
+            $('#loginscreen').show();
+        }
     };
 
     this.login = function () {
