@@ -56,7 +56,7 @@
         </div>
         <div id="lectures" class="page" style="display: none;">
             <div class="green">
-                <div class="container  white-text">
+                <div class="container white-text">
                     <br>
                     <h5 class="className">Class Name</h5>
                     <br>
@@ -222,14 +222,16 @@
     {{/if}}
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
-    <div id="questionHeader" class="col s12 white-text green">
-        <div class="questionSelectionButton col s4" value="{{qnump}}">
-            <h6>{{#if qnump}}Previous{{/if}}</h6> </div>
-        <div class="col s4">
-            <h6 id="questionNumber" class="center-align flow-text valign">Question {{qnum}}</h6>
+    <div id="questionHeader" class="col s12 white-text green valign-wrapper">
+        <div class="{{#if qnump}}questionSelectionButton{{/if}} col s2 valign" value="{{qnump}}">
+            <h6>{{#if qnump}}Previous{{/if}}</h6>
         </div>
-        <div class="questionSelectionButton col s4 right-align valign" value="{{qnumn}}">
-            <h6>{{#if qnumn}}Next{{/if}}</h6> </div>
+        <div class="col s8">
+            <h4 id="questionNumber" class="center-align">Question {{qnum}}</h4>
+        </div>
+        <div class="{{#if qnumn}}questionSelectionButton{{/if}} col s2 right-align valign" value="{{qnumn}}">
+            <h6>{{#if qnumn}}Next{{/if}}</h6>
+        </div>
     </div>
     <div id="currentQuestion" class="center col s12">
         <div class="questionDiv card green white-text col s12 ">

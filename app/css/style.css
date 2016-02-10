@@ -125,12 +125,3 @@
   #a {
       cursor: pointer;
   }
-  
-  .valign-wrapper {
-      height: 80vh;
-  }
-  
-  .valign {
-      margin-left: auto;
-      margin-right: auto;
-  }
