@@ -1,5 +1,5 @@
 <?php
-include("../php/connect.php");
+include("connect.php");
 session_start();    
 $uid = $_SESSION['id'];
 $result = mysql_query("SELECT * FROM (classes) INNER JOIN (owned) ON (classes.cid = owned.cid) WHERE owned.uid = {$uid}");

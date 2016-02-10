@@ -1,5 +1,5 @@
 <?php
-include("../php/connect.php");
+include("connect.php");
 session_start();
 $uid = $_SESSION['id'];
 $count = mysql_fetch_array(mysql_query("SELECT 1 FROM (`clicker`.`enrolled`) WHERE enrolled.cid = '$_GET[cid]' AND enrolled.uid = '$uid'"));

@@ -1,11 +1,9 @@
 <?php
-
-include("../php/connect.php");
-$value = $_GET['value'];
+include("connect.php");
 session_start();
-$uid    = $_SESSION['id'];
+$uid = $_SESSION['id'];
+$value = $_GET['value'];
 $result = mysql_query("SELECT classes.cid, classes.name, classes.code, classes.description, classes.isvisible, owned.uid, users.realname FROM (classes) INNER JOIN (owned) ON (classes.cid = owned.cid) INNER JOIN (users) ON (owned.uid = users.uid) WHERE classes.code LIKE '%$value%'");
-
 $rows = array();
 while ($r = mysql_fetch_assoc($result)) {
     $cid   = $r['cid'];
@@ -14,7 +12,5 @@ while ($r = mysql_fetch_assoc($result)) {
         $rows[] = $r;
     }
 }
-
 print json_encode($rows);
-
 ?>

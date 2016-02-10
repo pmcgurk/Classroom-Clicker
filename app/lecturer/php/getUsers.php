@@ -1,6 +1,5 @@
 <?php
-
-include("../php/connect.php");
+include("connect.php");
 $result = mysql_query("SELECT * FROM users") or die(mysql_error());
 echo "<users>";
 while ($row = mysql_fetch_array($result)) {
@@ -13,5 +12,4 @@ while ($row = mysql_fetch_array($result)) {
     echo "</user>";
 }
 echo "</users>";
-
 ?>
