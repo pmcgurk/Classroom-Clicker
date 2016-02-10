@@ -32,7 +32,7 @@
     <div id="home" class="container">
         <div class="white-text valign-wrapper" style="height: 80vh;">
             <div id="loginscreen" class="green card valign" style="margin-left: auto; margin-right: auto; display: none;">
-                <form id="loginForm" class="col s12 container">
+                <form id="loginForm" class="col s12 container" method="post">
                     <br>
                     <div class="row">
                         <div class="input-field col s12">
@@ -44,11 +44,12 @@
                             <label for="password">password</label>
                         </div>
                     </div>
+                    <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" class="loginButton">
                 </form>
                 Please log in or register to continue.
                 <br>
                 <br>
-                <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
+                <a class="waves-effect waves-light btn purple loginButton">Login</a>
                 <a id="registerButton" class="waves-effect waves-light btn purple">Register</a>
                 <br>
                 <br>
