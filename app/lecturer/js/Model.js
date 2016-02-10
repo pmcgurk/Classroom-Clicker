@@ -17,7 +17,7 @@ function Model() {
         console.log("Editing Lecture: " + data.lid);
         for (var i = 0; i < data.questions.length; i++) {
             console.log(data.questions[i]);
-            var response = $.getValues("php/editQuestion.php", {});
+            var response = $.getValues("php/editQuestion.php", data.questions[i]);
             console.log(response);
         }
     };
