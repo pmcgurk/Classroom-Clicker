@@ -42,6 +42,9 @@ function Controller() {
 
     this.saveEditLecture = function () {
         model.saveEditLecture(view.getEditLectureInfo());
+        Materialize.toast("Lecture Edited.", 2000);
+        this.update();
+        view.switchView('home');
     };
 
     this.editClass = function (event) {
@@ -63,7 +66,7 @@ function Controller() {
     };
 
     this.selectLecture = function (event) {
-        var questions = model.getQuestions($(event.currentTarget).attr("value"));
+        var questions = model.getQuestions($(event.currentTarget).attr("lid"));
         view.setQuestions(JSON.parse(questions));
         view.switchView('questions');
     };
