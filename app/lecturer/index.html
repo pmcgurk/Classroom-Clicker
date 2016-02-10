@@ -134,13 +134,13 @@
                 </div>
                 <div class="center-align">
                     <br>
-                    <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
+                    <a id="addMoreQuestionsButton" class="waves-effect waves-purple btn purple">Add More Questions</a>
                     <br>
                     <br>
                 </div>
                 <div class="center-align">
                     <br>
-                    <a class="waves-effect waves-light btn purple questionEditSaveButton">Save</a>
+                    <a class="waves-effect waves-purple btn purple questionEditSaveButton">Save</a>
                     <br>
                     <br>
                 </div>
@@ -176,7 +176,7 @@
 <script src="js/View.js"></script>
 <script src="js/Controller.js"></script>
 <script id="buttonTemplate" type="text/x-handlebars-template">
-    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
+    <a class='waves-effect waves-purple btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
 </script>
 <script id="classesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
@@ -191,10 +191,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
+                <a class="waves-purple waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
+                <a class="waves-purple waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -210,10 +210,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect green btn classSelectionButton" value="{{cid}}">Open</a>
+                <a class="waves-purple waves-effect green btn classSelectionButton" value="{{cid}}">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
+                <a class="waves-purple waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -231,10 +231,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
+                <a class="waves-purple waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
+                <a class="waves-purple waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -249,10 +249,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
+                <a class="waves-purple waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
+                <a class="waves-purple waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -269,10 +269,10 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Open</a>
+                    <a class="waves-effect waves-purple btn green editQuestionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green getResponsesButton" value="{{qid}}">Responses</a>
+                    <a class="waves-effect waves-purple btn green getResponsesButton" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -289,10 +289,10 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green questionSelectionButton" value="{{qid}}">Open</a>
+                    <a class="waves-effect waves-purple btn green questionSelectionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green getResponsesButton" value="{{qid}}">Responses</a>
+                    <a class="waves-effect waves-purple btn green getResponsesButton" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -328,7 +328,7 @@
     <form class="questionForm green">
         <div class="container">
             <br>
-            <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
+            <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-purple btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
             <br>
             <div class="switch">
                 {{#if checked}}
