@@ -31,125 +31,128 @@
     </div>
 </header>
 <main class="green lighten-5">
-    <div id="home" class="page" style="display: none;">
-        <div class="green">
-            <div class="container white-text">
-                <br>
-                <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
-                <br>
-            </div>
-        </div>
-        <br>
-        <div class="green">
-            <div class="container white-text">
-                <br>
-                <h5>Owned Classes<a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
-                <br>
-            </div>
-            <ul class="collection classes"></ul>
-            <br>
-        </div>
-    </div>
-    <div id="lectures" class="page" style="display: none;">
-        <div class="green">
-            <div class="container white-text col s12">
-                <br>
-                <h6 class="className">Class Name</h6>
-                <br>
-            </div>
-        </div>
-        <br>
-        <div class="green">
-            <div class="container white-text">
-                <br>
-                <h5>Lectures</h5>
-                <br>
-            </div>
-            <ul class="collection lecturesList"></ul>
-            <br>
-        </div>
-        <br>
-        <div class="center">
-            <a class="btn purple center">Edit Class</a>
-        </div>
-    </div>
-    <div id="questions" class="page" style="display: none;">
-        <div class="green">
-            <div class="container white-text">
-                <br>
-                <h5 class="lectureTitle">Lecture Title</h5>
-                <br>
-            </div>
-        </div>
-        <br>
-        <div class="green">
-            <div class="container white-text">
-                <br>
-                <h5>Questions</h5>
-                <br>
-            </div>
-            <ul class="collection questionList">
-            </ul>
-            <br>
-        </div>
-        <br>
-        <div class="center">
-            <a class="btn purple center">Add Question</a>
-        </div>
-        <br>
-    </div>
-    <div id="question" class="page" style="display: none;">
-    </div>
-    <div id="responses" class="page" style="display: none;">
-        <div class="center-align">
-            <h5 class="responsesDisplayHeader"></h5>
-            <div class="canvasWrapper">
-                <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
-            </div>
-            <div class="responsesDisplay"></div>
-            <div class="responseQuestionSelect"></div>
-        </div>
-
-    </div>
-    <div id="editClass" class="page" style="display: none;">
-        <div class="white-text">
+    <div class="row">
+        <div id="home" class="page" style="display: none;">
             <div class="green">
-                <div class="container">
-                    Similar to edit lecture, but for the class info.
+                <div class="container white-text">
+                    <br>
+                    <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Owned Classes<a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                    <br>
+                </div>
+                <ul class="collection classes"></ul>
+                <br>
+            </div>
+        </div>
+        <div id="lectures" class="page" style="display: none;">
+            <div class="green">
+                <div class="container white-text col s12">
+                    <br>
+                    <h6 class="className">Class Name</h6>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Lectures</h5>
+                    <br>
+                </div>
+                <ul class="collection lecturesList"></ul>
+                <br>
+            </div>
+            <br>
+            <div class="center">
+                <a class="btn purple center">Edit Class</a>
+            </div>
+        </div>
+        <div id="questions" class="page" style="display: none;">
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5 class="lectureTitle">Lecture Title</h5>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="green">
+                <div class="container white-text">
+                    <br>
+                    <h5>Questions</h5>
+                    <br>
+                </div>
+                <ul class="collection questionList">
+                </ul>
+                <br>
+            </div>
+            <br>
+            <div class="center">
+                <a class="btn purple center">Add Question</a>
+            </div>
+            <br>
+        </div>
+        <div id="question" class="page" style="display: none;">
+            <p>You Shouldn't be seeing this.</p>
+        </div>
+        <div id="responses" class="page" style="display: none;">
+            <div class="center-align">
+                <h5 class="responsesDisplayHeader"></h5>
+                <div class="canvasWrapper">
+                    <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
+                </div>
+                <div class="responsesDisplay"></div>
+                <div class="responseQuestionSelect"></div>
+            </div>
+
+        </div>
+        <div id="editClass" class="page" style="display: none;">
+            <div class="white-text">
+                <div class="green">
+                    <div class="container">
+                        Similar to edit lecture, but for the class info.
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="editLecture" class="page" style="display: none;">
-        <div class="white-text">
-            <div class="green">
+        <div id="editLecture" class="page" style="display: none;">
+            <div class="white-text">
+                <div class="green">
+                    <br>
+                    <h4 class="container" id="questionsEditLectureTitle"></h4>
+                    <br>
+                </div>
                 <br>
-                <h4 class="container" id="questionsEditLectureTitle"></h4>
-                <br>
-            </div>
-            <br>
-            <div id="questionsEditList">
+                <div id="questionsEditList">
 
-            </div>
-            <div class="center-align">
-                <br>
-                <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
-                <br>
-                <br>
-            </div>
-            <div class="center-align">
-                <br>
-                <a class="waves-effect waves-light btn purple questionEditSaveButton">Save</a>
-                <br>
-                <br>
+                </div>
+                <div class="center-align">
+                    <br>
+                    <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="center-align">
+                    <br>
+                    <a class="waves-effect waves-light btn purple questionEditSaveButton">Save</a>
+                    <br>
+                    <br>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="questions" class="page" style="display: none;">
-        <div class="green white-text">
-            <div class="container">
-                <br>
-                <h5>Lecturer Questions page</h5>
+        <div id="questions" class="page" style="display: none;">
+            <div class="green white-text">
+                <div class="container">
+                    <br>
+                    <h5>Lecturer Questions page</h5>
+                </div>
             </div>
         </div>
     </div>
@@ -267,7 +270,7 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Edit</a>
+                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
                     <a class="waves-effect waves-light btn green getResponsesButton" value="{{qid}}">Responses</a>
@@ -287,7 +290,7 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Edit</a>
+                    <a class="waves-effect waves-light btn green questionSelectionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
                     <a class="waves-effect waves-light btn green getResponsesButton" value="{{qid}}">Responses</a>
@@ -300,8 +303,8 @@
     {{/if}}
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
-    <div id="questionHeader" class="col s12 white-text green valign-wrapper">
-        <div class="questionSelectionButton col s4 valign" value="{{qnump}}">
+    <div id="questionHeader" class="col s12 white-text green">
+        <div class="questionSelectionButton col s4" value="{{qnump}}">
             <h6>{{#if qnump}}Previous{{/if}}</h6> </div>
         <div class="col s4">
             <h6 id="questionNumber" class="center-align flow-text valign">Question {{qnum}}</h6>
@@ -315,7 +318,7 @@
                 <h5 id="questionText" class="flow-text">{{text}}</h5>
             </div>
         </div>
-        <div class="center col s12">
+        <div class="buttonDiv center col s12">
             {{{buttonHTML}}}
         </div>
     </div>
