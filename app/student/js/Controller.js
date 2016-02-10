@@ -13,7 +13,7 @@ function Controller() {
 
     this.pagesetup = function () {
         $('select').material_select();
-        view.switchView('home');
+        view.switchView('joinclass');
     };
 
     this.setButtons = function () {
@@ -32,7 +32,8 @@ function Controller() {
         $(document).on("click", ".joinClassButton", this.joinClassesDisplay);
         $(document).on("click", ".classResultJoinButton", $.proxy(this.joinClass, this));
         $(document).on("click", ".classLeaveButton", $.proxy(this.leaveClass, this));
-        $(document).on("keyup", "#search", $.proxy(this.searchClasses, this))
+        $(document).on("keyup", "#search", $.proxy(this.searchClassesEvent, this))
+        $(document).on("change", "input[type=radio][name=group1]", $.proxy(this.changedSearch, this));
     };
 
     this.setUser = function () {
@@ -77,9 +78,19 @@ function Controller() {
         this.update();
     };
 
-    this.searchClasses = function (event) {
-        if ($(event.currentTarget).val().length > 0) {
-            var data = model.getClassSearchResult($(event.currentTarget).val());
+    this.changedSearch = function (event) {
+        model.setSearchType($(event.currentTarget).val());
+        model.setLastSearch("");
+        this.searchClasses($('#search').val());
+    };
+
+    this.searchClassesEvent = function (event) {
+        this.searchClasses($(event.currentTarget).val());
+    };
+
+    this.searchClasses = function (input) {
+        if (input.length > 0) {
+            var data = model.getClassSearchResult(input);
             view.setClassSearchResult(JSON.parse(data));
         } else {
             model.setLastSearch("");

@@ -103,19 +103,39 @@
             <div class="green white-text">
                 <div class="container">
                     <br>
-                    <h5>Search for a Class</h5>
+                    <h6>Search for a Class</h6>
                     <br>
                 </div>
-            </div>
-            <div class="container">
-                <form>
-                    <div class="input-field">
-                        <input id="search" autocomplete="off">
-                        <div id="searchResultPreloader" class="progress" style="display: none;">
-                            <div class="indeterminate"></div>
+
+                <div class="container">
+
+                    <form>
+                        <div class="input-field">
+                            <input id="search" autocomplete="off">
+                            <div id="searchResultPreloader" class="progress" style="display: none;">
+                                <div class="indeterminate"></div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <br>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="col s4">
+                                    <input name="group1" type="radio" id="search1" class="with-gap" checked="" value="code" />
+                                    <label for="search1" class="white-text">Code</label>
+                                </div>
+                                <div class="col s4">
+                                    <input name="group1" type="radio" id="search2" class="with-gap" value="name" />
+                                    <label for="search2" class="white-text">Name</label>
+                                </div>
+                                <div class="col s4">
+                                    <input name="group1" type="radio" id="search3" class="with-gap" value="lecturer" />
+                                    <label for="search3" class="white-text">Lecturer</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br>
             </div>
             <ul class="collection searchResult"></ul>
         </div>

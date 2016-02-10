@@ -3,6 +3,7 @@ function Model() {
         userQuestions = [],
         curQuestion,
         curLecture,
+        searchType = "",
         lastSearch = "";
 
     this.init = function () {
@@ -53,14 +54,34 @@ function Model() {
         return JSON.parse(user);
     };
 
+    this.setSearchType = function (data) {
+        searchType = data;
+    }
+
+    this.getSearchType = function () {
+        return searchType;
+    }
+
     // retrieves info about classes searched for with value
     // TODO search for class code, name, lecturer, etc.
     this.getClassSearchResult = function (data) {
         if (data != this.getLastSearch()) {
             this.setLastSearch(data);
-            return $.getValues("php/searchClasses.php", {
-                "value": data
-            });
+            console.log(this.getSearchType());
+            var searchData = {};
+            switch (this.getSearchType()) {
+            case "name":
+                searchData.name = data;
+                break;
+            case "lecturer":
+                searchData.lecturer = data;
+                break;
+            default:
+                searchData.code = data;
+                break;
+            }
+            console.log(searchData);
+            return $.getValues("php/searchClasses.php", searchData);
         }
     };
 
@@ -71,7 +92,7 @@ function Model() {
     this.setLastSearch = function (data) {
         lastSearch = data;
     };
-    
+
     this.getCurLecture = function () {
         return curLecture;
     };
