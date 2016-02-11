@@ -18,6 +18,7 @@ function Model() {
     this.saveEditLecture = function (data) {
         console.log("Editing Lecture: " + data.lid);
         for (var i = 0; i < data.questions.length; i++) {
+            data.questions[i].lid = data.lid;
             console.log(data.questions[i]);
             var response = $.getValues("php/editQuestion.php", data.questions[i]);
             console.log(response);
