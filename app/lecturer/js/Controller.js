@@ -24,10 +24,12 @@ function Controller() {
         $(document).on("click", ".nextQuestionButton", $.proxy(this.nextQuestion, this));
         $(document).on("click", ".previousQuestionButton", $.proxy(this.previousQuestion, this));
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
+        $(document).on("click", ".addMoreButtonsButton", $.proxy(this.addMoreEditButtons, this));
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditLecture, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
         $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
+        $(document).on("click", ".createButtonJSON", $.proxy(this.createButtonJSON, this));
         $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
         $(document).on("click", ".update", this.update);
         $(document).on("click", ".updateQuestions", this.updateQuestions);
@@ -39,6 +41,14 @@ function Controller() {
     this.setUser = function () {
         view.setUser(model.getUser());
     };
+
+    this.addMoreEditButtons = function (event) {
+        view.addMoreEditButtons($(event.currentTarget).attr("qnum"));
+    };
+
+    this.createButtonJSON = function (event) {
+        model.createButtonJSON($(event.currentTarget).attr("qnum"));
+    }
 
     this.removeQuestion = function (event) {
         console.log("Remove");

@@ -25,6 +25,21 @@ function Model() {
         }
     };
 
+    this.createButtonJSON = function (qnum) {
+        console.log(qnum);
+        var buttons = [];
+        for (var i = 0; i < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; i++) {
+            var button = {
+                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[i].value,
+                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[i].value,
+                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[i].value
+            }
+            console.log(button);
+            buttons.push(button);
+        }
+        console.log(buttons);
+    };
+
     // submits answers for question, not used in lecturer
     // TODO: remove
     this.submitAnswer = function (data) {

@@ -80,6 +80,19 @@ function View() {
         $(".questionList").html(HTML);
     };
 
+    // uses handlebar templates to display new button form
+    this.addMoreEditButtons = function (data) {
+        var source = $("#buttonCreationTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        HTML = template({
+            "qnum": data
+        });
+        $('div[qnum="' + data + '"]').append(HTML);
+        console.log($('.createButtonJSONForm[qnum="' + data + '"]').length);
+        $('select').material_select();
+    };
+
     // uses handlebar templates to display new question form
     this.addMoreEditQuestions = function () {
         var source = $("#questionEditTemplate").html(),
