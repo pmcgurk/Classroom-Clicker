@@ -89,8 +89,15 @@ function View() {
             "qnum": data
         });
         $('div[qnum="' + data + '"]').append(HTML);
-        console.log($('.createButtonJSONForm[qnum="' + data + '"]').length);
         $('select').material_select();
+    };
+
+    // uses handlebar templates to display new button form
+    this.addMoreEditButtonsInit = function (data) {
+        var source = $("#buttonCreationTemplateInit").html(),
+            template = Handlebars.compile(source);
+        console.log(data);
+        return template(data);
     };
 
     // uses handlebar templates to display new question form
@@ -117,8 +124,18 @@ function View() {
         for (var i = 0; i < data.length; i++) {
             data[i].qnum = i + 1;
             data[i].checked = (data[i].isvisible == 0);
+            var buttons = JSON.parse(data[i].buttontype),
+                buttonsHTML = "";
+            for (var e = 0; e < buttons.length; e++) {
+                buttons[e].qnum = data[i].qnum;
+                buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
+                console.log(buttonsHTML);
+            }
+            // console.log(buttonsHTML);
+            data[i].buttonsHTML = buttonsHTML;
             HTML = template(data[i]);
             $("#questionsEditList").append(HTML);
+            $('select').material_select();
         }
         $('.questionEditSaveButton').attr("lid", lid);
     }

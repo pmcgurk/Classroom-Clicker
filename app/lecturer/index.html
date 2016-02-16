@@ -352,19 +352,19 @@
                 </label>
                 {{/if}}
             </div>
-            <div class="row container">
+            <div class="row">
                 <textarea name="text" id="textarea1" class="materialize-textarea">{{text}}</textarea>
                 <label for="textarea1">Question</label>
             </div>
             <h5>Answer Type</h5>
-            <div class="row container">
+            <div class="row ">
                 <textarea name="buttons" id="textarea2" class="materialize-textarea">{{buttontype}}</textarea>
                 <label for="textarea2">Button JSON</label>
                 <br>
                 <br>
             </div>
-            <div class="row container buttonCreationForm" qnum="{{qnum}}">
-
+            <div class="buttonCreationForm" qnum="{{qnum}}">
+                {{{buttonsHTML}}}
             </div>
             <a class="btn addMoreButtonsButton" qnum="{{qnum}}">Add More Options</a>
             <textarea name="qid" class="materialize-textarea" style="display: none;">{{qid}}</textarea>
@@ -375,29 +375,75 @@
 </script>
 <script id="buttonCreationTemplate" type="text/x-handlebars-template">
     <div class="row">
-        <form class="col s12 createButtonJSONForm purple card" qnum="{{qnum}}">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input name="buttontext" type="text">
-                    <label for="buttontext" class="white-text">Button Text</label>
-                </div>
-                <div class="input-field col s12">
-                    <input name="buttonvalue" type="text">
-                    <label for="buttonvalue" class="white-text">Button Value</label>
-                </div>
-                <div class="input-field col s12">
-                    <select name="buttoncolour">
-                        <option value="purple" selected>Purple</option>
-                        <option value="blue">Blue</option>
-                        <option value="red">Red</option>
-                        <option value="yellow">Blue</option>
-                        <option value="orange">Orange</option>
-                        <option value="green">Green</option>
-                    </select>
-                    <label class="white-text">Button Colour</label>
-                </div>
+        <div class="purple card">
+            <br>
+            <br>
+            <div class="container">
+                <form class="createButtonJSONForm" qnum="{{qnum}}">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input value="{{text}}" name="buttontext" type="text">
+                            <label for="buttontext" class="white-text active">Button Text</label>
+                        </div>
+                        <br>
+                        <div class="input-field col s12">
+                            <select name="buttoncolour">
+                                <option value="purple" selected>Purple</option>
+                                <option value="blue">Blue</option>
+                                <option value="red">Red</option>
+                                <option value="yellow">Blue</option>
+                                <option value="orange">Orange</option>
+                                <option value="green">Green</option>
+                            </select>
+                            <label class="white-text">Button Colour</label>
+                        </div>
+                        <br>
+                        <div class="input-field col s12">
+                            <input value="{{value}}" name="buttonvalue" type="text">
+                            <label for="buttonvalue" class="white-text active">Button Value</label>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+            <br>
+        </div>
+    </div>
+</script>
+
+<script id="buttonCreationTemplateInit" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="purple card">
+            <br>
+            <br>
+            <div class="container">
+                <form class="createButtonJSONForm" qnum="{{qnum}}">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input value="{{text}}" name="buttontext" type="text">
+                            <label for="buttontext" class="white-text active">Button Text</label>
+                        </div>
+                        <br>
+                        <div class="input-field col s12">
+                            <select name="buttoncolour">
+                                <option value="purple" selected>Purple</option>
+                                <option value="blue">Blue</option>
+                                <option value="red">Red</option>
+                                <option value="yellow">Blue</option>
+                                <option value="orange">Orange</option>
+                                <option value="green">Green</option>
+                            </select>
+                            <label class="white-text">Button Colour</label>
+                        </div>
+                        <br>
+                        <div class="input-field col s12">
+                            <input value="{{value}}" name="buttonvalue" type="text">
+                            <label for="buttonvalue" class="white-text active">Button Value</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br>
+        </div>
     </div>
 </script>
 
