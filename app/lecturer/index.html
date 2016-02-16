@@ -331,6 +331,13 @@
             <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-purple btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
             <br>
             <div class="switch">
+                <label>
+                    removed
+                    <input name="remove" type="checkbox" checked>
+                    <span class="lever"></span> not removed (temp)
+                </label>
+            </div>
+            <div class="switch">
                 {{#if checked}}
                 <label>
                     invisible

@@ -28,6 +28,7 @@ function Controller() {
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
         $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
+        $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
         $(document).on("click", ".update", this.update);
         $(document).on("click", ".updateQuestions", this.updateQuestions);
         $(document).on("click", ".backButton", this.backbutton);
@@ -37,6 +38,11 @@ function Controller() {
 
     this.setUser = function () {
         view.setUser(model.getUser());
+    };
+
+    this.removeQuestion = function (event) {
+        console.log("Remove");
+        $(event.currentTarget).html("Undo");
     };
 
     this.updateQuestions = function () {

@@ -188,6 +188,7 @@ function View() {
             question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
             question.buttons = $('.questionForm').find('textarea[name="buttons"]')[i].value;
             question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
+            question.removed = $('.questionForm').find('input[name="remove"]')[i].checked;
             questions.push(question);
         }
         lectureEdited.questions = questions;
