@@ -102,12 +102,14 @@ function Controller() {
 
     this.selectClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
+        $('#classPageEditButton').attr("value", $(event.currentTarget).attr("value"));
         view.setLectures(JSON.parse(lectures));
         view.switchView('lectures');
     };
 
     this.selectLecture = function (event) {
         var questions = model.getQuestions($(event.currentTarget).attr("lid"));
+        $('#lecturePageEditButton').attr("lid", $(event.currentTarget).attr("lid"));
         view.setQuestions(JSON.parse(questions));
         view.switchView('questions');
     };

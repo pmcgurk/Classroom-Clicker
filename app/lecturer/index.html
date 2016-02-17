@@ -70,7 +70,8 @@
                 <br>
             </div>
             <div class="center">
-                <a class="btn purple center">Edit Class</a>
+                <br>
+                <a id="classPageEditButton" class="waves-purple waves-effect purple btn classEditButton center">Edit Class</a>
             </div>
         </div>
         <div id="questions" class="page" style="display: none;">
@@ -94,7 +95,7 @@
             </div>
             <br>
             <div class="center">
-                <a class="btn purple center">Add Question</a>
+                <a id="lecturePageEditButton" class="waves-purple waves-effect purple btn lectureEditButton center">Edit Lecture</a>
             </div>
             <br>
         </div>
@@ -133,7 +134,6 @@
 
                 </div>
                 <div class="center-align">
-                    <br>
                     <a id="addMoreQuestionsButton" class="waves-effect waves-purple btn purple">Add More Questions</a>
                     <br>
                     <br>
@@ -141,7 +141,6 @@
                 <div class="center-align">
                     <br>
                     <a class="waves-effect waves-purple btn purple questionEditSaveButton">Save</a>
-                    <br>
                     <br>
                 </div>
             </div>
@@ -272,7 +271,7 @@
                     <a class="waves-effect waves-purple btn green editQuestionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-purple btn green getResponsesButton" value="{{qid}}">Responses</a>
+                    <a class="waves-effect waves-purple btn green getResponsesButton right" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -292,7 +291,7 @@
                     <a class="waves-effect waves-purple btn green questionSelectionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-purple btn green getResponsesButton" value="{{qid}}">Responses</a>
+                    <a class="waves-effect waves-purple btn green getResponsesButton right" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -366,9 +365,11 @@
             <div class="buttonCreationForm" qnum="{{qnum}}">
                 {{{buttonsHTML}}}
             </div>
-            <a class="btn addMoreButtonsButton" qnum="{{qnum}}">Add More Options</a>
+            <div class="center">
+                <a class="btn addMoreButtonsButton purple center" qnum="{{qnum}}">Add More Options</a>
+            </div>
+            <br>
             <textarea name="qid" class="materialize-textarea" style="display: none;">{{qid}}</textarea>
-            <a class="waves-effect waves-light btn red createButtonJSON" qnum="{{qnum}}">Construct JSON</a>
         </div>
     </form>
     <br>
@@ -404,8 +405,11 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn red buttonCreationRemoveButton" buttonID="{{bID}}">Remove</a>
+                <br>
+                <a class="btn red buttonCreationRemoveButton right" buttonID="{{bID}}">Remove</a>
+                <br>
             </div>
+            <br>
             <br>
         </div>
     </div>
