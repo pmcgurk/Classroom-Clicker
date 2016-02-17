@@ -374,7 +374,7 @@
     <br>
 </script>
 <script id="buttonCreationTemplate" type="text/x-handlebars-template">
-    <div class="row">
+    <div class="row createButtonJSONWrapper" buttonID="{{bID}}">
         <div class="purple card">
             <br>
             <br>
@@ -404,6 +404,7 @@
                         </div>
                     </div>
                 </div>
+                <a class="btn red buttonCreationRemoveButton" buttonID="{{bID}}">Remove</a>
             </div>
             <br>
         </div>

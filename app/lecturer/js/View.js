@@ -80,6 +80,10 @@ function View() {
         $(".questionList").html(HTML);
     };
 
+    this.removeButton = function (data) {
+        $(".createButtonJSONWrapper[buttonID=" + data + "]").empty();
+    }
+
     // uses handlebar templates to display new button form
     this.addMoreEditButtons = function (data) {
         var source = $("#buttonCreationTemplate").html(),
@@ -128,6 +132,7 @@ function View() {
                 buttonsHTML = "";
             for (var e = 0; e < buttons.length; e++) {
                 buttons[e].qnum = data[i].qnum;
+                buttons[e].bID = buttons[e].qnum + "-" + e;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
             }
             // console.log(buttonsHTML);

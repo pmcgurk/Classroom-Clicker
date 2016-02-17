@@ -31,6 +31,7 @@ function Controller() {
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
         $(document).on("click", ".createButtonJSON", $.proxy(this.createButtonJSON, this));
         $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
+        $(document).on("click", ".buttonCreationRemoveButton", $.proxy(this.removeButton, this));
         $(document).on("click", ".update", this.update);
         $(document).on("click", ".updateQuestions", this.updateQuestions);
         $(document).on("click", ".backButton", this.backbutton);
@@ -40,6 +41,10 @@ function Controller() {
 
     this.setUser = function () {
         view.setUser(model.getUser());
+    };
+
+    this.removeButton = function (event) {
+        view.removeButton($(event.currentTarget).attr("buttonID"));
     };
 
     this.addMoreEditButtons = function (event) {
