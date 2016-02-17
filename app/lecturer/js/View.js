@@ -88,13 +88,13 @@ function View() {
         HTML = template({
             "qnum": data
         });
-        $('div[qnum="' + data + '"]').append(HTML);
+        $('.buttonCreationForm[qnum="' + data + '"]').append(HTML);
         $('select').material_select();
     };
 
     // uses handlebar templates to display new button form
     this.addMoreEditButtonsInit = function (data) {
-        var source = $("#buttonCreationTemplateInit").html(),
+        var source = $("#buttonCreationTemplate").html(),
             template = Handlebars.compile(source);
         console.log(data);
         return template(data);
