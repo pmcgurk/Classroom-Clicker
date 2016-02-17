@@ -26,7 +26,6 @@ function Model() {
     };
 
     this.createButtonJSON = function (qnum) {
-        console.log(qnum);
         var buttons = [];
         for (var i = 0; i < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; i++) {
             var button = {

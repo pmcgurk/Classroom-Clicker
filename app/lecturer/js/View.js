@@ -129,16 +129,24 @@ function View() {
             for (var e = 0; e < buttons.length; e++) {
                 buttons[e].qnum = data[i].qnum;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
-                console.log(buttonsHTML);
             }
             // console.log(buttonsHTML);
             data[i].buttonsHTML = buttonsHTML;
             HTML = template(data[i]);
             $("#questionsEditList").append(HTML);
             $('select').material_select();
+            this.setColourSelect(buttons);
         }
         $('.questionEditSaveButton').attr("lid", lid);
     }
+
+    this.setColourSelect = function (buttons) {
+        var qnum = buttons[0].qnum;
+        console.log(buttons);
+        for (var i = 0; i < buttons.length; i++) {
+            $('#buttoncolor' + qnum).val(buttons[i].colour);
+        }
+    };
 
     // uses handlebar templates to display current question
     this.setQuestion = function (data) {
@@ -206,6 +214,19 @@ function View() {
         return newArray;
     }
 
+    this.getButtonInfo = function (qnum) {
+        var buttons = [];
+        for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
+            var button = {
+                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[e].value,
+                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[e].value,
+                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
+            }
+            buttons.push(button);
+        }
+        return JSON.stringify(buttons);
+    };
+
     //** GUI info getters **/
     // takes the data from the edit class divs and constructs a JSON
     this.getEditLectureInfo = function () {
@@ -213,12 +234,13 @@ function View() {
         var lectureEdited = {},
             questions = [];
         for (var i = 0; i < $('.questionForm').length; i++) {
-            var question = {};
+            var question = {},
+                buttons = [];
             question.invisible = $('.questionForm').find('input[name="switch"]')[i].checked;
             question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
-            question.buttons = $('.questionForm').find('textarea[name="buttons"]')[i].value;
             question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
             question.removed = $('.questionForm').find('input[name="remove"]')[i].checked;
+            question.buttons = this.getButtonInfo(i + 1);
             questions.push(question);
         }
         lectureEdited.questions = questions;
