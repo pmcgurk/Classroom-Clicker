@@ -139,17 +139,17 @@ function View() {
             data[i].buttonsHTML = buttonsHTML;
             HTML = template(data[i]);
             $("#questionsEditList").append(HTML);
-            $('select').material_select();
             this.setColourSelect(buttons);
+            $('select').material_select();
         }
         $('.questionEditSaveButton').attr("lid", lid);
     }
 
     this.setColourSelect = function (buttons) {
-        var qnum = buttons[0].qnum;
-        console.log(buttons);
         for (var i = 0; i < buttons.length; i++) {
-            $('#buttoncolor' + qnum).val(buttons[i].colour);
+            console.log(buttons[i].bID);
+            console.log("a");
+            $('.createButtonJSONWrapper[buttonID="' + buttons[i].bID + '"]').find("select").val(buttons[i].colour);
         }
     };
 
