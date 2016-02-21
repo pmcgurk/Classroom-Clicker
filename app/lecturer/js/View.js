@@ -20,6 +20,12 @@ function View() {
         Materialize.toast(data, 1000);
     };
 
+    // toast function
+    this.toast = function (message) {
+        // shows a toast with the response i.e. correct
+        Materialize.toast(message, 2000);
+    };
+
     // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
@@ -100,7 +106,6 @@ function View() {
     this.addMoreEditButtonsInit = function (data) {
         var source = $("#buttonCreationTemplate").html(),
             template = Handlebars.compile(source);
-        console.log(data);
         return template(data);
     };
 
@@ -147,8 +152,6 @@ function View() {
 
     this.setColourSelect = function (buttons) {
         for (var i = 0; i < buttons.length; i++) {
-            console.log(buttons[i].bID);
-            console.log("a");
             $('.createButtonJSONWrapper[buttonID="' + buttons[i].bID + '"]').find("select").val(buttons[i].colour);
         }
     };

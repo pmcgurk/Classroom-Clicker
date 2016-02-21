@@ -9,6 +9,11 @@ function Controller() {
         this.setButtons();
         this.update();
         this.setUser();
+        this.debug();
+    };
+
+    this.debug = function () {
+
     };
 
     this.pagesetup = function () {
@@ -56,8 +61,8 @@ function Controller() {
     }
 
     this.removeQuestion = function (event) {
-        console.log("Remove");
-        $(event.currentTarget).html("Undo");
+        var qnum = $(event.currentTarget).attr("qnum");
+        view.toast(model.removeQuestion(qnum, event))
     };
 
     this.updateQuestions = function () {
@@ -96,7 +101,6 @@ function Controller() {
         var questions = JSON.parse(model.getQuestions($(event.currentTarget).attr("lid")));
         questions.lid = $(event.currentTarget).attr("lid");
         view.setEditLecture(questions);
-        console.log(questions);
         view.switchView('editLecture');
     };
 

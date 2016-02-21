@@ -8,6 +8,18 @@ function Model() {
         //console.log("Model Init");
     };
 
+    this.removeQuestion = function (qnum, event) {
+        var removed = $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked;
+        $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked = !removed;
+        if (removed) {
+            $(event.currentTarget).html("Undo");
+            return "Question unset for Removal.";
+        } else {
+            $(event.currentTarget).html("Remove");
+            return "Question set for Removal.";
+        }
+    };
+
     // compiles the edit classes interfaces JSON and sends to database
     this.saveEditClass = function (data) {
         console.log("Editing class: " + data.cid);

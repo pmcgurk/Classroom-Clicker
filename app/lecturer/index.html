@@ -38,6 +38,7 @@
                     <br>
                     <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
                     <br>
+                    <a class="waves-purple waves-effect red btn lectureEditButton right" lid="6">Edit</a>
                 </div>
             </div>
             <br>
@@ -139,7 +140,8 @@
                     <br>
                 </div>
                 <div class="center-align">
-                    <a class="waves-effect waves-purple btn purple questionEditSaveButton">Save</a>
+                    <a class="waves-effect waves-purple btn green questionEditSaveButton">Save</a>
+                    <a class="btn backButton red waves-effect waves-light">Cancel</a>
                     <br>
                     <br>
                 </div>
@@ -332,7 +334,7 @@
             <div class="switch">
                 <label>
                     removed
-                    <input name="remove" type="checkbox" checked>
+                    <input class="removeQuestionSwitch" name="remove" type="checkbox" qnum="{{qnum}}" checked>
                     <span class="lever"></span> not removed (temp)
                 </label>
             </div>
@@ -372,7 +374,7 @@
     <br>
 </script>
 <script id="buttonCreationTemplate" type="text/x-handlebars-template">
-    <div class="row createButtonJSONWrapper col s12 m6 l4" buttonID="{{bID}}">
+    <div class="row createButtonJSONWrapper col s12 m4 l3" buttonID="{{bID}}">
         <div class="purple card">
             <br>
             <br>
