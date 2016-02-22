@@ -27,6 +27,27 @@ function View() {
     };
 
     // uses handlebar templates to display list of classes
+    this.setClassesEdit = function (data) {
+        var source = $("#classEditTemplate").html(),
+            template = Handlebars.compile(source);
+        HTML = "";
+        data.lecturesHTML = this.getLecturesHTML(data.lectures);
+        HTML = template(data);
+        $("#editClassInfo").html(HTML);
+    };
+
+    this.getLecturesHTML = function (data) {
+        var source = $("#classEditLectureTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+            HTML = HTML + template(data[i]);
+        }
+        return HTML;
+    };
+
+    // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
         if (data != {}) {

@@ -13,7 +13,7 @@ function Controller() {
     };
 
     this.debug = function () {
-
+        //view.switchView('editClass');
     };
 
     this.pagesetup = function () {
@@ -94,6 +94,14 @@ function Controller() {
     };
 
     this.editClass = function (event) {
+        var lectures = model.getLectures($(event.currentTarget).attr("value"));
+        var classData = {};
+        classData.lectures = JSON.parse(lectures);
+        classData.code = "CS409";
+        classData.name = "Programming";
+        classData.description = "Description";
+        console.log(classData);
+        view.setClassesEdit(classData);
         view.switchView('editClass');
     };
 
