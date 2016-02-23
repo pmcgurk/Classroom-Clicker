@@ -70,7 +70,7 @@ function View() {
     // uses handlebar templates to display list of lectures
     this.setLectures = function (data) {
         var HTML = "No Lectures";
-        if (data != undefined) {
+        if (data.length > 0) {
             var source = $("#lecturesTemplate").html(),
                 template = Handlebars.compile(source);
             HTML = "";
