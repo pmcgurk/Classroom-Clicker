@@ -289,8 +289,8 @@ function View() {
         values.description = $inputs[2].value;
         values.isvisible = this.booleanConvert($inputs[3].checked);
         values.joinable = this.booleanConvert($inputs[4].checked);
+        values.removed = $inputs[5].checked;
         //TODO credit and fix this
-        console.log(values);
         return values;
     }
 

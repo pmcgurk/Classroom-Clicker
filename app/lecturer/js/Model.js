@@ -9,7 +9,21 @@ function Model() {
         //console.log("Model Init");
     };
 
-    this.removeQuestion = function (qnum, event) {
+    this.removeClass = function (event) {
+        var cid = $(event.currentTarget).attr("cid");
+        var removed = $('input.classDescriptionEditRemove[cid="' + cid + '"]')[0].checked;
+        $('input.classDescriptionEditRemove[cid="' + cid + '"]')[0].checked = !removed;
+        if (removed) {
+            $(event.currentTarget).html("MARK CLASS FOR DELETION");
+            return "Class unset for Removal.";
+        } else {
+            $(event.currentTarget).html("UNMARK CLASS FOR DELETION");
+            return "Class set for Removal. Save to confirm.";
+        }
+    }
+
+    this.removeQuestion = function (event) {
+        var qnum = $(event.currentTarget).attr("qnum");
         var removed = $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked;
         $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked = !removed;
         if (removed) {
@@ -22,12 +36,7 @@ function Model() {
     };
 
     // compiles the edit classes interfaces JSON and sends to database
-    this.saveEditClass = function (data) {
-        console.log(data);
-    };
-
-    // compiles the edit classes interfaces JSON and sends to database
-    this.saveNewClass = function (data) {
+    this.saveClass = function (data) {
         if (data.code != "" && data.name != "") {
             console.log($.ajaxPOST("php/editClass.php", data));
         } else {
@@ -54,10 +63,8 @@ function Model() {
                 "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[i].value,
                 "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[i].value
             }
-            console.log(button);
             buttons.push(button);
         }
-        console.log(buttons);
     };
 
     this.getUserClassInfo = function (cid) {

@@ -32,6 +32,7 @@ function Controller() {
         // class edit page
         $(document).on("click", ".classEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".classNewSaveButton", $.proxy(this.saveNewClass, this));
+        $(document).on("click", ".classDeleteButton", $.proxy(this.removeClass, this));
 
         // lectures page
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
@@ -50,7 +51,6 @@ function Controller() {
         // question page
         $(document).on("click", ".nextQuestionButton", $.proxy(this.nextQuestion, this));
         $(document).on("click", ".previousQuestionButton", $.proxy(this.previousQuestion, this));
-
 
         //multipage buttons
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
@@ -79,11 +79,16 @@ function Controller() {
 
     this.createButtonJSON = function (event) {
         model.createButtonJSON($(event.currentTarget).attr("qnum"));
-    }
+    };
+
+    this.removeClass = function (event) {
+        var cid = $(event.currentTarget).attr("cid");
+        view.toast(model.removeClass(event));
+    };
 
     this.removeQuestion = function (event) {
         var qnum = $(event.currentTarget).attr("qnum");
-        view.toast(model.removeQuestion(qnum, event))
+        view.toast(model.removeQuestion(event))
     };
 
     this.updateQuestions = function () {
@@ -107,10 +112,15 @@ function Controller() {
         var data = view.getEditClassInfo();
         data.cid = $(event.currentTarget).attr("cid");
         model.saveClass(data);
+        this.update();
+        view.toast("Class Successfully Edited");
+        view.switchView('home');
     };
 
     this.saveNewClass = function () {
         model.saveClass(view.getEditClassInfo());
+        this.update();
+        view.switchView('home');
     };
 
     this.saveEditLecture = function () {

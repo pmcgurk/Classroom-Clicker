@@ -7,10 +7,25 @@ $code = $_POST['code'];
 $description = $_POST['description'];
 $isvisible = $_POST['isvisible'];
 $joinable = $_POST['joinable'];
+$removed = $_POST['removed'];
 
 if (isset($_POST['cid'])) {
-    mysql_query("UPDATE `clicker`.`classes` SET `name` = '$name', `code` = '$code', `description` = '$description', `isvisible` = '$isvisible' WHERE `classes`.`cid` = $_POST[cid]") or die(mysql_error());
-    echo "Edit";
+    $result = mysql_query("SELECT * FROM owned WHERE uid = '$uid' AND '$_POST[cid]'") or die(mysql_error());
+    // checks to see if current session uid owns the class
+    if($row = mysql_fetch_array($result)) {
+        if (strcmp($removed, 'true') == 0) {
+            // if it is set for removal, it deletes the class from the database
+            mysql_query("DELETE FROM `clicker`.`classes` WHERE cid = $_POST[cid]");
+            mysql_query("DELETE FROM `clicker`.`owned` WHERE cid= $_POST[cid]");
+            echo "Deleted";
+        } else {
+            // else it modifies it with the new data.
+            mysql_query("UPDATE `clicker`.`classes` SET `name` = '$name', `code` = '$code', `description` = '$description', `isvisible` = '$isvisible' WHERE `classes`.`cid` = $_POST[cid]") or die(mysql_error());
+            echo "Edit";
+        }
+    } else {
+        echo "not your class to edit.";
+    }
 } else {
     // insert new class into the database
     mysql_query("INSERT INTO `clicker`.`classes` (`cid`, `name`, `code`, `description`, `isvisible`, `joinable`) VALUES (NULL, '$name', '$code', '$description', '$isvisible', '$joinable')") or die(mysql_error());
