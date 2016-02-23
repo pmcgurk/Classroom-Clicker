@@ -1,6 +1,7 @@
 function Model() {
     var user = {},
         userClasses = [],
+        userLectures = [],
         userQuestions = [],
         curQuestion,
         curLecture;
@@ -11,8 +12,8 @@ function Model() {
 
     this.removeClass = function (event) {
         var cid = $(event.currentTarget).attr("cid");
-        var removed = $('input.classDescriptionEditRemove[cid="' + cid + '"]')[0].checked;
-        $('input.classDescriptionEditRemove[cid="' + cid + '"]')[0].checked = !removed;
+        var removed = $('input.classEditRemove[cid="' + cid + '"]')[0].checked;
+        $('input.classEditRemove[cid="' + cid + '"]')[0].checked = !removed;
         if (removed) {
             $(event.currentTarget).html("MARK CLASS FOR DELETION");
             return "Class unset for Removal.";
@@ -21,6 +22,19 @@ function Model() {
             return "Class set for Removal. Save to confirm.";
         }
     }
+
+    this.removeLecture = function (event) {
+        var lid = $(event.currentTarget).attr("lid");
+        var removed = $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked;
+        $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked = !removed;
+        if (removed) {
+            $(event.currentTarget).html("MARK LECTURE FOR DELETION");
+            return "Lecture unset for Removal.";
+        } else {
+            $(event.currentTarget).html("UNMARK LECTURE FOR DELETION");
+            return "Lecture set for Removal. Save to confirm.";
+        }
+    };
 
     this.removeQuestion = function (event) {
         var qnum = $(event.currentTarget).attr("qnum");
@@ -46,12 +60,11 @@ function Model() {
 
     // compiles the edit classes interfaces JSON and sends to database
     this.saveEditLecture = function (data) {
-        console.log("Editing Lecture: " + data.lid);
+        console.log(data);
+        console.log($.ajaxPOST("php/editLecture.php", data));
         for (var i = 0; i < data.questions.length; i++) {
             data.questions[i].lid = data.lid;
-            console.log(data.questions[i]);
             var response = $.getValues("php/editQuestion.php", data.questions[i]);
-            console.log(response);
         }
     };
 
@@ -92,11 +105,27 @@ function Model() {
         return userClasses;
     };
 
+    // gets information on saved user lecture with specified lid
+    this.getUserLectureInfo = function (lid) {
+        for (var i = 0; i < userLectures.length; i++) {
+            if (userLectures[i].lid == lid) {
+                return userLectures[i];
+            }
+        }
+        return null;
+    };
+
+    // returns the current saved user lectures
+    this.getUserLectures = function () {
+        return userLectures;
+    };
+
     // retrieves lectures for class cid from database
     this.getLectures = function (cid) {
-        return $.getValues("php/getLectures.php", {
+        userLectures = JSON.parse($.getValues("php/getLectures.php", {
             "cid": cid
-        });
+        }));
+        return userLectures;
     };
 
     // retrieves questions for lecture lid from database

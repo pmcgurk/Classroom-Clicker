@@ -70,7 +70,7 @@ function View() {
     // uses handlebar templates to display list of lectures
     this.setLectures = function (data) {
         var HTML = "No Lectures";
-        if (data != {}) {
+        if (data != undefined) {
             var source = $("#lecturesTemplate").html(),
                 template = Handlebars.compile(source);
             HTML = "";
@@ -80,10 +80,9 @@ function View() {
                 }
                 HTML = HTML + template(data[i]);
             }
+            $(".lecturesList").html(HTML);
+            $('.lectureTitle').html(data[0].title);
         }
-        $(".lecturesList").html(HTML);
-        $('.lectureTitle').html(data[0].title);
-
     };
 
     // uses handlebar templates to display list of questions
@@ -147,31 +146,42 @@ function View() {
     };
 
     this.setEditLecture = function (data) {
+        var source = $("#lectureEditTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+
+        if (data.isvisible) {
+            data.invisible = true;
+        }
+
+        HTML = template(data);
+        $('#editLectureInfo').html(HTML);
+        this.setEditLectureQuestions(data);
+    }
+
+    this.setEditLectureQuestions = function (data) {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
-            HTML = "",
-            lid = data.lid;
-        $('#questionsEditLectureTitle').text(lid);
-        $("#questionsEditList").html("");
-        for (var i = 0; i < data.length; i++) {
-            data[i].qnum = i + 1;
-            data[i].checked = (data[i].isvisible == 0);
-            var buttons = JSON.parse(data[i].buttontype),
+            HTML = "";
+        for (var i = 0; i < data.questions.length; i++) {
+            data.questions[i].qnum = i + 1;
+            data.questions[i].checked = (data.questions[i].isvisible == 0);
+            var buttons = JSON.parse(data.questions[i].buttontype),
                 buttonsHTML = "";
             for (var e = 0; e < buttons.length; e++) {
-                buttons[e].qnum = data[i].qnum;
+                buttons[e].qnum = data.questions[i].qnum;
                 buttons[e].bID = buttons[e].qnum + "-" + e;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
             }
             // console.log(buttonsHTML);
-            data[i].buttonsHTML = buttonsHTML;
-            HTML = template(data[i]);
+            data.questions[i].buttonsHTML = buttonsHTML;
+            HTML = template(data.questions[i]);
             $("#questionsEditList").append(HTML);
             this.setColourSelect(buttons);
             $('select').material_select();
         }
-        $('.questionEditSaveButton').attr("lid", lid);
-    }
+        $('.questionEditSaveButton').attr("lid", data.lid);
+    };
 
     this.setColourSelect = function (buttons) {
         for (var i = 0; i < buttons.length; i++) {
@@ -260,10 +270,16 @@ function View() {
 
     //** GUI info getters **/
     // takes the data from the edit class divs and constructs a JSON
-    this.getEditLectureInfo = function () {
-        //TODO get class visibility, name etc changes.
-        var lectureEdited = {},
-            questions = [];
+    this.getEditLectureInfo = function (lid) {
+        var questions = [],
+            $inputs = $('#lectureEditForm :input'),
+            values = {};
+        values.lid = lid;
+        values.name = $inputs[0].value;
+        values.date = $inputs[1].value;
+        values.description = $inputs[2].value;
+        values.isvisible = this.booleanConvert($inputs[3].checked);
+        values.removed = $inputs[4].checked;
         for (var i = 0; i < $('.questionForm').length; i++) {
             var question = {},
                 buttons = [];
@@ -274,9 +290,8 @@ function View() {
             question.buttons = this.getButtonInfo(i + 1);
             questions.push(question);
         }
-        lectureEdited.questions = questions;
-        lectureEdited.lid = $('.questionEditSaveButton').attr("lid");
-        return lectureEdited;
+        values.questions = questions;
+        return values;
     }
 
     // takes the data from the edit class divs and constructs a JSON

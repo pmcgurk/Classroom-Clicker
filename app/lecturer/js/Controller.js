@@ -43,6 +43,7 @@ function Controller() {
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditLecture, this));
         $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
         $(document).on("click", ".buttonCreationRemoveButton", $.proxy(this.removeButton, this));
+        $(document).on("click", ".lectureRemoveButton", $.proxy(this.removeLecture, this));
 
         // questions page
         $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestionEvent, this));
@@ -86,6 +87,11 @@ function Controller() {
         view.toast(model.removeClass(event));
     };
 
+    this.removeLecture = function (event) {
+        var lid = $(event.currentTarget).attr("lid");
+        view.toast(model.removeLecture(event));
+    };
+
     this.removeQuestion = function (event) {
         var qnum = $(event.currentTarget).attr("qnum");
         view.toast(model.removeQuestion(event))
@@ -123,8 +129,8 @@ function Controller() {
         view.switchView('home');
     };
 
-    this.saveEditLecture = function () {
-        model.saveEditLecture(view.getEditLectureInfo());
+    this.saveEditLecture = function (event) {
+        model.saveEditLecture(view.getEditLectureInfo($(event.currentTarget).attr("lid")));
         Materialize.toast("Lecture Edited.", 2000);
         this.update();
         view.switchView('home');
@@ -138,22 +144,23 @@ function Controller() {
     this.editClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         var classData = model.getUserClassInfo($(event.currentTarget).attr("value"));
-        classData.lectures = JSON.parse(lectures);
+        classData.lectures = lectures;
         view.setClassesEdit(classData);
         view.switchView('editClass');
     };
 
     this.editLecture = function (event) {
+        var lectureInfo = model.getUserLectureInfo($(event.currentTarget).attr("lid"));
         var questions = JSON.parse(model.getQuestions($(event.currentTarget).attr("lid")));
-        questions.lid = $(event.currentTarget).attr("lid");
-        view.setEditLecture(questions);
+        lectureInfo.questions = questions;
+        view.setEditLecture(lectureInfo);
         view.switchView('editLecture');
     };
 
     this.selectClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         $('#classPageEditButton').attr("value", $(event.currentTarget).attr("value"));
-        view.setLectures(JSON.parse(lectures));
+        view.setLectures(lectures);
         view.switchView('lectures');
     };
 
