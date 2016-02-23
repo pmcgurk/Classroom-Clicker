@@ -23,28 +23,46 @@ function Controller() {
 
     this.setButtons = function () {
         // this uses a proxy to get the scope right within the button
+
+        // classes page 
         $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
+        $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
+        $(document).on("click", "#addClassButton", $.proxy(this.addClass, this));
+
+        // class edit page
+        $(document).on("click", ".classEditSaveButton", $.proxy(this.saveEditClass, this));
+        $(document).on("click", ".classNewSaveButton", $.proxy(this.saveNewClass, this));
+
+        // lectures page
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
-        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestionEvent, this));
-        $(document).on("click", ".nextQuestionButton", $.proxy(this.nextQuestion, this));
-        $(document).on("click", ".previousQuestionButton", $.proxy(this.previousQuestion, this));
+
+        // lecture edit page
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
         $(document).on("click", ".addMoreButtonsButton", $.proxy(this.addMoreEditButtons, this));
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditLecture, this));
-        $(document).on("click", ".classEditSaveButton", $.proxy(this.saveEditClass, this));
-        $(document).on("click", ".classNewSaveButton", $.proxy(this.saveNewClass, this));
-        $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
-        $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
-        $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
-        $(document).on("click", ".createButtonJSON", $.proxy(this.createButtonJSON, this));
         $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
         $(document).on("click", ".buttonCreationRemoveButton", $.proxy(this.removeButton, this));
-        $(document).on("click", "#addClassButton", $.proxy(this.addClass, this));
-        $(document).on("click", ".update", this.update);
-        $(document).on("click", ".updateQuestions", this.updateQuestions);
+
+        // questions page
+        $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestionEvent, this));
+        $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
+
+        // question page
+        $(document).on("click", ".nextQuestionButton", $.proxy(this.nextQuestion, this));
+        $(document).on("click", ".previousQuestionButton", $.proxy(this.previousQuestion, this));
+
+
+        //multipage buttons
+        $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
+        $(document).on("click", '.pageChangerButton', view.switchView);
         $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
-        $(document).on("click", '.pageChangerButton', view.switchView);
+
+        // misc / debug
+        $(document).on("click", ".update", this.update);
+        $(document).on("click", ".updateQuestions", this.updateQuestions);
+        $(document).on("click", ".createButtonJSON", $.proxy(this.createButtonJSON, this));
+
     };
 
     this.setUser = function () {
@@ -88,11 +106,11 @@ function Controller() {
     this.saveEditClass = function (event) {
         var data = view.getEditClassInfo();
         data.cid = $(event.currentTarget).attr("cid");
-        model.saveEditClass(data);
+        model.saveClass(data);
     };
 
     this.saveNewClass = function () {
-        model.saveNewClass(view.getEditClassInfo());
+        model.saveClass(view.getEditClassInfo());
     };
 
     this.saveEditLecture = function () {
