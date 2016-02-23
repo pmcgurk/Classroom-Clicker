@@ -13,7 +13,7 @@ function Controller() {
     };
 
     this.debug = function () {
-        //view.switchView('editClass');
+        this.addClass();
     };
 
     this.pagesetup = function () {
@@ -31,6 +31,8 @@ function Controller() {
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
         $(document).on("click", ".addMoreButtonsButton", $.proxy(this.addMoreEditButtons, this));
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditLecture, this));
+        $(document).on("click", ".classEditSaveButton", $.proxy(this.saveEditClass, this));
+        $(document).on("click", ".classNewSaveButton", $.proxy(this.saveNewClass, this));
         $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
         $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
@@ -85,6 +87,10 @@ function Controller() {
 
     this.saveEditClass = function () {
         model.saveEditClass(view.getEditClassInfo());
+    };
+
+    this.saveNewClass = function () {
+        model.saveNewClass(view.getEditClassInfo());
     };
 
     this.saveEditLecture = function () {

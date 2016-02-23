@@ -27,6 +27,15 @@ function Model() {
     };
 
     // compiles the edit classes interfaces JSON and sends to database
+    this.saveNewClass = function (data) {
+        if (data.code != "" && data.name != "") {
+            console.log($.ajaxPOST("php/editClass.php", data));
+        } else {
+            console.log("Invalid Class Name/code");
+        }
+    };
+
+    // compiles the edit classes interfaces JSON and sends to database
     this.saveEditLecture = function (data) {
         console.log("Editing Lecture: " + data.lid);
         for (var i = 0; i < data.questions.length; i++) {
@@ -186,6 +195,22 @@ function Model() {
             $.ajax({
                 url: url,
                 type: 'get',
+                data: data,
+                async: false,
+                success: function (data) {
+                    response = data;
+                }
+            });
+            return response;
+        }
+    });
+
+    jQuery.extend({
+        ajaxPOST: function (url, data) {
+            var response = null;
+            $.ajax({
+                url: url,
+                type: 'post',
                 data: data,
                 async: false,
                 success: function (data) {

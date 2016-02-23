@@ -122,12 +122,6 @@
             <div id="editClassInfo">
 
             </div>
-            <div class="center-align">
-                <a class="waves-effect waves-purple btn green classEditSaveButton">Save</a>
-                <a class="btn backButton red waves-effect waves-light">Cancel</a>
-                <br>
-                <br>
-            </div>
         </div>
         <div id="editLecture" class="page" style="display: none;">
             <div class="white-text">
@@ -421,37 +415,66 @@
 </script>
 <script id="classEditTemplate" type="text/x-handlebars-template">
     <div class="green white-text">
+        <form id="classEditForm">
+            <br>
+            <div class="input-field col s4">
+                <input value="{{code}}" name="classCodeEdit" type="text">
+                <label for="classCodeEdit" class="white-text active">Class code</label>
+            </div>
+            <div class="input-field col s8">
+                <input value="{{name}}" name="classNameEdit" type="text">
+                <label for="classNameEdit" class="white-text active">Class name</label>
+            </div>
+            <br>
+            <div class="input-field col s12">
+                <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                <label for="classDescriptionEdit" class="white-text active">Class Description</label>
+            </div>
+            <div class="center">
+                <div class="switch col s12">
+                    <label>
+                        invisible
+                        <input type="checkbox" name="classDescriptionEditVisible">
+                        <span class="lever"></span> visible
+                    </label>
+                </div>
+                <div class="switch col s12">
+                    <label>
+                        closed
+                        <input type="checkbox" name="classDescriptionEditJoinable">
+                        <span class="lever"></span> joinable
+                    </label>
+                </div>
+            </div>
+        </form>
         <br>
-        <div class="input-field col s4">
-            <input value="{{code}}" name="classCodeEdit" type="text">
-            <label for="classCodeEdit" class="white-text active">Class code</label>
-        </div>
-        <div class="input-field col s8">
-            <input value="{{name}}" name="classNameEdit" type="text">
-            <label for="classNameEdit" class="white-text active">Class name</label>
-        </div>
-        <br>
-        <div class="input-field col s12">
-            <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
-            <label for="classDescriptionEdit" class="white-text active">Class Description</label>
-        </div>
         <br> {{#if lecturesHTML}}
-        <div class="container">
-            <h5>Lectures</h5>
-        </div>
+        <h5>Lectures</h5>
         <ul class="collection" id="editClassInfoLectures">
             {{{lecturesHTML}}}
         </ul>
         {{else}}
-        <div class="container">
-            <h5>No Lectures</h5>
-            <h6>To add lectures, save the class first.</h6>
-            <br>
-        </div> {{/if}}
+        <br>
+        <h5>No Lectures</h5>
+        <h6>To add lectures, save the class first.</h6>
+        <br> {{/if}}
     </div>
-    {{#if code}}
+    <br> {{#if code}}
     <div class="center-align">
         <a id="addLectureButton" class="waves-effect waves-purple btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
+        <br>
+        <br>
+    </div>
+    <div class="center-align">
+        <a class="waves-effect waves-purple btn green classEditSaveButton" cid="{{cid}}">Save</a>
+        <a class="btn backButton red waves-effect waves-light">Cancel</a>
+        <br>
+        <br>
+    </div>
+    {{else}}
+    <div class="center-align">
+        <a class="waves-effect waves-purple btn green classNewSaveButton">Save</a>
+        <a class="btn backButton red waves-effect waves-light">Cancel</a>
         <br>
         <br>
     </div>

@@ -281,7 +281,17 @@ function View() {
 
     // takes the data from the edit class divs and constructs a JSON
     this.getEditClassInfo = function () {
-        return "WIP";
+        // get all the inputs into an array.
+        var $inputs = $('#classEditForm :input');
+        var values = {};
+        values.code = $inputs[0].value;
+        values.name = $inputs[1].value;
+        values.description = $inputs[2].value;
+        values.isvisible = this.booleanConvert($inputs[3].checked);
+        values.joinable = this.booleanConvert($inputs[4].checked);
+        //TODO credit and fix this
+        console.log(values);
+        return values;
     }
 
     // uses handlebar templates to contruct answer buttons from JSON
@@ -310,6 +320,12 @@ function View() {
             lastpage.pop();
         }
     };
+
+    // converts true/false into PHP friendly 1 or 0
+    this.booleanConvert = function (boolean) {
+        if (boolean) return 1
+        else return 0;
+    }
 
     // switches current view to provided new view
     this.switchView = function (data) {
