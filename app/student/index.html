@@ -214,12 +214,19 @@
         </div>
     </li>
     {{else}}
-    <li class="collection-item lectureSelectionButton purple" value="{{lid}}">
-        <a class="white-text">
-            <span class="title">{{date}}: {{title}}</span>
-            <p>{{description}}
-            </p>
-        </a>
+    <li class="collection-item purple white-text">
+        <div class="row">
+            <div class="col s12">
+                <span class="logo">{{date}}: {{name}}</span>
+            </div>
+            <div class="col s8">
+                <p class="white-text">{{description}}
+                    <br>
+                </p>
+            </div>
+            <div class="col s4">
+                <a class="waves-light waves-effect green btn lectureSelectionButton " value="{{lid}}">Open</a>
+            </div>
         </div>
     </li>
     {{/if}}
@@ -230,13 +237,16 @@
         <a class="white-text">
             <span class="title">Question {{qnum}}</span>
         </a>
-        </div>
     </li>
     {{else}}
     <li class="collection-item questionSelectionButton purple" value="{{qid}}">
-        <a class="white-text">
-            <span class="title">Question {{qnum}}</span>
-        </a>
+        <div class="row white-text">
+            <div class="col s8">
+                <span class="logo">Question {{qnum}}</span>
+            </div>
+            <div class="col s4">
+                <a class="waves-light waves-effect green btn questionSelectionButton" value="{{qid}}">Open</a>
+            </div>
         </div>
     </li>
     {{/if}}
