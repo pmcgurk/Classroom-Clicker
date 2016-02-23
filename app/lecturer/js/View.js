@@ -31,7 +31,9 @@ function View() {
         var source = $("#classEditTemplate").html(),
             template = Handlebars.compile(source);
         HTML = "";
-        data.lecturesHTML = this.getLecturesHTML(data.lectures);
+        if (data.lectures) {
+            data.lecturesHTML = this.getLecturesHTML(data.lectures);
+        }
         HTML = template(data);
         $("#editClassInfo").html(HTML);
     };

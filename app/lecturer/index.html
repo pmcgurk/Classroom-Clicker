@@ -52,7 +52,7 @@
             </div>
             <br>
             <div class="center-align">
-                <a id="addClassButton" class="waves-effect waves-purple btn purple" onclick="Materialize.toast('Open  blank edit class page', 2000)">New Class</a>
+                <a id="addClassButton" class="waves-effect waves-purple btn purple">New Class</a>
                 <br>
                 <br>
             </div>
@@ -121,11 +121,6 @@
         <div id="editClass" class="page" style="display: none;">
             <div id="editClassInfo">
 
-            </div>
-            <div class="center-align">
-                <a id="addLectureButton" class="waves-effect waves-purple btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
-                <br>
-                <br>
             </div>
             <div class="center-align">
                 <a class="waves-effect waves-purple btn green classEditSaveButton">Save</a>
@@ -440,13 +435,29 @@
             <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
             <label for="classDescriptionEdit" class="white-text active">Class Description</label>
         </div>
-        <br>
-        <h5>Lectures</h5>
+        <br> {{#if lecturesHTML}}
+        <div class="container">
+            <h5>Lectures</h5>
+        </div>
         <ul class="collection" id="editClassInfoLectures">
             {{{lecturesHTML}}}
         </ul>
-</script>
+        {{else}}
+        <div class="container">
+            <h5>No Lectures</h5>
+            <h6>To add lectures, save the class first.</h6>
+            <br>
+        </div> {{/if}}
+    </div>
+    {{#if code}}
+    <div class="center-align">
+        <a id="addLectureButton" class="waves-effect waves-purple btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
+        <br>
+        <br>
+    </div>
+    {{/if}}
 
+</script>
 <script id="classEditLectureTemplate" type="text/x-handlebars-template">
     <li class="collection-item purple">
         <div class="row">

@@ -37,6 +37,7 @@ function Controller() {
         $(document).on("click", ".createButtonJSON", $.proxy(this.createButtonJSON, this));
         $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
         $(document).on("click", ".buttonCreationRemoveButton", $.proxy(this.removeButton, this));
+        $(document).on("click", "#addClassButton", $.proxy(this.addClass, this));
         $(document).on("click", ".update", this.update);
         $(document).on("click", ".updateQuestions", this.updateQuestions);
         $(document).on("click", ".backButton", this.backbutton);
@@ -91,6 +92,11 @@ function Controller() {
         Materialize.toast("Lecture Edited.", 2000);
         this.update();
         view.switchView('home');
+    };
+
+    this.addClass = function (event) {
+        view.setClassesEdit({});
+        view.switchView('editClass');
     };
 
     this.editClass = function (event) {
