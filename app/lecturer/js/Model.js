@@ -1,5 +1,6 @@
 function Model() {
     var user = {},
+        userClasses = [],
         userQuestions = [],
         curQuestion,
         curLecture;
@@ -22,7 +23,6 @@ function Model() {
 
     // compiles the edit classes interfaces JSON and sends to database
     this.saveEditClass = function (data) {
-        console.log("Editing class: " + data.cid);
         console.log(data);
     };
 
@@ -60,6 +60,19 @@ function Model() {
         console.log(buttons);
     };
 
+    this.getUserClassInfo = function (cid) {
+        for (var i = 0; i < userClasses.length; i++) {
+            if (userClasses[i].cid == cid) {
+                return userClasses[i];
+            }
+        }
+        return null;
+    };
+
+    this.getUserClasses = function () {
+        return userClasses;
+    };
+
     // submits answers for question, not used in lecturer
     // TODO: remove
     this.submitAnswer = function (data) {
@@ -68,7 +81,8 @@ function Model() {
 
     // retrieves classes that the user owns
     this.getClasses = function () {
-        return $.getValues("php/getClasses.php", null);
+        userClasses = JSON.parse($.getValues("php/getClasses.php", null));
+        return userClasses;
     };
 
     // retrieves lectures for class cid from database
@@ -182,7 +196,7 @@ function Model() {
     this.update = function () {
         var updateData = {};
         updateData = {
-            "classes": JSON.parse(this.getClasses())
+            "classes": this.getClasses()
         };
         return updateData;
     }

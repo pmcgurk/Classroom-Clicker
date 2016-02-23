@@ -9,6 +9,7 @@ $isvisible = $_POST['isvisible'];
 $joinable = $_POST['joinable'];
 
 if (isset($_POST['cid'])) {
+    mysql_query("UPDATE `clicker`.`classes` SET `name` = '$name', `code` = '$code', `description` = '$description', `isvisible` = '$isvisible' WHERE `classes`.`cid` = $_POST[cid]") or die(mysql_error());
     echo "Edit";
 } else {
     // insert new class into the database

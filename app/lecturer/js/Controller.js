@@ -13,7 +13,7 @@ function Controller() {
     };
 
     this.debug = function () {
-        this.addClass();
+
     };
 
     this.pagesetup = function () {
@@ -85,8 +85,10 @@ function Controller() {
         this.selectQuestion(model.getPreviousQuestion());
     };
 
-    this.saveEditClass = function () {
-        model.saveEditClass(view.getEditClassInfo());
+    this.saveEditClass = function (event) {
+        var data = view.getEditClassInfo();
+        data.cid = $(event.currentTarget).attr("cid");
+        model.saveEditClass(data);
     };
 
     this.saveNewClass = function () {
@@ -107,12 +109,8 @@ function Controller() {
 
     this.editClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
-        var classData = {};
+        var classData = model.getUserClassInfo($(event.currentTarget).attr("value"));
         classData.lectures = JSON.parse(lectures);
-        classData.code = "CS409";
-        classData.name = "Programming";
-        classData.description = "Description";
-        console.log(classData);
         view.setClassesEdit(classData);
         view.switchView('editClass');
     };
