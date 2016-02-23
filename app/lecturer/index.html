@@ -52,7 +52,7 @@
             </div>
             <br>
             <div class="center-align">
-                <a id="addClassButton" class="waves-effect waves-purple btn purple">New Class</a>
+                <a id="addClassButton" class="waves-effect waves-light btn purple">New Class</a>
                 <br>
                 <br>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="center">
                 <br>
-                <a id="classPageEditButton" class="waves-purple waves-effect purple btn classEditButton center">Edit Class</a>
+                <a id="classPageEditButton" class="waves-light waves-effect purple btn classEditButton center">Edit Class</a>
             </div>
         </div>
         <div id="questions" class="page" style="display: none;">
@@ -101,7 +101,7 @@
             </div>
             <br>
             <div class="center">
-                <a id="lecturePageEditButton" class="waves-purple waves-effect purple btn lectureEditButton center">Edit Lecture</a>
+                <a id="lecturePageEditButton" class="waves-light waves-effect purple btn lectureEditButton center">Edit Lecture</a>
             </div>
             <br>
         </div>
@@ -124,27 +124,8 @@
             </div>
         </div>
         <div id="editLecture" class="page" style="display: none;">
-            <div class="white-text">
-                <div class="green">
-                    <br>
-                    <h4 class="container" id="questionsEditLectureTitle"></h4>
-                    <br>
-                </div>
-                <br>
-                <div id="questionsEditList">
+            <div id="editLectureInfo">
 
-                </div>
-                <div class="center-align">
-                    <a id="addMoreQuestionsButton" class="waves-effect waves-purple btn purple">Add More Questions</a>
-                    <br>
-                    <br>
-                </div>
-                <div class="center-align">
-                    <a class="waves-effect waves-purple btn green questionEditSaveButton">Save</a>
-                    <a class="btn backButton red waves-effect waves-light">Cancel</a>
-                    <br>
-                    <br>
-                </div>
             </div>
         </div>
         <div id="questions" class="page" style="display: none;">
@@ -177,7 +158,7 @@
 <script src="js/View.js"></script>
 <script src="js/Controller.js"></script>
 <script id="buttonTemplate" type="text/x-handlebars-template">
-    <a class='waves-effect waves-purple btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
+    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
 </script>
 <script id="classesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
@@ -192,10 +173,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
+                <a class="waves-light waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
+                <a class="waves-light waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -211,10 +192,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect green btn classSelectionButton" value="{{cid}}">Open</a>
+                <a class="waves-light waves-effect green btn classSelectionButton" value="{{cid}}">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
+                <a class="waves-light waves-effect red btn classEditButton right" value="{{cid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -232,10 +213,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
+                <a class="waves-light waves-effect green btn lectureSelectionButton" lid="{{lid}}">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
+                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -250,10 +231,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect green btn lectureSelectionButton " lid="{{lid}}">Open</a>
+                <a class="waves-light waves-effect green btn lectureSelectionButton" lid="{{lid}}">Open</a>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
+                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
             </div>
         </div>
     </li>
@@ -270,10 +251,10 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-purple btn green editQuestionButton" value="{{qid}}">Open</a>
+                    <a class="waves-effect waves-light btn green editQuestionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-purple btn green getResponsesButton right" value="{{qid}}">Responses</a>
+                    <a class="waves-effect waves-light btn green getResponsesButton right" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -290,10 +271,10 @@
                 <br>
                 <br>
                 <div class="col s6">
-                    <a class="waves-effect waves-purple btn green questionSelectionButton" value="{{qid}}">Open</a>
+                    <a class="waves-effect waves-light btn green questionSelectionButton" value="{{qid}}">Open</a>
                 </div>
                 <div class="col s6">
-                    <a class="waves-effect waves-purple btn green getResponsesButton right" value="{{qid}}">Responses</a>
+                    <a class="waves-effect waves-light btn green getResponsesButton right" value="{{qid}}">Responses</a>
                 </div>
                 <br>
                 <br>
@@ -329,9 +310,9 @@
     <form class="questionForm green">
         <div class="container">
             <br>
-            <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-purple btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
+            <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
             <br>
-            <div class="switch">
+            <div class="switch" style="display: none;">
                 <label>
                     removed
                     <input class="removeQuestionSwitch" name="remove" type="checkbox" qnum="{{qnum}}" checked>
@@ -434,20 +415,20 @@
                 <div class="switch col s12">
                     <label>
                         invisible
-                        <input type="checkbox" name="classDescriptionEditVisible">
+                        <input type="checkbox" name="classEditVisible">
                         <span class="lever"></span> visible
                     </label>
                 </div>
                 <div class="switch col s12">
                     <label>
                         closed
-                        <input type="checkbox" name="classDescriptionEditJoinable">
+                        <input type="checkbox" name="classEditJoinable">
                         <span class="lever"></span> joinable
                     </label>
                 </div>
-                <div class="switch col s12">
+                <div class="switch" style="display: none;">
                     <label>
-                        <input type="checkbox" class="classDescriptionEditRemove" cid="{{cid}}">
+                        <input type="checkbox" class="classEditRemove" cid="{{cid}}">
                         <span class="lever"></span>
                     </label>
                 </div>
@@ -467,12 +448,12 @@
     </div>
     <br> {{#if code}}
     <div class="center-align">
-        <a id="addLectureButton" class="waves-effect waves-purple btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
+        <a id="addLectureButton" class="waves-effect waves-light btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
         <br>
         <br>
     </div>
     <div class="center-align">
-        <a class="waves-effect waves-purple btn green classEditSaveButton" cid="{{cid}}">Save</a>
+        <a class="waves-effect waves-light btn green classEditSaveButton" cid="{{cid}}">Save</a>
         <a class="btn backButton red waves-effect waves-light">Cancel</a>
         <br>
         <br>
@@ -482,13 +463,67 @@
     </div>
     {{else}}
     <div class="center-align">
-        <a class="waves-effect waves-purple btn green classNewSaveButton">Save</a>
+        <a class="waves-effect waves-light btn green classNewSaveButton">Save</a>
         <a class="btn backButton red waves-effect waves-light">Cancel</a>
         <br>
         <br>
     </div>
     {{/if}}
 
+</script>
+<script id="lectureEditTemplate" type="text/x-handlebars-template">
+    <div class="white-text">
+        <div class="green">
+            <form id="lectureEditForm">
+                <br>
+                <div class="input-field col s12">
+                    <input value="{{title}}" name="lectureTitleEdit" type="text">
+                    <label for="lectureTitleEdit" class="white-text active">Lecture Title</label>
+                </div>
+                <div class="input-field col s12">
+                    <input value="{{date}}" type="date" class="datepicker">
+                </div>
+                <br>
+                <div class="input-field col s12">
+                    <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                    <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
+                </div>
+                <div class="center">
+                    <div class="switch col s12">
+                        <label>
+                            invisible {{#if invisible}}
+                            <input type="checkbox" name="lectureEditVisible"> {{else}}
+                            <input type="checkbox" name="lectureEditVisible" checked> {{/if}}
+                            <span class="lever"></span> visible
+                        </label>
+                    </div>
+                    <div class="switch" style="display: none;">
+                        <label>
+                            <input type="checkbox" class="lectureEditRemove" lid="{{lid}}">
+                            <span class="lever"></span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="questionsEditList">
+
+        </div>
+        <div class="center-align">
+            <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
+            <br>
+            <br>
+        </div>
+        <div class="center-align">
+            <a class="waves-effect waves-light btn green questionEditSaveButton" lid={{lid}}>Save</a>
+            <a class="btn backButton red waves-effect waves-light">Cancel</a>
+            <br>
+            <br>
+            <a class="waves-light waves-effect red btn lectureRemoveButton" lid="{{lid}}">MARK LECTURE FOR DELETION</a>
+            <br>
+        </div>
+        <br>
+    </div>
 </script>
 <script id="classEditLectureTemplate" type="text/x-handlebars-template">
     <li class="collection-item purple">
@@ -501,10 +536,10 @@
                 </p>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect red btn lectureEditButton" lid="{{lid}}">Edit</a>
+                <a class="waves-light waves-effect red btn lectureEditButton" lid="{{lid}}">Edit</a>
             </div>
             <div class="col s6">
-                <a class="waves-purple waves-effect red btn lectureRemoveButton right" lid="{{lid}}">Remove</a>
+                <a class="waves-light waves-effect red btn lectureRemoveButton right" lid="{{lid}}">Remove</a>
             </div>
         </div>
     </li>
