@@ -8,47 +8,7 @@ function View() {
     };
 
 
-    //** Display Altering **/
-    this.setUser = function (data) {
-        $(".usernameDisplay").text(data.username);
-        $(".userTypeDisplay").text(data.isLecturer);
-    };
-
-    // submit answer response display
-    this.submitAnswer = function (data) {
-        // shows a toast with the response i.e. correct
-        Materialize.toast(data, 1000);
-    };
-
-    // toast function
-    this.toast = function (message) {
-        // shows a toast with the response i.e. correct
-        Materialize.toast(message, 2000);
-    };
-
-    // uses handlebar templates to display list of classes
-    this.setClassesEdit = function (data) {
-        var source = $("#classEditTemplate").html(),
-            template = Handlebars.compile(source);
-        HTML = "";
-        if (data.lectures) {
-            data.lecturesHTML = this.getLecturesHTML(data.lectures);
-        }
-        HTML = template(data);
-        $("#editClassInfo").html(HTML);
-    };
-
-    this.getLecturesHTML = function (data) {
-        var source = $("#classEditLectureTemplate").html(),
-            template = Handlebars.compile(source),
-            HTML = "";
-        console.log(data);
-        for (var i = 0; i < data.length; i++) {
-            HTML = HTML + template(data[i]);
-        }
-        return HTML;
-    };
-
+    /**************** CLASS METHODS ******************/
     // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
@@ -67,6 +27,46 @@ function View() {
         $('.className').html(data[0].code + ": " + data[0].name);
     };
 
+    /**************** CLASS EDIT METHODS ******************/
+    // uses handlebar templates to display list of classes
+    this.setClassesEdit = function (data) {
+        var source = $("#classEditTemplate").html(),
+            template = Handlebars.compile(source);
+        HTML = "";
+        if (data.lectures) {
+            data.lecturesHTML = this.getLecturesHTML(data.lectures);
+        }
+        HTML = template(data);
+        $("#editClassInfo").html(HTML);
+    };
+
+    // constructs lecture HTML for class edit display
+    this.getLecturesHTML = function (data) {
+        var source = $("#classEditLectureTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        for (var i = 0; i < data.length; i++) {
+            HTML = HTML + template(data[i]);
+        }
+        return HTML;
+    };
+
+    // takes the data from the edit class divs and constructs a JSON
+    this.getEditClassInfo = function () {
+        // get all the inputs into an array.
+        var $inputs = $('#classEditForm :input');
+        var values = {};
+        values.code = $inputs[0].value;
+        values.name = $inputs[1].value;
+        values.description = $inputs[2].value;
+        values.isvisible = this.booleanConvert($inputs[3].checked);
+        values.joinable = this.booleanConvert($inputs[4].checked);
+        values.removed = $inputs[5].checked;
+        //TODO credit and fix this
+        return values;
+    }
+
+    /**************** LECTURE METHODS ******************/
     // uses handlebar templates to display list of lectures
     this.setLectures = function (data) {
         var HTML = "No Lectures";
@@ -85,66 +85,8 @@ function View() {
         }
     };
 
-    // uses handlebar templates to display list of questions
-    this.setQuestions = function (data) {
-        var source = $("#questionsTemplate").html(),
-            template = Handlebars.compile(source),
-            HTML = "",
-            selectHTML = "";
-        $(".responseQuestionSelect").html("");
-        for (var i = 0; i < data.length; i++) {
-            data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
-            data[i].qnum = i + 1; // gets question number
-            if (data[i].isvisible == 0) {
-                data[i].greyed = true;
-            }
-            HTML = HTML + template(data[i]);
-            selectHTML = selectHTML + " <a class='btn getResponsesButton' value='" + data[i].qid + "'>Q" + data[i].qnum + "</a> ";
-        }
-        if (HTML == "") {
-            HTML = "No Questions.";
-        }
-        $(".responseQuestionSelect").html(selectHTML);
-        $(".questionList").html(HTML);
-    };
-
-    this.removeButton = function (data) {
-        $(".createButtonJSONWrapper[buttonID=" + data + "]").empty();
-    }
-
-    // uses handlebar templates to display new button form
-    this.addMoreEditButtons = function (data) {
-        var source = $("#buttonCreationTemplate").html(),
-            template = Handlebars.compile(source),
-            HTML = "";
-        HTML = template({
-            "qnum": data
-        });
-        $('.buttonCreationForm[qnum="' + data + '"]').append(HTML);
-        $('select').material_select();
-    };
-
-    // uses handlebar templates to display new button form
-    this.addMoreEditButtonsInit = function (data) {
-        var source = $("#buttonCreationTemplate").html(),
-            template = Handlebars.compile(source);
-        return template(data);
-    };
-
-    // uses handlebar templates to display new question form
-    this.addMoreEditQuestions = function () {
-        var source = $("#questionEditTemplate").html(),
-            template = Handlebars.compile(source),
-            HTML = "";
-
-        var data = {
-            "qnum": $('.questionForm').length + 1
-        };
-        HTML = template(data);
-        $("#questionsEditList").append(HTML);
-        $('select').material_select();
-    };
-
+    /**************** LECTURE EDIT METHODS ******************/
+    // sets the edit lecture page up with current data
     this.setEditLecture = function (data) {
         var source = $("#lectureEditTemplate").html(),
             template = Handlebars.compile(source),
@@ -157,8 +99,9 @@ function View() {
         HTML = template(data);
         $('#editLectureInfo').html(HTML);
         this.setEditLectureQuestions(data);
-    }
+    };
 
+    // sets the edit lecture page questions up with current data
     this.setEditLectureQuestions = function (data) {
         var source = $("#questionEditTemplate").html(),
             template = Handlebars.compile(source),
@@ -183,12 +126,116 @@ function View() {
         $('.questionEditSaveButton').attr("lid", data.lid);
     };
 
+    // sets the button form's select to the correct colour
     this.setColourSelect = function (buttons) {
         for (var i = 0; i < buttons.length; i++) {
             $('.createButtonJSONWrapper[buttonID="' + buttons[i].bID + '"]').find("select").val(buttons[i].colour);
         }
     };
 
+    // uses handlebar templates to display new question form
+    this.addMoreEditQuestions = function () {
+        var source = $("#questionEditTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+
+        var data = {
+            "qnum": $('.questionForm').length + 1
+        };
+        HTML = template(data);
+        $("#questionsEditList").append(HTML);
+        $('select').material_select();
+    };
+
+    // uses handlebar templates to display new button form
+    this.addMoreEditButtons = function (data) {
+        var source = $("#buttonCreationTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        HTML = template({
+            "qnum": data
+        });
+        $('.buttonCreationForm[qnum="' + data + '"]').append(HTML);
+        $('select').material_select();
+    };
+
+    // uses handlebar templates to display new button form
+    this.addMoreEditButtonsInit = function (data) {
+        //TODO combine with above
+        var source = $("#buttonCreationTemplate").html(),
+            template = Handlebars.compile(source);
+        return template(data);
+    };
+
+    // removes specified button constructor form
+    this.removeButton = function (data) {
+        $(".createButtonJSONWrapper[buttonID=" + data + "]").empty();
+    };
+
+    // takes data from edit class button divs and constructs a JSON
+    this.getButtonInfo = function (qnum) {
+        var buttons = [];
+        for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
+            var button = {
+                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[e].value,
+                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[e].value,
+                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
+            }
+            buttons.push(button);
+        }
+        return JSON.stringify(buttons);
+    };
+
+    // takes the data from the edit class divs and constructs a JSON
+    this.getEditLectureInfo = function (lid) {
+        var questions = [],
+            $inputs = $('#lectureEditForm :input'),
+            values = {};
+        values.lid = lid;
+        values.name = $inputs[0].value;
+        values.date = $inputs[1].value;
+        values.description = $inputs[2].value;
+        values.isvisible = this.booleanConvert($inputs[3].checked);
+        values.removed = $inputs[4].checked;
+        for (var i = 0; i < $('.questionForm').length; i++) {
+            var question = {},
+                buttons = [];
+            question.invisible = $('.questionForm').find('input[name="switch"]')[i].checked;
+            question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
+            question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
+            question.removed = $('.questionForm').find('input[name="remove"]')[i].checked;
+            question.buttons = this.getButtonInfo(i + 1);
+            questions.push(question);
+        }
+        values.questions = questions;
+        return values;
+    };
+
+    /**************** QUESTIONS METHODS ******************/
+    // uses handlebar templates to display list of questions
+    this.setQuestions = function (data) {
+        var source = $("#questionsTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "",
+            selectHTML = "";
+        $(".responseQuestionSelect").html("");
+        for (var i = 0; i < data.length; i++) {
+            data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
+            data[i].qnum = i + 1; // gets question number
+            if (data[i].isvisible == 0) {
+                data[i].greyed = true;
+            }
+            HTML = HTML + template(data[i]);
+            selectHTML = selectHTML + " <a class='btn getResponsesButton' value='" + data[i].qid + "'>Q" + data[i].qnum + "</a> ";
+        }
+        if (HTML == "") {
+            HTML = "No Questions.";
+        }
+        $(".responseQuestionSelect").html(selectHTML);
+        $(".questionList").html(HTML);
+    };
+
+    /**************** QUESTION METHODS ******************/
     // uses handlebar templates to display current question
     this.setQuestion = function (data) {
         var source = $("#questionTemplate").html(),
@@ -199,6 +246,26 @@ function View() {
         $("#question").html(HTML);
     };
 
+    // uses handlebar templates to contruct answer buttons from JSON
+    this.constructButtons = function (data, qid) {
+        var buttonSource = $("#buttonTemplate").html(),
+            buttonTemplate = Handlebars.compile(buttonSource),
+            buttonHTML = "";
+        for (var i = 0; i < data.length; i++) {
+            var button = data[i];
+            button.qid = qid;
+            values = {
+                "colour": button.colour,
+                "value": button.value,
+                "text": button.text,
+                "qid": button.qid
+            }
+            buttonHTML = buttonHTML + buttonTemplate(data[i]);
+        }
+        return buttonHTML;
+    };
+
+    /**************** RESPONSES METHODS ******************/
     // creates a Chart.js chart from data provided from responses database
     this.setResponses = function (data) {
         //$(".responsesDisplay").text(JSON.stringify(data));
@@ -255,77 +322,18 @@ function View() {
         return newArray;
     }
 
-    this.getButtonInfo = function (qnum) {
-        var buttons = [];
-        for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
-            var button = {
-                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[e].value,
-                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[e].value,
-                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
-            }
-            buttons.push(button);
-        }
-        return JSON.stringify(buttons);
+    /**************** MISC METHODS ******************/
+
+    // sets user to specified data
+    this.setUser = function (data) {
+        $(".usernameDisplay").text(data.username);
+        $(".userTypeDisplay").text(data.isLecturer);
     };
 
-    //** GUI info getters **/
-    // takes the data from the edit class divs and constructs a JSON
-    this.getEditLectureInfo = function (lid) {
-        var questions = [],
-            $inputs = $('#lectureEditForm :input'),
-            values = {};
-        values.lid = lid;
-        values.name = $inputs[0].value;
-        values.date = $inputs[1].value;
-        values.description = $inputs[2].value;
-        values.isvisible = this.booleanConvert($inputs[3].checked);
-        values.removed = $inputs[4].checked;
-        for (var i = 0; i < $('.questionForm').length; i++) {
-            var question = {},
-                buttons = [];
-            question.invisible = $('.questionForm').find('input[name="switch"]')[i].checked;
-            question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
-            question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
-            question.removed = $('.questionForm').find('input[name="remove"]')[i].checked;
-            question.buttons = this.getButtonInfo(i + 1);
-            questions.push(question);
-        }
-        values.questions = questions;
-        return values;
-    }
-
-    // takes the data from the edit class divs and constructs a JSON
-    this.getEditClassInfo = function () {
-        // get all the inputs into an array.
-        var $inputs = $('#classEditForm :input');
-        var values = {};
-        values.code = $inputs[0].value;
-        values.name = $inputs[1].value;
-        values.description = $inputs[2].value;
-        values.isvisible = this.booleanConvert($inputs[3].checked);
-        values.joinable = this.booleanConvert($inputs[4].checked);
-        values.removed = $inputs[5].checked;
-        //TODO credit and fix this
-        return values;
-    }
-
-    // uses handlebar templates to contruct answer buttons from JSON
-    this.constructButtons = function (data, qid) {
-        var buttonSource = $("#buttonTemplate").html(),
-            buttonTemplate = Handlebars.compile(buttonSource),
-            buttonHTML = "";
-        for (var i = 0; i < data.length; i++) {
-            var button = data[i];
-            button.qid = qid;
-            values = {
-                "colour": button.colour,
-                "value": button.value,
-                "text": button.text,
-                "qid": button.qid
-            }
-            buttonHTML = buttonHTML + buttonTemplate(data[i]);
-        }
-        return buttonHTML;
+    // toast message display function
+    this.toast = function (message) {
+        // shows a toast with the response i.e. correct
+        Materialize.toast(message, 2000);
     };
 
     // back button, using array of lastpage

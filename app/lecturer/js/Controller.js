@@ -66,53 +66,28 @@ function Controller() {
 
     };
 
-    this.setUser = function () {
-        view.setUser(model.getUser());
+    /**************** CLASS METHODS ******************/
+    this.selectClass = function (event) {
+        var lectures = model.getLectures($(event.currentTarget).attr("value"));
+        $('#classPageEditButton').attr("value", $(event.currentTarget).attr("value"));
+        view.setLectures(lectures);
+        view.switchView('lectures');
     };
 
-    this.removeButton = function (event) {
-        view.removeButton($(event.currentTarget).attr("buttonID"));
+    this.addClass = function (event) {
+        view.setClassesEdit({});
+        view.switchView('editClass');
     };
 
-    this.addMoreEditButtons = function (event) {
-        view.addMoreEditButtons($(event.currentTarget).attr("qnum"));
+    this.editClass = function (event) {
+        var lectures = model.getLectures($(event.currentTarget).attr("value"));
+        var classData = model.getUserClassInfo($(event.currentTarget).attr("value"));
+        classData.lectures = lectures;
+        view.setClassesEdit(classData);
+        view.switchView('editClass');
     };
 
-    this.createButtonJSON = function (event) {
-        model.createButtonJSON($(event.currentTarget).attr("qnum"));
-    };
-
-    this.removeClass = function (event) {
-        var cid = $(event.currentTarget).attr("cid");
-        view.toast(model.removeClass(event));
-    };
-
-    this.removeLecture = function (event) {
-        var lid = $(event.currentTarget).attr("lid");
-        view.toast(model.removeLecture(event));
-    };
-
-    this.removeQuestion = function (event) {
-        var qnum = $(event.currentTarget).attr("qnum");
-        view.toast(model.removeQuestion(event))
-    };
-
-    this.updateQuestions = function () {
-        var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
-    };
-
-    this.nextQuestion = function () {
-        this.updateQuestions();
-        model.getQuestions(model.getCurLecture());
-        this.selectQuestion(model.getNextQuestion());
-    };
-
-    this.previousQuestion = function () {
-        this.updateQuestions();
-        model.getQuestions(model.getCurLecture());
-        this.selectQuestion(model.getPreviousQuestion());
-    };
+    /**************** CLASS EDIT METHODS ******************/
 
     this.saveEditClass = function (event) {
         var data = view.getEditClassInfo();
@@ -129,24 +104,22 @@ function Controller() {
         view.switchView('home');
     };
 
-    this.saveEditLecture = function (event) {
-        model.saveEditLecture(view.getEditLectureInfo($(event.currentTarget).attr("lid")));
-        Materialize.toast("Lecture Edited.", 2000);
-        this.update();
-        view.switchView('home');
+    this.removeClass = function (event) {
+        var cid = $(event.currentTarget).attr("cid");
+        view.toast(model.removeClass(event));
     };
 
-    this.addClass = function (event) {
-        view.setClassesEdit({});
-        view.switchView('editClass');
+    /**************** LECTURE METHODS ******************/
+    this.selectLecture = function (event) {
+        var questions = model.getQuestions($(event.currentTarget).attr("lid"));
+        $('#lecturePageEditButton').attr("lid", $(event.currentTarget).attr("lid"));
+        view.setQuestions(JSON.parse(questions));
+        view.switchView('questions');
     };
 
-    this.editClass = function (event) {
-        var lectures = model.getLectures($(event.currentTarget).attr("value"));
-        var classData = model.getUserClassInfo($(event.currentTarget).attr("value"));
-        classData.lectures = lectures;
-        view.setClassesEdit(classData);
-        view.switchView('editClass');
+    /**************** LECTURE EDIT METHODS ******************/
+    this.removeButton = function (event) {
+        view.removeButton($(event.currentTarget).attr("buttonID"));
     };
 
     this.editLecture = function (event) {
@@ -157,18 +130,36 @@ function Controller() {
         view.switchView('editLecture');
     };
 
-    this.selectClass = function (event) {
-        var lectures = model.getLectures($(event.currentTarget).attr("value"));
-        $('#classPageEditButton').attr("value", $(event.currentTarget).attr("value"));
-        view.setLectures(lectures);
-        view.switchView('lectures');
+    this.addMoreEditButtons = function (event) {
+        view.addMoreEditButtons($(event.currentTarget).attr("qnum"));
     };
 
-    this.selectLecture = function (event) {
-        var questions = model.getQuestions($(event.currentTarget).attr("lid"));
-        $('#lecturePageEditButton').attr("lid", $(event.currentTarget).attr("lid"));
+    this.createButtonJSON = function (event) {
+        model.createButtonJSON($(event.currentTarget).attr("qnum"));
+    };
+
+    this.removeLecture = function (event) {
+        var lid = $(event.currentTarget).attr("lid");
+        view.toast(model.removeLecture(event));
+    };
+
+    this.removeQuestion = function (event) {
+        var qnum = $(event.currentTarget).attr("qnum");
+        view.toast(model.removeQuestion(event))
+    };
+
+    this.saveEditLecture = function (event) {
+        model.saveEditLecture(view.getEditLectureInfo($(event.currentTarget).attr("lid")));
+        Materialize.toast("Lecture Edited.", 2000);
+        this.update();
+        view.switchView('home');
+    };
+
+
+    /**************** QUESTIONS METHODS ******************/
+    this.updateQuestions = function () {
+        var questions = model.getQuestions(model.getCurLecture());
         view.setQuestions(JSON.parse(questions));
-        view.switchView('questions');
     };
 
     this.selectQuestionEvent = function (event) {
@@ -190,6 +181,24 @@ function Controller() {
     this.getResponsesSelect = function (event) {
         var responses = model.getResponses($(event.currentTarget).val());
         view.setResponses(JSON.parse(responses));
+    };
+
+    /**************** QUESTION METHODS ******************/
+    this.nextQuestion = function () {
+        this.updateQuestions();
+        model.getQuestions(model.getCurLecture());
+        this.selectQuestion(model.getNextQuestion());
+    };
+
+    this.previousQuestion = function () {
+        this.updateQuestions();
+        model.getQuestions(model.getCurLecture());
+        this.selectQuestion(model.getPreviousQuestion());
+    };
+
+    /**************** MISC METHODS ******************/
+    this.setUser = function () {
+        view.setUser(model.getUser());
     };
 
     this.logout = function () {

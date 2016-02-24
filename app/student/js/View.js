@@ -7,31 +7,7 @@ function View() {
         //console.log("View Init");
     };
 
-
-    //** Display Altering **/
-    this.setUser = function (data) {
-        $(".usernameDisplay").text(data.username);
-        $(".userTypeDisplay").text(data.isLecturer);
-    };
-
-    // join class response display
-    this.joinClass = function (data) {
-        // shows a toast with the response
-        Materialize.toast(data, 1000);
-    };
-
-    // leave class response display
-    this.leaveClass = function (data) {
-        // shows a toast with the response
-        Materialize.toast(data, 1000);
-    };
-
-    // submit answer response display
-    this.submitAnswer = function (data) {
-        // shows a toast with the response i.e. correct
-        Materialize.toast(data, 1000);
-    };
-
+    /**************** CLASS METHODS ******************/
     // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
@@ -50,10 +26,11 @@ function View() {
         $('.className').html(data[0].code + ": " + data[0].name);
     };
 
+    /**************** LECTURE METHODS ******************/
     // uses handlebar templates to display list of lectures
     this.setLectures = function (data) {
         var HTML = "No Lectures";
-        if (data != {}) {
+        if (data.length > 0) {
             var source = $("#lecturesTemplate").html(),
                 template = Handlebars.compile(source);
             HTML = "";
@@ -63,12 +40,13 @@ function View() {
                 }
                 HTML = HTML + template(data[i]);
             }
+            $(".lecturesList").html(HTML);
+            $('.lectureTitle').html(data[0].title);
+            $('.classLeaveButton').attr("cid", data[0].cid);
         }
-        $(".lecturesList").html(HTML);
-        $('.lectureTitle').html(data[0].title);
-
     };
 
+    /**************** QUESTIONS METHODS ******************/
     // uses handlebar templates to display list of questions
     this.setQuestions = function (data) {
         var source = $("#questionsTemplate").html(),
@@ -88,27 +66,7 @@ function View() {
         $(".questionList").html(HTML);
     };
 
-    // uses handlebar templates to display list of results
-    this.setClassSearchResult = function (data) {
-        if (data != "") {
-            var HTML = "No Classes";
-            if (data != {}) {
-                var source = $("#classesResultTemplate").html(),
-                    template = Handlebars.compile(source);
-                HTML = "";
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].isvisible == 0) {
-                        data[i].greyed = true;
-                    }
-                    HTML = HTML + template(data[i]);
-                }
-            }
-            $(".searchResult").html(HTML);
-        } else {
-            $(".searchResult").empty();
-        }
-    };
-
+    /**************** QUESTION METHODS ******************/
     // uses handlebar templates to display current question
     this.setQuestion = function (data) {
         var source = $("#questionTemplate").html(),
@@ -136,6 +94,60 @@ function View() {
             buttonHTML = buttonHTML + buttonTemplate(data[i]);
         }
         return buttonHTML;
+    };
+
+    /**************** SEARCH METHODS ******************/
+    // uses handlebar templates to display list of results
+    this.setClassSearchResult = function (data) {
+        if (data != "") {
+            var HTML = "No Classes";
+            if (data != {}) {
+                var source = $("#classesResultTemplate").html(),
+                    template = Handlebars.compile(source);
+                HTML = "";
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].isvisible == 0) {
+                        data[i].greyed = true;
+                    }
+                    HTML = HTML + template(data[i]);
+                }
+            }
+            $(".searchResult").html(HTML);
+        } else {
+            $(".searchResult").empty();
+        }
+    };
+    /**************** MISC METHODS ******************/
+
+    // sets user to specified data
+    this.setUser = function (data) {
+        $(".usernameDisplay").text(data.username);
+        $(".userTypeDisplay").text(data.isLecturer);
+    };
+
+    // join class response display
+    this.joinClass = function (data) {
+        // shows a toast with the response
+        Materialize.toast(data, 1000);
+    };
+
+    // leave class response display
+    this.leaveClass = function (data) {
+        // shows a toast with the response
+        Materialize.toast(data, 1000);
+    };
+
+    // submit answer response display
+    this.submitAnswer = function (data) {
+        // shows a toast with the response i.e. correct
+        Materialize.toast(data, 1000);
+    };
+
+    // toast message display function
+    //TODO move all of above into this
+    this.toast = function (message) {
+        // shows a toast with the response i.e. correct
+        Materialize.toast(message, 2000);
     };
 
     // back button, using array of lastpage

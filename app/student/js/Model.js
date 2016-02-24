@@ -1,5 +1,7 @@
 function Model() {
     var user = {},
+        userClasses = [],
+        userLectures = [],
         userQuestions = [],
         curQuestion,
         curLecture,
@@ -10,31 +12,67 @@ function Model() {
         //console.log("Model Init");
     };
 
-    this.joinClass = function (data) {
-        return $.getValues("php/joinClass.php", data);
+    /**************** CLASS METHODS ******************/
+    // returns current saved user classes of cid
+    this.getUserClassInfo = function (cid) {
+        for (var i = 0; i < userClasses.length; i++) {
+            if (userClasses[i].cid == cid) {
+                return userClasses[i];
+            }
+        }
+        return null;
     };
 
-    this.leaveClass = function (data) {
-        return $.getValues("php/leaveClass.php", data);
-    };
-
-    // submits answers for question
-    this.submitAnswer = function (data) {
-        return $.getValues("php/submitAnswer.php", data);
+    // returns current saved user classes
+    this.getUserClasses = function () {
+        return userClasses;
     };
 
     // retrieves classes that the user enrols in
     this.getClasses = function () {
-        return $.getValues("php/getClasses.php", null);
+        userClasses = JSON.parse($.getValues("php/getClasses.php", null));
+        return userClasses;
+    };
+
+    // adds current user to class specified
+    this.joinClass = function (data) {
+        return $.getValues("php/joinClass.php", data);
+    };
+
+    // removes current user from class specified
+    this.leaveClass = function (data) {
+        return $.getValues("php/leaveClass.php", data);
+    };
+
+    /**************** LECTURE METHODS ******************/
+    // gets information on saved user lecture with specified lid
+    this.getUserLectureInfo = function (lid) {
+        for (var i = 0; i < userLectures.length; i++) {
+            if (userLectures[i].lid == lid) {
+                return userLectures[i];
+            }
+        }
+        return null;
+    };
+
+    // returns the current saved user lectures
+    this.getUserLectures = function () {
+        return userLectures;
     };
 
     // retrieves lectures for class cid from database
     this.getLectures = function (cid) {
-        return $.getValues("php/getLectures.php", {
+        userLectures = JSON.parse($.getValues("php/getLectures.php", {
             "cid": cid
-        });
+        }));
+        return userLectures;
     };
 
+    this.getCurLecture = function () {
+        return curLecture;
+    };
+
+    /**************** QUESTION METHODS ******************/
     // retrieves questions for lecture lid from database
     this.getQuestions = function (lid) {
         curLecture = lid;
@@ -44,65 +82,14 @@ function Model() {
         return userQuestions;
     };
 
+    // returns the current saved user questions
     this.getUserQuestions = function () {
         return userQuestions;
     };
 
-    // retrieves info about current user using SESSION ID in php
-    this.getUser = function () {
-        user = $.getValues("../php/getUser.php", {});
-        return JSON.parse(user);
-    };
-
-    this.setSearchType = function (data) {
-        searchType = data;
-    }
-
-    this.getSearchType = function () {
-        return searchType;
-    }
-
-    // retrieves info about classes searched for with value
-    // TODO search for class code, name, lecturer, etc.
-    this.getClassSearchResult = function (data) {
-        if (data != this.getLastSearch()) {
-            this.setLastSearch(data);
-            console.log(this.getSearchType());
-            var searchData = {};
-            switch (this.getSearchType()) {
-            case "name":
-                searchData.name = data;
-                break;
-            case "lecturer":
-                searchData.lecturer = data;
-                break;
-            default:
-                searchData.code = data;
-                break;
-            }
-            console.log(searchData);
-            return $.getValues("php/searchClasses.php", searchData);
-        }
-    };
-
-    this.getLastSearch = function () {
-        return lastSearch;
-    };
-
-    this.setLastSearch = function (data) {
-        lastSearch = data;
-    };
-
-    this.getCurLecture = function () {
-        return curLecture;
-    };
-
-    // simple log out function
-    this.logout = function () {
-        // setting the php session ID to null
-        $.getValues("../php/logout.php", {});
-        // moving the user to the login page.
-        window.location.href = '..';
+    // submits answers for question
+    this.submitAnswer = function (data) {
+        return $.getValues("php/submitAnswer.php", data);
     };
 
     this.getNextQuestion = function () {
@@ -170,12 +157,69 @@ function Model() {
         }
     };
 
+    /**************** SEARCH METHODS ******************/
+    // retrieves info about classes searched for with value
+    this.getClassSearchResult = function (data) {
+        if (data != this.getLastSearch()) {
+            this.setLastSearch(data);
+            console.log(this.getSearchType());
+            var searchData = {};
+            switch (this.getSearchType()) {
+            case "name":
+                searchData.name = data;
+                break;
+            case "lecturer":
+                searchData.lecturer = data;
+                break;
+            default:
+                searchData.code = data;
+                break;
+            }
+            console.log(searchData);
+            return $.getValues("php/searchClasses.php", searchData);
+        }
+    };
+
+    // returns the last search text
+    this.getLastSearch = function () {
+        return lastSearch;
+    };
+
+    // sets the last search text
+    this.setLastSearch = function (data) {
+        lastSearch = data;
+    };
+
+    // sets the type of search i.e. code, lecturer etc
+    this.setSearchType = function (data) {
+        searchType = data;
+    }
+
+    // gets the type of search i.e. code, lecturer etc
+    this.getSearchType = function () {
+        return searchType;
+    }
+
+    /**************** MISC METHODS ******************/
+    // retrieves info about current user using SESSION ID in php
+    this.getUser = function () {
+        user = $.getValues("php/getUser.php", {});
+        return JSON.parse(user);
+    };
+
+    // simple log out function
+    this.logout = function () {
+        // setting the php session ID to null
+        $.getValues("../php/logout.php", {});
+        // moving the user to the login page.
+        window.location.href = '..';
+    };
 
     //*** Update Function ***//
     this.update = function () {
         var updateData = {};
         updateData = {
-            "classes": JSON.parse(this.getClasses())
+            "classes": this.getClasses()
         };
         return updateData;
     }

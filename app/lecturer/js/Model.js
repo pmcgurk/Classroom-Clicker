@@ -10,19 +10,6 @@ function Model() {
         //console.log("Model Init");
     };
 
-    this.removeClass = function (event) {
-        var cid = $(event.currentTarget).attr("cid");
-        var removed = $('input.classEditRemove[cid="' + cid + '"]')[0].checked;
-        $('input.classEditRemove[cid="' + cid + '"]')[0].checked = !removed;
-        if (removed) {
-            $(event.currentTarget).html("MARK CLASS FOR DELETION");
-            return "Class unset for Removal.";
-        } else {
-            $(event.currentTarget).html("UNMARK CLASS FOR DELETION");
-            return "Class set for Removal. Save to confirm.";
-        }
-    }
-
     this.removeLecture = function (event) {
         var lid = $(event.currentTarget).attr("lid");
         var removed = $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked;
@@ -50,15 +37,6 @@ function Model() {
     };
 
     // compiles the edit classes interfaces JSON and sends to database
-    this.saveClass = function (data) {
-        if (data.code != "" && data.name != "") {
-            console.log($.ajaxPOST("php/editClass.php", data));
-        } else {
-            console.log("Invalid Class Name/code");
-        }
-    };
-
-    // compiles the edit classes interfaces JSON and sends to database
     this.saveEditLecture = function (data) {
         console.log(data);
         console.log($.ajaxPOST("php/editLecture.php", data));
@@ -80,6 +58,9 @@ function Model() {
         }
     };
 
+
+    /**************** CLASS METHODS ******************/
+    // returns current saved user classes of cid
     this.getUserClassInfo = function (cid) {
         for (var i = 0; i < userClasses.length; i++) {
             if (userClasses[i].cid == cid) {
@@ -89,22 +70,41 @@ function Model() {
         return null;
     };
 
+    // returns current saved user classes
     this.getUserClasses = function () {
         return userClasses;
     };
 
-    // submits answers for question, not used in lecturer
-    // TODO: remove
-    this.submitAnswer = function (data) {
-        return $.getValues("php/submitAnswer.php", data);
-    };
-
-    // retrieves classes that the user owns
+    // retrieves classes that the user enrols in
     this.getClasses = function () {
         userClasses = JSON.parse($.getValues("php/getClasses.php", null));
         return userClasses;
     };
 
+    this.removeClass = function (event) {
+        var cid = $(event.currentTarget).attr("cid");
+        var removed = $('input.classEditRemove[cid="' + cid + '"]')[0].checked;
+        $('input.classEditRemove[cid="' + cid + '"]')[0].checked = !removed;
+        if (removed) {
+            $(event.currentTarget).html("MARK CLASS FOR DELETION");
+            return "Class unset for Removal.";
+        } else {
+            $(event.currentTarget).html("UNMARK CLASS FOR DELETION");
+            return "Class set for Removal. Save to confirm.";
+        }
+    }
+
+    // compiles the edit classes interfaces JSON and sends to database
+    this.saveClass = function (data) {
+        if (data.code != "" && data.name != "") {
+            console.log($.ajaxPOST("php/editClass.php", data));
+        } else {
+            console.log("Invalid Class Name/code");
+        }
+    };
+
+
+    /**************** LECTURE METHODS ******************/
     // gets information on saved user lecture with specified lid
     this.getUserLectureInfo = function (lid) {
         for (var i = 0; i < userLectures.length; i++) {
@@ -128,12 +128,17 @@ function Model() {
         return userLectures;
     };
 
+    /**************** QUESTION METHODS ******************/
     // retrieves questions for lecture lid from database
     this.getQuestions = function (lid) {
         curLecture = lid;
         userQuestions = $.getValues("php/getQuestions.php", {
             "lid": lid
         });
+        return userQuestions;
+    };
+
+    this.getUserQuestions = function () {
         return userQuestions;
     };
 
