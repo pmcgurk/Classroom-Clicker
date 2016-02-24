@@ -36,7 +36,7 @@
             <div class="green">
                 <div class="container white-text">
                     <br>
-                    <h5>Welcome, <span class="usernameDisplay">ERR</span>.</h5>
+                    <h5 class="logo">Welcome, <span class="usernameDisplay">ERR</span>.</h5>
                     <br>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div class="green card">
                     <div class="container white-text">
                         <br>
-                        <h5>Owned Classes<a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                        <h5 class="logo">Owned Classes<a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
                         <br>
                     </div>
                     <div class="container">
@@ -65,7 +65,7 @@
             <div class="green">
                 <div class="container white-text">
                     <br>
-                    <h5 class="className">Class Name</h5>
+                    <h5 class="logo className">Class Name</h5>
                     <br>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 <div class="green card">
                     <div class="container white-text">
                         <br>
-                        <h5>Lectures</h5>
+                        <h5 class="logo">Lectures</h5>
                         <br>
                     </div>
                     <div class="container">
@@ -92,7 +92,7 @@
             <div class="green">
                 <div class="container white-text">
                     <br>
-                    <h5 class="lectureTitle">Lecture Title</h5>
+                    <h5 class="logo lectureTitle">Lecture Title</h5>
                     <br>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="green card">
                     <div class="container white-text">
                         <br>
-                        <h5>Questions<a class="updateQuestions btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                        <h5 class="logo">Questions<a class="updateQuestions btn-floating purple right"><i class="material-icons left">update</i></a></h5>
                         <br>
                     </div>
                     <div class="container">
@@ -122,7 +122,7 @@
         </div>
         <div id="responses" class="page" style="display: none;">
             <div class="center-align">
-                <h5 class="responsesDisplayHeader"></h5>
+                <h5 class="logo" class="responsesDisplayHeader"></h5>
                 <div class="canvasWrapper">
                     <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
                 </div>
@@ -144,7 +144,7 @@
             <div class="green white-text">
                 <div class="container">
                     <br>
-                    <h5>Lecturer Questions page</h5>
+                    <h5 class="logo">Lecturer Questions page</h5>
                 </div>
             </div>
         </div>
@@ -301,7 +301,7 @@
             <h6>{{#if qnump}}Previous{{/if}}</h6>
         </div>
         <div class="col s8">
-            <h4 id="questionNumber" class="center-align">Question {{qnum}}</h4>
+            <h4 id="questionNumber" class="center-align logo">Question {{qnum}}</h4>
         </div>
         <div class="{{#if qnumn}}nextQuestionButton{{/if}} col s2 right-align valign">
             <h6>{{#if qnumn}}Next{{/if}}</h6>
@@ -310,7 +310,7 @@
     <div id="currentQuestion" class="center col s12">
         <div class="questionDiv card green white-text col s12 ">
             <div id="questionTextDiv" class="container" style="height: 45vh">
-                <h5 id="questionText" class="flow-text">{{text}}</h5>
+                <h5 class="logo" id="questionText" class="flow-text">{{text}}</h5>
             </div>
         </div>
         <div class="buttonDiv center col s12">
@@ -351,7 +351,7 @@
                 <label for="textarea1">Question</label>
             </div>
             <div class="row">
-                <h5>Answer Type</h5>
+                <h5 class="logo">Answer Type</h5>
                 <div class="buttonCreationForm col s12" qnum="{{qnum}}">
                     {{{buttonsHTML}}}
                 </div>
@@ -391,14 +391,22 @@
                             <label class="white-text">Button Colour</label>
                         </div>
                         <br>
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             <input value="{{value}}" name="buttonvalue" type="text">
                             <label for="buttonvalue" class="white-text active">Button Value</label>
                         </div>
+                        <div class="col s6">
+                            {{#if isAnswer}}
+                            <input name="group{{qnum}}" type="radio" id="test{{bID}}" value="buttonanswer" checked/> {{else}}
+                            <input name="group{{qnum}}" type="radio" id="test{{bID}}" value="buttonanswer" /> {{/if}}
+                            <label for="test{{bID}}">Set As Answer</label>
+                            <br>
+                        </div>
                     </div>
                 </div>
-                <br>
-                <a class="btn red buttonCreationRemoveButton center" buttonID="{{bID}}">Remove</a>
+                <div class="col s12">
+                    <a class="btn red buttonCreationRemoveButton center" buttonID="{{bID}}">Remove</a>
+                </div>
                 <br>
                 <br>
                 <br>
@@ -448,13 +456,13 @@
         </form>
         <br>
         <br> {{#if lecturesHTML}}
-        <h5>Lectures</h5>
+        <h5 class="logo">Lectures</h5>
         <ul class="collection" id="editClassInfoLectures">
             {{{lecturesHTML}}}
         </ul>
         {{else}}
         <br>
-        <h5>No Lectures</h5>
+        <h5 class="logo">No Lectures</h5>
         <h6>To add lectures, save the class first.</h6>
         <br> {{/if}}
     </div>
@@ -481,7 +489,6 @@
         <br>
     </div>
     {{/if}}
-
 </script>
 <script id="lectureEditTemplate" type="text/x-handlebars-template">
     <div class="white-text">
