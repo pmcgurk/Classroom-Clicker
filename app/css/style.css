@@ -161,3 +161,7 @@
       resize: none;
       min-height: 3rem;
   }
+  
+  .collection {
+      border: 0px;
+  }

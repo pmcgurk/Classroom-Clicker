@@ -41,17 +41,21 @@
                 </div>
             </div>
             <br>
-            <div class="green">
-                <div class="container white-text">
-                    <br>
-                    <h5>Enrolled Classes <a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+            <div class="container">
+                <div class="green card">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Enrolled Classes <a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                        <br>
+                    </div>
+                    <div class="container">
+                        <ul class="collection classes"></ul>
+                    </div>
                     <br>
                 </div>
-                <ul class="collection classes"></ul>
                 <div class="center-align">
                     <a class="joinClassButton waves-effect waves-light btn purple">Join Class</a>
                 </div>
-                <br>
             </div>
         </div>
         <div id="lectures" class="page" style="display: none;">
@@ -63,14 +67,21 @@
                 </div>
             </div>
             <br>
-            <div class="green">
-                <div class="container white-text">
-                    <br>
-                    <h5>Lectures</h5>
+            <div class="container">
+                <div class="green card">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Lectures</h5>
+                        <br>
+                    </div>
+                    <div class="container">
+                        <ul class="collection lecturesList"></ul>
+                    </div>
                     <br>
                 </div>
-                <ul class="collection lecturesList"></ul>
-                <br>
+                <div class="center-align">
+                    <a class="waves-light waves-effect red btn classLeaveButton">Leave Class</a>
+                </div>
             </div>
         </div>
         <div id="questions" class="page" style="display: none;">
@@ -82,18 +93,18 @@
                 </div>
             </div>
             <br>
-            <div class="green">
-                <div class="container white-text">
-                    <br>
-                    <h5>Questions<a class="updateQuestions btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+            <div class="container">
+                <div class="green card">
+                    <div class="container white-text">
+                        <br>
+                        <h5>Questions<a class="updateQuestions btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                        <br>
+                    </div>
+                    <div class="container">
+                        <ul class="collection questionList"></ul>
+                    </div>
                     <br>
                 </div>
-                <ul class="collection questionList">
-                    <li class="collectionItem">
-                        <span class="title">No Questions Add Yet.</span>
-                    </li>
-                </ul>
-                <br>
             </div>
         </div>
         <div id="question" class="page" style="display: none;">
@@ -169,16 +180,13 @@
             <div class="col s12">
                 <span class="logo">{{code}}: {{name}}</span>
             </div>
-            <div class="col s12">
+            <div class="col s10">
                 <p class="white-text">{{description}}
                     <br> {{realname}}
                 </p>
             </div>
-            <div class="col s6">
+            <div class="col s2">
                 <a class="waves-light waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
-            </div>
-            <div class="col s6">
-                <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
             </div>
         </div>
     </li>
@@ -188,16 +196,13 @@
             <div class="col s12">
                 <span class="logo">{{code}}: {{name}}</span>
             </div>
-            <div class="col s12">
+            <div class="col s9">
                 <p class="white-text">{{description}}
                     <br> {{realname}}
                 </p>
             </div>
-            <div class="col s6">
-                <a class="waves-light waves-effect green btn classSelectionButton" value="{{cid}}">Open</a>
-            </div>
-            <div class="col s6">
-                <a class="waves-light waves-effect red btn classLeaveButton right" value="{{cid}}">Leave</a>
+            <div class="col s3">
+                <a class="waves-light waves-effect green btn classSelectionButton right" cid="{{cid}}">Open</a>
             </div>
         </div>
     </li>
