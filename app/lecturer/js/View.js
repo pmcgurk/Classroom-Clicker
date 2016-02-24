@@ -112,6 +112,9 @@ function View() {
             var buttons = JSON.parse(data.questions[i].buttontype),
                 buttonsHTML = "";
             for (var e = 0; e < buttons.length; e++) {
+                if (buttons[e].value == data.questions[i].answer) {
+                    buttons[e].isAnswer = true;
+                }
                 buttons[e].qnum = data.questions[i].qnum;
                 buttons[e].bID = buttons[e].qnum + "-" + e;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
@@ -186,6 +189,16 @@ function View() {
         return JSON.stringify(buttons);
     };
 
+    this.getAnswerButton = function (qnum) {
+        var buttons = [];
+        for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
+            var isAnswer = $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[value="buttonanswer"]')[e].checked
+            if (isAnswer) {
+                return $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[e].value
+            }
+        }
+    };
+
     // takes the data from the edit class divs and constructs a JSON
     this.getEditLectureInfo = function (lid) {
         var questions = [],
@@ -205,6 +218,7 @@ function View() {
             question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
             question.removed = $('.questionForm').find('input[name="remove"]')[i].checked;
             question.buttons = this.getButtonInfo(i + 1);
+            question.answer = this.getAnswerButton(i + 1);
             questions.push(question);
         }
         values.questions = questions;
