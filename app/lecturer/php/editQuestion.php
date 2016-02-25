@@ -4,7 +4,7 @@ $qid = $_GET['qid'];
 $text = $_GET['text'];
 $buttons = $_GET['buttons'];
 $lid = $_GET['lid'];
-$answer = "A";
+$answer = $_GET['answer'];
 $removed = $_GET['removed'];
 $isvisible = 1;
 
