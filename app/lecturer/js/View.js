@@ -92,7 +92,7 @@ function View() {
             template = Handlebars.compile(source),
             HTML = "";
 
-        if (data.isvisible) {
+        if (data.isvisible == 0) {
             data.invisible = true;
         }
 
@@ -108,7 +108,10 @@ function View() {
             HTML = "";
         for (var i = 0; i < data.questions.length; i++) {
             data.questions[i].qnum = i + 1;
-            data.questions[i].checked = (data.questions[i].isvisible == 0);
+            if (data.questions[i].isvisible == 1) {
+                data.questions[i].checked = true;
+            }
+
             var buttons = JSON.parse(data.questions[i].buttontype),
                 buttonsHTML = "";
             for (var e = 0; e < buttons.length; e++) {
@@ -119,7 +122,7 @@ function View() {
                 buttons[e].bID = buttons[e].qnum + "-" + e;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
             }
-            // console.log(buttonsHTML);
+            console.log(data);
             data.questions[i].buttonsHTML = buttonsHTML;
             HTML = template(data.questions[i]);
             $("#questionsEditList").append(HTML);
@@ -207,16 +210,16 @@ function View() {
         values.lid = lid;
         values.name = $inputs[0].value;
         values.date = $inputs[1].value;
-        values.description = $inputs[2].value;
-        values.isvisible = this.booleanConvert($inputs[3].checked);
+        values.description = $inputs[3].value;
+        values.isvisible = this.booleanConvert($inputs[2].checked);
         values.removed = $inputs[4].checked;
         for (var i = 0; i < $('.questionForm').length; i++) {
             var question = {},
                 buttons = [];
-            question.invisible = $('.questionForm').find('input[name="switch"]')[i].checked;
+            question.isvisible = this.booleanConvert($('.questionForm').find('input[name="visibleQuestionSwitch"]')[i].checked);
             question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
             question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
-            question.removed = $('.questionForm').find('input[name="remove"]')[i].checked;
+            question.removed = $('.questionForm').find('input[class="removeQuestionSwitch"]')[i].checked;
             question.buttons = this.getButtonInfo(i + 1);
             question.answer = this.getAnswerButton(i + 1);
             questions.push(question);

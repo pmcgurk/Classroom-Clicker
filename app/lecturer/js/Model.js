@@ -28,11 +28,11 @@ function Model() {
         var removed = $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked;
         $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked = !removed;
         if (removed) {
-            $(event.currentTarget).html("Undo");
-            return "Question unset for Removal.";
-        } else {
             $(event.currentTarget).html("Remove");
             return "Question set for Removal.";
+        } else {
+            $(event.currentTarget).html("Undo");
+            return "Question unset for Removal.";
         }
     };
 

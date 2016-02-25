@@ -319,29 +319,30 @@
     </div>
 </script>
 <script id="questionEditTemplate" type="text/x-handlebars-template">
+    <br>
     <form class="questionForm green">
         <div class="container">
             <br>
             <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
             <br>
-            <div class="switch" style="display: none;">
+            <div class="switch">
                 <label>
-                    removed
-                    <input class="removeQuestionSwitch" name="remove" type="checkbox" qnum="{{qnum}}" checked>
-                    <span class="lever"></span> not removed (temp)
+                    not removed
+                    <input class="removeQuestionSwitch" type="checkbox" qnum="{{qnum}}">
+                    <span class="lever"></span> removed (temp)
                 </label>
             </div>
             <div class="switch">
                 {{#if checked}}
                 <label>
                     invisible
-                    <input name="switch" type="checkbox" checked>
+                    <input name="visibleQuestionSwitch" type="checkbox" checked>
                     <span class="lever"></span> visible
                 </label>
                 {{else}}
                 <label>
                     invisible
-                    <input name="switch" type="checkbox">
+                    <input name="visibleQuestionSwitch" type="checkbox">
                     <span class="lever"></span> visible
                 </label>
                 {{/if}}
@@ -364,7 +365,6 @@
             <textarea name="qid" class="materialize-textarea" style="display: none;">{{qid}}</textarea>
         </div>
     </form>
-    <br>
 </script>
 <script id="buttonCreationTemplate" type="text/x-handlebars-template">
     <div class="row createButtonJSONWrapper col s12 m4 l3" buttonID="{{bID}}">
@@ -495,27 +495,27 @@
         <div class="green">
             <form id="lectureEditForm">
                 <br>
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input value="{{title}}" name="lectureTitleEdit" type="text">
                     <label for="lectureTitleEdit" class="white-text active">Lecture Title</label>
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input value="{{date}}" type="date" class="datepicker">
                 </div>
+                <div class="switch col s3 right">
+                    <label>
+                        {{#if invisible}}
+                        <input type="checkbox" name="lectureEditVisible"> {{else}}
+                        <input type="checkbox" name="lectureEditVisible" checked> {{/if}}
+                        <span class="lever"></span>Public
+                    </label>
+                </div>
                 <br>
-                <div class="input-field col s12">
+                <div class="input-field col s9">
                     <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
                     <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
                 </div>
                 <div class="center">
-                    <div class="switch col s12">
-                        <label>
-                            invisible {{#if invisible}}
-                            <input type="checkbox" name="lectureEditVisible"> {{else}}
-                            <input type="checkbox" name="lectureEditVisible" checked> {{/if}}
-                            <span class="lever"></span> visible
-                        </label>
-                    </div>
                     <div class="switch" style="display: none;">
                         <label>
                             <input type="checkbox" class="lectureEditRemove" lid="{{lid}}">
@@ -524,10 +524,15 @@
                     </div>
                 </div>
             </form>
+            <div class="container">
+                <h3 class="logo">Questions</h3>
+                <br>
+            </div>
         </div>
         <div id="questionsEditList">
 
         </div>
+        <br>
         <div class="center-align">
             <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
             <br>
