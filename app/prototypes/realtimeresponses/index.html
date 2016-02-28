@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" name="theme-color" content="#43a047">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="../../css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/font-awesome.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="icon" href="img/icon.png" />
+    <link rel="apple-touch-icon" href="img/icon.png" />
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:600' rel='stylesheet' type='text/css'>
+    <title>Clicker</title>
+</head>
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper green">
+                <a class="brand-logo center">
+                    <span id="pageName" class="logo center" value="home">Response Prototype</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+<main class="green lighten-5">
+    <div class="row">
+        <br>
+        <div class="canvasWrapper center">
+            <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
+            <div id="responsesNumber"></div>
+            <div id="js-legend" class="chart-legend"></div>
+        </div>
+    </div>
+</main>
+<footer class="page-footer green darken-1">
+    <div class="footer-copyright">
+        <div class="container">
+            © Paul McGurk
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="../../js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js">
+</script>
+<script src="js/Chart.js"></script>
+<script src="js/js.js"></script>
+<script id="buttonTemplate" type="text/x-handlebars-template">
+    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}'>{{text}}</a>
+</script>
+
+</html>
