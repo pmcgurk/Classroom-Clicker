@@ -235,8 +235,8 @@ function View() {
         values.lid = lid;
         values.name = $inputs[0].value;
         values.date = $inputs[1].value;
-        values.description = $inputs[3].value;
-        values.isvisible = this.booleanConvert($inputs[2].checked);
+        values.description = $inputs[2].value;
+        values.isvisible = this.booleanConvert($inputs[3].checked);
         values.removed = $inputs[4].checked;
         for (var i = 0; i < $('.questionForm').length; i++) {
             var question = {},
