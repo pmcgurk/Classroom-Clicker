@@ -175,3 +175,8 @@
   .collapsible-body {
       border-bottom: 0px solid #ddd;
   }
+  
+  .collapsible-header {
+      background-color: rgba(0, 0, 0, 0.0);
+      border-bottom: 0px solid #ddd;
+  }
