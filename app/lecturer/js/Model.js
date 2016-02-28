@@ -10,55 +10,6 @@ function Model() {
         //console.log("Model Init");
     };
 
-    this.removeLecture = function (event) {
-        var lid = $(event.currentTarget).attr("lid");
-        var removed = $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked;
-        $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked = !removed;
-        if (removed) {
-            $(event.currentTarget).html("MARK LECTURE FOR DELETION");
-            return "Lecture unset for Removal.";
-        } else {
-            $(event.currentTarget).html("UNMARK LECTURE FOR DELETION");
-            return "Lecture set for Removal. Save to confirm.";
-        }
-    };
-
-    this.removeQuestion = function (event) {
-        var qnum = $(event.currentTarget).attr("qnum");
-        var removed = $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked;
-        $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked = !removed;
-        if (removed) {
-            $(event.currentTarget).html("Remove");
-            return "Question set for Removal.";
-        } else {
-            $(event.currentTarget).html("Undo");
-            return "Question unset for Removal.";
-        }
-    };
-
-    // compiles the edit classes interfaces JSON and sends to database
-    this.saveEditLecture = function (data) {
-        console.log(data);
-        console.log($.ajaxPOST("php/editLecture.php", data));
-        for (var i = 0; i < data.questions.length; i++) {
-            data.questions[i].lid = data.lid;
-            var response = $.getValues("php/editQuestion.php", data.questions[i]);
-        }
-    };
-
-    this.createButtonJSON = function (qnum) {
-        var buttons = [];
-        for (var i = 0; i < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; i++) {
-            var button = {
-                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[i].value,
-                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[i].value,
-                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[i].value
-            }
-            buttons.push(button);
-        }
-    };
-
-
     /**************** CLASS METHODS ******************/
     // returns current saved user classes of cid
     this.getUserClassInfo = function (cid) {
@@ -121,6 +72,19 @@ function Model() {
         //TODO MVC
     }
 
+    this.removeLecture = function (event) {
+        var lid = $(event.currentTarget).attr("lid");
+        var removed = $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked;
+        $('input.lectureEditRemove[lid="' + lid + '"]')[0].checked = !removed;
+        if (removed) {
+            $(event.currentTarget).html("MARK LECTURE FOR DELETION");
+            return "Lecture unset for Removal.";
+        } else {
+            $(event.currentTarget).html("UNMARK LECTURE FOR DELETION");
+            return "Lecture set for Removal. Save to confirm.";
+        }
+    };
+
     /**************** LECTURE METHODS ******************/
     // gets information on saved user lecture with specified lid
     this.getUserLectureInfo = function (lid) {
@@ -144,6 +108,42 @@ function Model() {
         }));
         return userLectures;
     };
+
+    this.removeQuestion = function (event) {
+        var qnum = $(event.currentTarget).attr("qnum");
+        var removed = $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked;
+        $('input.removeQuestionSwitch[qnum="' + qnum + '"]')[0].checked = !removed;
+        if (removed) {
+            $(event.currentTarget).html("Remove");
+            return "Question set for Removal.";
+        } else {
+            $(event.currentTarget).html("Undo");
+            return "Question unset for Removal.";
+        }
+    };
+
+    // compiles the edit classes interfaces JSON and sends to database
+    this.saveEditLecture = function (data) {
+        console.log(data);
+        console.log($.ajaxPOST("php/editLecture.php", data));
+        for (var i = 0; i < data.questions.length; i++) {
+            data.questions[i].lid = data.lid;
+            var response = $.getValues("php/editQuestion.php", data.questions[i]);
+        }
+    };
+
+    this.createButtonJSON = function (qnum) {
+        var buttons = [];
+        for (var i = 0; i < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; i++) {
+            var button = {
+                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[i].value,
+                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[i].value,
+                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[i].value
+            }
+            buttons.push(button);
+        }
+    };
+
 
     /**************** QUESTION METHODS ******************/
     // retrieves questions for lecture lid from database
