@@ -132,6 +132,10 @@ function Model() {
         }
     };
 
+    this.saveNewLecture = function (data) {
+        console.log($.ajaxPOST("php/editLecture.php", data));
+    };
+
     this.createButtonJSON = function (qnum) {
         var buttons = [];
         for (var i = 0; i < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; i++) {

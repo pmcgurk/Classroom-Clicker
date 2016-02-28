@@ -103,6 +103,14 @@ function View() {
     };
 
     /**************** LECTURE EDIT METHODS ******************/
+    this.setNewLecture = function (data) {
+        var source = $("#lectureEditTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        HTML = template(data);
+        $('#editLectureInfo').html(HTML);
+    };
+
     // sets the edit lecture page up with current data
     this.setEditLecture = function (data) {
         var source = $("#lectureEditTemplate").html(),
@@ -244,6 +252,18 @@ function View() {
         values.questions = questions;
         return values;
     };
+
+    this.getNewLectureInfo = function (data) {
+        var questions = [],
+            $inputs = $('#lectureEditForm :input'),
+            values = {};
+        values.cid = data;
+        values.name = $inputs[0].value;
+        values.date = $inputs[1].value;
+        values.description = $inputs[2].value;
+        values.isvisible = this.booleanConvert($inputs[3].checked);
+        return values;
+    }
 
     /**************** QUESTIONS METHODS ******************/
     // uses handlebar templates to display list of questions

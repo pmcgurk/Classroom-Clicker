@@ -34,6 +34,7 @@ function Controller() {
         $(document).on("click", ".classNewSaveButton", $.proxy(this.saveNewClass, this));
         $(document).on("click", ".classDeleteButton", $.proxy(this.removeClass, this));
         $(document).on("click", ".studentEnrolledRemoveButton", $.proxy(this.removeStudent, this));
+        $(document).on("click", "#addLectureButton", $.proxy(this.addLecture, this));
 
         // lectures page
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
@@ -42,6 +43,7 @@ function Controller() {
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
         $(document).on("click", ".addMoreButtonsButton", $.proxy(this.addMoreEditButtons, this));
         $(document).on("click", ".questionEditSaveButton", $.proxy(this.saveEditLecture, this));
+        $(document).on("click", ".newLectureSaveButton", $.proxy(this.saveNewLecture, this));
         $(document).on("click", ".questionEditRemoveButton", $.proxy(this.removeQuestion, this));
         $(document).on("click", ".buttonCreationRemoveButton", $.proxy(this.removeButton, this));
         $(document).on("click", ".lectureRemoveButton", $.proxy(this.removeLecture, this));
@@ -120,7 +122,15 @@ function Controller() {
             "cid": $(event.currentTarget).attr("cid")
         }
         view.toast(model.editStudent(data));
-    }
+    };
+
+    this.addLecture = function (event) {
+        var data = {
+            "cid": $(event.currentTarget).attr("cid")
+        };
+        view.setNewLecture(data);
+        view.switchView('editLecture');
+    };
 
     /**************** LECTURE METHODS ******************/
     this.selectLecture = function (event) {
@@ -166,6 +176,12 @@ function Controller() {
         Materialize.toast("Lecture Edited.", 2000);
         this.update();
         view.switchView('home');
+    };
+
+    this.saveNewLecture = function (event) {
+        var lectureInfo = view.getNewLectureInfo($(event.currentTarget).attr("cid"));
+        console.log(lectureInfo);
+        model.saveNewLecture(lectureInfo);
     };
 
 

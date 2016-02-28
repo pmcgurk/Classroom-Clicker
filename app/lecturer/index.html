@@ -496,7 +496,7 @@
         </div>
         <br> {{#if code}}
         <div class="center-align">
-            <a id="addLectureButton" class="waves-effect waves-light btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
+            <a id="addLectureButton" class="waves-effect waves-light btn purple" cid="{{cid}}">New Lecture</a>
             <br>
             <br>
         </div>
@@ -531,7 +531,11 @@
                 <div class="input-field col s6">
                     <input value="{{date}}" type="date" class="datepicker">
                 </div>
-                <div class="switch col s3 right">
+                <div class="input-field col s12">
+                    <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                    <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
+                </div>
+                <div class="switch col s12">
                     <label>
                         {{#if invisible}}
                         <input type="checkbox" name="lectureEditVisible"> {{else}}
@@ -540,10 +544,7 @@
                     </label>
                 </div>
                 <br>
-                <div class="input-field col s9">
-                    <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
-                    <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
-                </div>
+                <br>
                 <div class="center">
                     <div class="switch" style="display: none;">
                         <label>
@@ -552,28 +553,37 @@
                         </label>
                     </div>
                 </div>
+                <p class="green-text">a</p>
+                <div class="container">
+                    {{#if lid}}
+                    <h3 class="logo">Questions</h3> {{else}}
+                    <h5 class="logo">Save Lecture To Add Questions</h5> {{/if}}
+                    <br>
+                </div>
             </form>
-            <div class="container">
-                <h3 class="logo">Questions</h3>
-                <br>
-            </div>
         </div>
         <div id="questionsEditList">
 
         </div>
-        <br>
+        <br> {{#if lid}}
         <div class="center-align">
             <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
             <br>
             <br>
         </div>
+        {{/if}}
         <div class="center-align">
-            <a class="waves-effect waves-light btn green questionEditSaveButton" lid={{lid}}>Save</a>
+            {{#if lid}}
+            <a class="waves-effect waves-light btn green questionEditSaveButton" lid="{{lid}}">Save</a>
+            <a class="btn backButton red waves-effect waves-light">Cancel</a>
+            <br>
+            <br> {{else}}
+            <a class="waves-effect waves-light btn green newLectureSaveButton" cid="{{cid}}">Save</a>
             <a class="btn backButton red waves-effect waves-light">Cancel</a>
             <br>
             <br>
             <a class="waves-light waves-effect red btn lectureRemoveButton" lid="{{lid}}">MARK LECTURE FOR DELETION</a>
-            <br>
+            <br> {{/if}}
         </div>
         <br>
     </div>
