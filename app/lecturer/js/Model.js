@@ -117,8 +117,8 @@ function Model() {
             $("a.studentEnrolledRemoveButton[uid=" + data.uid + "]").html("<i class='material-icons'>remove_circle</i>");
             return "Readded Student";
         }
-        //return $.ajaxPOST("php/editEnrolled.php", data);
-
+        return $.ajaxPOST("php/editEnrolled.php", data);
+        //TODO MVC
     }
 
     /**************** LECTURE METHODS ******************/
