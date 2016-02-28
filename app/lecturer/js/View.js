@@ -36,8 +36,15 @@ function View() {
         if (data.lectures) {
             data.lecturesHTML = this.getLecturesHTML(data.lectures);
         }
+        if (data.students) {
+            data.studentHTML = this.getStudentHTML(data.students);
+        }
+
         HTML = template(data);
         $("#editClassInfo").html(HTML);
+        $('.collapsible').collapsible({
+            accordion: false
+        });
     };
 
     // constructs lecture HTML for class edit display
@@ -50,6 +57,16 @@ function View() {
         }
         return HTML;
     };
+
+    this.getStudentHTML = function (data) {
+        var source = $("#classEditStudentTemplate").html(),
+            template = Handlebars.compile(source),
+            HTML = "";
+        for (var i = 0; i < data.length; i++) {
+            HTML = HTML + template(data[i]);
+        }
+        return HTML;
+    }
 
     // takes the data from the edit class divs and constructs a JSON
     this.getEditClassInfo = function () {

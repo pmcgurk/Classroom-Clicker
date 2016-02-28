@@ -103,6 +103,23 @@ function Model() {
         }
     };
 
+    this.getEnrolledStudents = function (data) {
+        return JSON.parse($.getValues("php/getEnrolled.php", data));
+    }
+
+    this.editStudent = function (data) {
+        var checked = !($("a.studentEnrolledRemoveButton[uid=" + data.uid + "]").attr("removed") === 'true');
+        $("a.studentEnrolledRemoveButton[uid=" + data.uid + "]").attr("removed", "" + checked);
+        if (checked) {
+            $("a.studentEnrolledRemoveButton[uid=" + data.uid + "]").html("<i class='material-icons'>undo</i>");
+            return "Removed Student";
+        } else {
+            $("a.studentEnrolledRemoveButton[uid=" + data.uid + "]").html("<i class='material-icons'>remove_circle</i>");
+            return "Readded Student";
+        }
+        //return $.ajaxPOST("php/editEnrolled.php", data);
+
+    }
 
     /**************** LECTURE METHODS ******************/
     // gets information on saved user lecture with specified lid

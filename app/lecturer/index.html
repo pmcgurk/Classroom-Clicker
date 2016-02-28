@@ -172,6 +172,7 @@
 <script id="buttonTemplate" type="text/x-handlebars-template">
     <a class='waves-effect waves-light btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
 </script>
+
 <script id="classesTemplate" type="text/x-handlebars-template">
     {{#if greyed}}
     <li class="collection-item grey">
@@ -415,84 +416,112 @@
     </div>
 </script>
 <script id="classEditTemplate" type="text/x-handlebars-template">
-    <div class="green white-text">
-        <form id="classEditForm">
+    <div class="container">
+        <div class="green card white-text">
+            <form id="classEditForm">
+                <br>
+                <div class="input-field col s4">
+                    <input value="{{code}}" name="classCodeEdit" type="text">
+                    <label for="classCodeEdit" class="white-text active">Class code</label>
+                </div>
+                <div class="input-field col s8">
+                    <input value="{{name}}" name="classNameEdit" type="text">
+                    <label for="classNameEdit" class="white-text active">Class name</label>
+                </div>
+                <br>
+                <div class="input-field col s12">
+                    <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                    <label for="classDescriptionEdit" class="white-text active">Class Description</label>
+                </div>
+                <div class="center">
+                    <div class="switch col s12">
+                        <label>
+                            invisible
+                            <input type="checkbox" name="classEditVisible">
+                            <span class="lever"></span> visible
+                        </label>
+                    </div>
+                    <div class="switch col s12">
+                        <label>
+                            closed
+                            <input type="checkbox" name="classEditJoinable">
+                            <span class="lever"></span> joinable
+                        </label>
+                    </div>
+                    <div class="switch" style="display: none;">
+                        <label>
+                            <input type="checkbox" class="classEditRemove" cid="{{cid}}">
+                            <span class="lever"></span>
+                        </label>
+                    </div>
+                </div>
+                <h5 class="green-text">a</h5>
+            </form>
+        </div>
+        <div class="green card white-text">
+            <ul class="collapsible green">
+                <li>
+                    <div class="collapsible-header"><i class="large material-icons">recent_actors</i>Enrolled Students</div>
+                    <div class="collapsible-body">
+                        <table class="centered bordered">
+                            <thead class="white-text">
+                                <tr>
+                                    <th data-field="id">Uid</th>
+                                    <th data-field="name">Username</th>
+                                    <th data-field="price">Real Name</th>
+                                    <th data-field="price">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{{studentHTML}}}
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="green card white-text">
+            <div class="container">
+                <br> {{#if lecturesHTML}}
+                <h5 class="logo">Lectures</h5>
+                <ul class="collection" id="editClassInfoLectures">
+                    {{{lecturesHTML}}}
+                </ul>
+                <br> {{else}}
+                <br>
+                <h5 class="logo">No Lectures</h5>
+                <h6>To add lectures, save the class first.</h6>
+                <br> {{/if}}
+            </div>
+        </div>
+        <br> {{#if code}}
+        <div class="center-align">
+            <a id="addLectureButton" class="waves-effect waves-light btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
             <br>
-            <div class="input-field col s4">
-                <input value="{{code}}" name="classCodeEdit" type="text">
-                <label for="classCodeEdit" class="white-text active">Class code</label>
-            </div>
-            <div class="input-field col s8">
-                <input value="{{name}}" name="classNameEdit" type="text">
-                <label for="classNameEdit" class="white-text active">Class name</label>
-            </div>
             <br>
-            <div class="input-field col s12">
-                <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
-                <label for="classDescriptionEdit" class="white-text active">Class Description</label>
-            </div>
-            <div class="center">
-                <div class="switch col s12">
-                    <label>
-                        invisible
-                        <input type="checkbox" name="classEditVisible">
-                        <span class="lever"></span> visible
-                    </label>
-                </div>
-                <div class="switch col s12">
-                    <label>
-                        closed
-                        <input type="checkbox" name="classEditJoinable">
-                        <span class="lever"></span> joinable
-                    </label>
-                </div>
-                <div class="switch" style="display: none;">
-                    <label>
-                        <input type="checkbox" class="classEditRemove" cid="{{cid}}">
-                        <span class="lever"></span>
-                    </label>
-                </div>
-            </div>
-        </form>
-        <br>
-        <br> {{#if lecturesHTML}}
-        <h5 class="logo">Lectures</h5>
-        <ul class="collection" id="editClassInfoLectures">
-            {{{lecturesHTML}}}
-        </ul>
+        </div>
+        <div class="center-align">
+            <a class="waves-effect waves-light btn green classEditSaveButton" cid="{{cid}}">Save</a>
+            <a class="btn backButton red waves-effect waves-light">Cancel</a>
+            <br>
+            <br>
+            <a class="btn red waves-effect waves-light classDeleteButton" cid="{{cid}}">MARK CLASS FOR DELETION</a>
+            <br>
+            <br>
+        </div>
         {{else}}
-        <br>
-        <h5 class="logo">No Lectures</h5>
-        <h6>To add lectures, save the class first.</h6>
-        <br> {{/if}}
+        <div class="center-align">
+            <a class="waves-effect waves-light btn green classNewSaveButton">Save</a>
+            <a class="btn backButton red waves-effect waves-light">Cancel</a>
+            <br>
+            <br>
+        </div>
+        {{/if}}
     </div>
-    <br> {{#if code}}
-    <div class="center-align">
-        <a id="addLectureButton" class="waves-effect waves-light btn purple" onclick="Materialize.toast('Open  blank edit lecture page', 2000)">New Lecture</a>
-        <br>
-        <br>
-    </div>
-    <div class="center-align">
-        <a class="waves-effect waves-light btn green classEditSaveButton" cid="{{cid}}">Save</a>
-        <a class="btn backButton red waves-effect waves-light">Cancel</a>
-        <br>
-        <br>
-        <a class="btn red waves-effect waves-light classDeleteButton" cid="{{cid}}">MARK CLASS FOR DELETION</a>
-        <br>
-        <br>
-    </div>
-    {{else}}
-    <div class="center-align">
-        <a class="waves-effect waves-light btn green classNewSaveButton">Save</a>
-        <a class="btn backButton red waves-effect waves-light">Cancel</a>
-        <br>
-        <br>
-    </div>
-    {{/if}}
 </script>
 <script id="lectureEditTemplate" type="text/x-handlebars-template">
     <div class="white-text">
-        <div class="green">
+        <div class="green card">
             <form id="lectureEditForm">
                 <br>
                 <div class="input-field col s6">
@@ -567,6 +596,14 @@
             </div>
         </div>
     </li>
+</script>
+<script id="classEditStudentTemplate" type="text/x-handlebars-template">
+    <tr>
+        <td>{{uid}}</td>
+        <td>{{username}}</td>
+        <td>{{realname}}</td>
+        <td><a class="waves-light waves-effect red btn-floating studentEnrolledRemoveButton" uid="{{uid}}" cid="{{cid}}" removed="false"><i class="material-icons">remove_circle</i></a></td>
+    </tr>
 </script>
 
 </html>

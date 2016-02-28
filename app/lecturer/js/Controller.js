@@ -33,6 +33,7 @@ function Controller() {
         $(document).on("click", ".classEditSaveButton", $.proxy(this.saveEditClass, this));
         $(document).on("click", ".classNewSaveButton", $.proxy(this.saveNewClass, this));
         $(document).on("click", ".classDeleteButton", $.proxy(this.removeClass, this));
+        $(document).on("click", ".studentEnrolledRemoveButton", $.proxy(this.removeStudent, this));
 
         // lectures page
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
@@ -82,7 +83,11 @@ function Controller() {
     this.editClass = function (event) {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         var classData = model.getUserClassInfo($(event.currentTarget).attr("value"));
+        var students = model.getEnrolledStudents({
+            'cid': $(event.currentTarget).attr("value")
+        });
         classData.lectures = lectures;
+        classData.students = students;
         view.setClassesEdit(classData);
         view.switchView('editClass');
     };
@@ -108,6 +113,14 @@ function Controller() {
         var cid = $(event.currentTarget).attr("cid");
         view.toast(model.removeClass(event));
     };
+
+    this.removeStudent = function (event) {
+        var data = {
+            "uid": $(event.currentTarget).attr("uid"),
+            "cid": $(event.currentTarget).attr("cid")
+        }
+        view.toast(model.editStudent(data));
+    }
 
     /**************** LECTURE METHODS ******************/
     this.selectLecture = function (event) {
