@@ -36,7 +36,7 @@ function Model() {
 
     // adds current user to class specified
     this.joinClass = function (data) {
-        return $.getValues("php/joinClass.php", data);
+        return $.ajaxPOST("php/joinClass.php", data);
     };
 
     // removes current user from class specified
