@@ -12,10 +12,10 @@ if($row = mysql_fetch_array($result)) {
     $result2 = mysql_query("SELECT * FROM enrolled WHERE uid = '$suid' AND '$cid'") or die(mysql_error());
     if($row2 = mysql_fetch_array($result2)) {
         // if it is set for removal, it deletes the class from the database
-        echo mysql_query("DELETE FROM `clicker`.`enrolled` WHERE uid = '$suid' AND cid = '$cid'") or die(mysql_error());
+        echo mysql_query("DELETE FROM `enrolled` WHERE uid = '$suid' AND cid = '$cid'") or die(mysql_error());
         echo "deleted";
     } else {
-        echo mysql_query("INSERT INTO `clicker`.`enrolled` (`uid`, `cid`) VALUES ('$suid', '$cid')") or die(mysql_error());
+        echo mysql_query("INSERT INTO `enrolled` (`uid`, `cid`) VALUES ('$suid', '$cid')") or die(mysql_error());
         echo "Inserted";
     }
 } else {
