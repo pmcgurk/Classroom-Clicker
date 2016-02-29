@@ -4,7 +4,9 @@ function Model() {
         userLectures = [],
         userQuestions = [],
         curQuestion,
-        curLecture;
+        curLecture,
+        currentResponseQuestion,
+        lastResponses = [];
 
     this.init = function () {
         //console.log("Model Init");
@@ -174,6 +176,47 @@ function Model() {
         return responses = $.getValues("php/getResponses.php", {
             "qid": qid
         });
+    };
+
+    /********************* RESPONSES METHODS *******************/
+    this.getUpdatedResponses = function () {
+        var responses = $.getValues("php/getResponses.php", {
+            "qid": this.getCurrentResponseQuestion()
+        });
+        lastResponses = responses;
+        return responses;
+    };
+
+    this.getRandomInt = function () {
+        return Math.floor((Math.random() * 4) + 1);
+    };
+
+    this.addDummyData = function () {
+        var dummyAnswer = (this.getRandomInt() == 1);
+        var data = {
+            'value': dummyAnswer,
+            'qid': 1
+        };
+        return $.getValues("php/submitAnswer.php", data);
+    };
+
+    this.getOldResponses = function () {
+        if (lastResponses == "") {
+            return undefined;
+        }
+        return lastResponses;
+    };
+
+    this.clearOldResponses = function () {
+        lastResponses = "";
+    };
+
+    this.getCurrentResponseQuestion = function () {
+        return currentResponseQuestion;
+    };
+
+    this.setCurrentResponseQuestion = function (data) {
+        currentResponseQuestion = data;
     };
 
     this.getCurLecture = function () {

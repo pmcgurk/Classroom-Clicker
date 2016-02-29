@@ -1,6 +1,7 @@
 function Controller() {
     var model = new Model(),
-        view = new View();
+        view = new View(),
+        responseUpdateInterval;
 
     this.init = function () {
         model.init();
@@ -18,7 +19,7 @@ function Controller() {
 
     this.pagesetup = function () {
         $('select').material_select();
-        view.switchView('home');
+        this.switchView('home');
     };
 
     this.setButtons = function () {
@@ -58,7 +59,7 @@ function Controller() {
 
         //multipage buttons
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
-        $(document).on("click", '.pageChangerButton', view.switchView);
+        $(document).on("click", '.pageChangerButton', $.proxy(this.switchViewButton, this));
         $(document).on("click", ".backButton", this.backbutton);
         $(document).on("click", ".logoutButton", this.logout);
 
@@ -74,12 +75,12 @@ function Controller() {
         var lectures = model.getLectures($(event.currentTarget).attr("value"));
         $('#classPageEditButton').attr("value", $(event.currentTarget).attr("value"));
         view.setLectures(lectures);
-        view.switchView('lectures');
+        this.switchView('lectures');
     };
 
     this.addClass = function (event) {
         view.setClassesEdit({});
-        view.switchView('editClass');
+        this.switchView('editClass');
     };
 
     this.editClass = function (event) {
@@ -91,7 +92,7 @@ function Controller() {
         classData.lectures = lectures;
         classData.students = students;
         view.setClassesEdit(classData);
-        view.switchView('editClass');
+        this.switchView('editClass');
     };
 
     /**************** CLASS EDIT METHODS ******************/
@@ -102,13 +103,13 @@ function Controller() {
         model.saveClass(data);
         this.update();
         view.toast("Class Successfully Edited");
-        view.switchView('home');
+        this.switchView('home');
     };
 
     this.saveNewClass = function () {
         model.saveClass(view.getEditClassInfo());
         this.update();
-        view.switchView('home');
+        this.switchView('home');
     };
 
     this.removeClass = function (event) {
@@ -129,7 +130,7 @@ function Controller() {
             "cid": $(event.currentTarget).attr("cid")
         };
         view.setNewLecture(data);
-        view.switchView('editLecture');
+        this.switchView('editLecture');
     };
 
     /**************** LECTURE METHODS ******************/
@@ -137,7 +138,7 @@ function Controller() {
         var questions = model.getQuestions($(event.currentTarget).attr("lid"));
         $('#lecturePageEditButton').attr("lid", $(event.currentTarget).attr("lid"));
         view.setQuestions(JSON.parse(questions));
-        view.switchView('questions');
+        this.switchView('questions');
     };
 
     /**************** LECTURE EDIT METHODS ******************/
@@ -150,7 +151,7 @@ function Controller() {
         var questions = JSON.parse(model.getQuestions($(event.currentTarget).attr("lid")));
         lectureInfo.questions = questions;
         view.setEditLecture(lectureInfo);
-        view.switchView('editLecture');
+        this.switchView('editLecture');
     };
 
     this.addMoreEditButtons = function (event) {
@@ -175,7 +176,7 @@ function Controller() {
         model.saveEditLecture(view.getEditLectureInfo($(event.currentTarget).attr("lid")));
         Materialize.toast("Lecture Edited.", 2000);
         this.update();
-        view.switchView('home');
+        this.switchView('home');
     };
 
     this.saveNewLecture = function (event) {
@@ -198,19 +199,47 @@ function Controller() {
     this.selectQuestion = function (data) {
         var question = model.getQuestion(data);
         view.setQuestion(JSON.parse(question));
-        view.switchView('question');
+        this.switchView('question');
     };
 
     this.getResponses = function (event) {
-        view.switchView('responses');
+        this.switchView('responses');
         var responses = model.getResponses($(event.currentTarget).attr("value"));
         view.setResponses(JSON.parse(responses));
+        this.startResponsesUpdate($(event.currentTarget).attr("value"));
     };
 
     this.getResponsesSelect = function (event) {
         var responses = model.getResponses($(event.currentTarget).val());
         view.setResponses(JSON.parse(responses));
     };
+
+    /**************** RESPONSES METHODS *****************/
+    this.startResponsesUpdate = function (data) {
+        this.endUpdateResponses();
+        console.log("Responses Update Started for Question: " + data);
+        model.setCurrentResponseQuestion(data);
+        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 2000);
+    };
+
+    this.endUpdateResponses = function () {
+        console.log("Responses Update Ended");
+        clearInterval(responseUpdateInterval);
+        model.clearOldResponses();
+    };
+
+    this.updateResponses = function () {
+        var oldResponses = model.getOldResponses();
+        var updatedResponses = JSON.parse(model.getUpdatedResponses());
+        if (oldResponses != undefined) {
+            oldResponses = JSON.parse(oldResponses);
+            console.log("Difference: " + (updatedResponses.length - oldResponses.length));
+            view.updateResponses(updatedResponses, oldResponses);
+        } else {
+            console.log("No old responses");
+        }
+    };
+
 
     /**************** QUESTION METHODS ******************/
     this.nextQuestion = function () {
@@ -237,6 +266,15 @@ function Controller() {
     this.backbutton = function () {
         view.goBack();
     };
+
+    this.switchViewButton = function (event) {
+        this.switchView($(event.currentTarget).attr("value"));
+    };
+
+    this.switchView = function (data) {
+        this.endUpdateResponses();
+        view.switchView(data);
+    }
 
     this.update = function () {
         view.update(model.update());

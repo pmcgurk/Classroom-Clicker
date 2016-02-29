@@ -1,7 +1,9 @@
 function View() {
     var chart,
         lastpage = [],
-        curpage;
+        curpage,
+        data = [],
+        colours = ["#4caf50", "#f44336", "#2196f3", "#ffeb3b"];
 
     this.init = function () {
         //console.log("View Init");
@@ -321,7 +323,8 @@ function View() {
 
     /**************** RESPONSES METHODS ******************/
     // creates a Chart.js chart from data provided from responses database
-    this.setResponses = function (data) {
+    this.setResponses = function (ndata) {
+        data = ndata;
         //$(".responsesDisplay").text(JSON.stringify(data));
         $(".responsesDisplayHeader").html("Question ID: " + data[0].qid + "<br>Question number: " + "NA");
         $("#canvasWrapper").empty();
@@ -329,8 +332,7 @@ function View() {
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
             labels = [],
-            cdata = [],
-            colours = ["#4caf50", "#f44336", "#2196f3", "#ffeb3b"];
+            cdata = [];
         for (var i = 0; i < data.length; i++) {
             values.push(data[i].value);
             labels.push(data[i].value);
@@ -343,16 +345,66 @@ function View() {
                 "color": colours[i]
             });
         }
-        chart = new Chart(ctx).Pie(cdata, {});
+        chart = new Chart(ctx).Pie(cdata, {
+            segmentShowStroke: false,
+            animateRotate: false,
+            animateScale: false,
+            tooltipTemplate: "<%= value %>%",
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%><%if(segments[i].value){%> <%=segments[i].value%><%}%></li><%}%></ul>"
+
+        });
+        $('#js-legend').html(chart.generateLegend());
+        $('#responsesNumber').html("Responses: " + chart.segments.length);
         //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
     };
 
-    this.clearCanvas = function () {
-
+    this.getRandomInt = function () {
+        return Math.floor((Math.random() * 3) + 1);
     };
 
-    this.updateResponses = function (data) {
+    this.getIsNewLabel = function (data) {
+        for (var i = 0; i < chart.segments.length; i++) {
+            if (chart.segments[i].label == data) {
+                return false;
+            }
+        }
+        return true;
+    };
 
+    this.addDummyData = function () {
+        var dummyData = {};
+        dummyData.qid = 1;
+        dummyData.value = "value" + this.getRandomInt();
+        data.push(dummyData);
+        console.log(data);
+    };
+
+    this.updateResponses = function (data, oldData) {
+        var oldDataLength = oldData.length;
+        if (oldDataLength != data.length) {
+            for (var i = oldDataLength; i < data.length; i++) {
+                var newLabel = this.getIsNewLabel(data[i].value);
+                //console.log(newLabel);
+                if (newLabel) {
+                    //console.log("New Label");
+                    chart.addData({
+                        value: 1,
+                        color: colours[chart.segments.length],
+                        label: data[i].value
+                    })
+                } else {
+                    for (var e = 0; e < chart.segments.length; e++) {
+                        if (chart.segments[e].label == data[i].value) {
+                            chart.segments[e].value = chart.segments[e].value + 1;
+                            //console.log("Existing label, label: " + chart.segments[e].label + ", value: " + chart.segments[e].value);
+                        }
+                    }
+                }
+            }
+        }
+        $('#js-legend').html(chart.generateLegend());
+        $('#responsesNumber').html("Responses: " + chart.total);
+        chart.update();
     };
 
     // counts appearances of a value in array
