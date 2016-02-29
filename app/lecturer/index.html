@@ -170,7 +170,7 @@
 <script src="js/View.js"></script>
 <script src="js/Controller.js"></script>
 <script id="buttonTemplate" type="text/x-handlebars-template">
-    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{text}}</a>
+    <a class='waves-effect waves-light btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{value}}</a>
 </script>
 
 <script id="classesTemplate" type="text/x-handlebars-template">
@@ -354,7 +354,7 @@
             </div>
             <div class="row">
                 <h5 class="logo">Answer Type</h5>
-                <div class="buttonCreationForm col s12 white card" qnum="{{qnum}}">
+                <div class="buttonCreationForm col s12 white " qnum="{{qnum}}">
                     {{{buttonsHTML}}}
                 </div>
                 <div class="center col s12">

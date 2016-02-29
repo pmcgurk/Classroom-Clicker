@@ -376,7 +376,7 @@ function View() {
             cdata.push({
                 "value": this.countValues(values, labels[i]),
                 "label": labels[i],
-                "color": colours[i]
+                "color": colours[i].value
             });
         }
         chart = new Chart(ctx).Pie(cdata, {
