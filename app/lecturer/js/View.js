@@ -3,7 +3,40 @@ function View() {
         lastpage = [],
         curpage,
         data = [],
-        colours = ["#4caf50", "#f44336", "#2196f3", "#ffeb3b"];
+        colours = [{
+                "name": "green",
+                "value": "#4caf50"
+            },
+            {
+                "name": "red",
+                "value": "#f44336"
+            },
+            {
+                "name": "blue",
+                "value": "#2196f3"
+            },
+            {
+                "name": "yellow darken-2",
+                "value": "#fbc02d"
+            },
+            {
+                "name": "purple darken-1",
+                "value": "#8e24aa"
+            },
+            {
+                "name": "orange",
+                "value": "ff9800"
+            },
+            {
+                "name": "pink",
+                "value": "#e91e63"
+            },
+            {
+                "name": "indigo",
+                "value": "#3f51b5"
+            }
+                  ];
+
 
     this.init = function () {
         //console.log("View Init");
@@ -147,13 +180,14 @@ function View() {
                 }
                 buttons[e].qnum = data.questions[i].qnum;
                 buttons[e].bID = buttons[e].qnum + "-" + e;
+                buttons[e].colour = colours[e].name;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
             }
             console.log(data);
             data.questions[i].buttonsHTML = buttonsHTML;
             HTML = template(data.questions[i]);
             $("#questionsEditList").append(HTML);
-            this.setColourSelect(buttons);
+            //this.setColourSelect(buttons);
             $('select').material_select();
         }
         $('.questionEditSaveButton').attr("lid", data.lid);
@@ -186,7 +220,8 @@ function View() {
             template = Handlebars.compile(source),
             HTML = "";
         HTML = template({
-            "qnum": data
+            "qnum": data,
+            "colour": colours[$(".buttonCreationForm[qnum='" + data + "'] > .createButtonJSONWrapper").length].name
         });
         $('.buttonCreationForm[qnum="' + data + '"]').append(HTML);
         $('select').material_select();
@@ -210,9 +245,7 @@ function View() {
         var buttons = [];
         for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
             var button = {
-                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[e].value,
-                "colour": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('select[name="buttoncolour"]')[e].value,
-                "text": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
+                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
             }
             buttons.push(button);
         }
@@ -224,7 +257,7 @@ function View() {
         for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
             var isAnswer = $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[value="buttonanswer"]')[e].checked
             if (isAnswer) {
-                return $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttonvalue"]')[e].value
+                return $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
             }
         }
     };
@@ -311,12 +344,12 @@ function View() {
             var button = data[i];
             button.qid = qid;
             values = {
-                "colour": button.colour,
+                "colour": colours[i].name,
                 "value": button.value,
                 "text": button.text,
                 "qid": button.qid
             }
-            buttonHTML = buttonHTML + buttonTemplate(data[i]);
+            buttonHTML = buttonHTML + buttonTemplate(values);
         }
         return buttonHTML;
     };
@@ -350,7 +383,7 @@ function View() {
             animateRotate: false,
             animateScale: false,
             tooltipTemplate: "<%= value %>%",
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%><%if(segments[i].value){%> <%=segments[i].value%><%}%></li><%}%></ul>"
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%><%if(segments[i].value){%> - <%=segments[i].value%><%}%></li><%}%></ul>"
 
         });
         $('#js-legend').html(chart.generateLegend());
@@ -389,7 +422,7 @@ function View() {
                     //console.log("New Label");
                     chart.addData({
                         value: 1,
-                        color: colours[chart.segments.length],
+                        color: colours[chart.segments.length].value,
                         label: data[i].value
                     })
                 } else {

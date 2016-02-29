@@ -354,7 +354,7 @@
             </div>
             <div class="row">
                 <h5 class="logo">Answer Type</h5>
-                <div class="buttonCreationForm col s12" qnum="{{qnum}}">
+                <div class="buttonCreationForm col s12 white card" qnum="{{qnum}}">
                     {{{buttonsHTML}}}
                 </div>
                 <div class="center col s12">
@@ -369,7 +369,7 @@
 </script>
 <script id="buttonCreationTemplate" type="text/x-handlebars-template">
     <div class="row createButtonJSONWrapper col s12 m4 l3" buttonID="{{bID}}">
-        <div class="purple card">
+        <div class="{{colour}} card">
             <br>
             <br>
             <div class="container">
@@ -380,38 +380,28 @@
                             <label for="buttontext" class="white-text active">Button Text</label>
                         </div>
                         <br>
-                        <div class="input-field col s12" buttonID="{{bID}}">
-                            <select name="buttoncolour">
-                                <option value="purple">Purple</option>
-                                <option value="blue">Blue</option>
-                                <option value="red">Red</option>
-                                <option value="yellow">Yellow</option>
-                                <option value="orange">Orange</option>
-                                <option value="green">Green</option>
-                            </select>
-                            <label class="white-text">Button Colour</label>
-                        </div>
                         <br>
-                        <div class="input-field col s6">
-                            <input value="{{value}}" name="buttonvalue" type="text">
+                        <div class="input-field col s6" style="display: none;">
+                            <input value="{{text}}" name="buttonvalue" type="text">
                             <label for="buttonvalue" class="white-text active">Button Value</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col s12">
                             {{#if isAnswer}}
                             <input name="group{{qnum}}" type="radio" id="test{{bID}}" value="buttonanswer" checked/> {{else}}
                             <input name="group{{qnum}}" type="radio" id="test{{bID}}" value="buttonanswer" /> {{/if}}
                             <label for="test{{bID}}">Set As Answer</label>
                             <br>
+                            <br>
                         </div>
                     </div>
                 </div>
-                <div class="col s12">
-                    <a class="btn red buttonCreationRemoveButton center" buttonID="{{bID}}">Remove</a>
+                <div class="col s12 center">
+                    <a class="btn purple buttonCreationRemoveButton" buttonID="{{bID}}">Remove</a>
+                    <br>
                 </div>
-                <br>
-                <br>
-                <br>
             </div>
+            <br>
+            <br>
         </div>
     </div>
 </script>
