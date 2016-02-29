@@ -245,7 +245,8 @@ function View() {
         var buttons = [];
         for (var e = 0; e < $('.createButtonJSONForm[qnum="' + qnum + '"]').length; e++) {
             var button = {
-                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].value
+                "value": $('.createButtonJSONForm[qnum="' + qnum + '"]').find('input[name="buttontext"]')[e].text,
+                "colour": colours[e].name
             }
             buttons.push(button);
         }
