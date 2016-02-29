@@ -6,7 +6,8 @@ function Model() {
         curQuestion,
         curLecture,
         searchType = "",
-        lastSearch = "";
+        lastSearch = "",
+        logging = true;
 
     this.init = function () {
         //console.log("Model Init");
@@ -223,6 +224,17 @@ function Model() {
         };
         return updateData;
     }
+
+    // submits data to log database 
+    this.submitLog = function (type, message) {
+        var data = {
+            "type": type,
+            "message": message
+        };
+        if (logging) {
+            $.ajaxPOST("php/submitLog.php", data);
+        }
+    };
 
     // a jquery extend for nicer ajax
     // modified from code from http://stackoverflow.com/a/3504020
