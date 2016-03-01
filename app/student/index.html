@@ -22,10 +22,10 @@
         <nav>
             <div class="nav-wrapper green darken-1">
                 <a class="brand-logo center">
-                    <span class="pageChangerButton logo center" value="home">Clicker</span>
+                    <span class="pageChangerButton logo center btn hidebtn" value="home">Clicker</span>
                 </a>
-                <a class="left show-on-large backButton" style="display: none;"><i class="material-icons right">keyboard_arrow_left</i></a>
-                <a class="right show-on-large logoutButton"><i class="material-icons left">power_settings_new</i></a>
+                <a class="left show-on-large backButton btn hidebtn" style="display: none;"><i class="material-icons right">keyboard_arrow_left</i></a>
+                <a class="right show-on-large logoutButton btn hidebtn"><i class="material-icons left">power_settings_new</i></a>
             </div>
         </nav>
     </div>
@@ -258,14 +258,14 @@
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
     <div id="questionHeader" class="col s12 white-text green valign-wrapper">
-        <div class="{{#if qnump}}previousQuestionButton{{/if}} col s2 valign">
-            <h6>{{#if qnump}}Previous{{/if}}</h6>
+        <div class="previousQuestionButton col s2 valign btn hidebtn">
+            <h6>Previous</h6>
         </div>
         <div class="col s8">
             <h4 id="questionNumber" class="center-align logo">Question {{qnum}}</h4>
         </div>
-        <div class="{{#if qnumn}}nextQuestionButton{{/if}} col s2 right-align valign">
-            <h6>{{#if qnumn}}Next{{/if}}</h6>
+        <div class="nextQuestionButton col s2 right-align valign btn hidebtn">
+            <h6>Next</h6>
         </div>
     </div>
     <div id="currentQuestion" class="center col s12">
