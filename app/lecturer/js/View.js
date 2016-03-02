@@ -466,7 +466,7 @@ function View() {
 
     // sets user to specified data
     this.setUser = function (data) {
-        $(".usernameDisplay").text(data.username);
+        $(".usernameDisplay").text(data.realname);
         $(".userTypeDisplay").text(data.isLecturer);
     };
 
