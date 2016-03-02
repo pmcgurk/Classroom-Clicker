@@ -8,8 +8,8 @@ function Controller() {
         view.init();
         this.pagesetup();
         this.setButtons();
-        this.update();
         this.setUser();
+        this.update();
         this.debug();
     };
 
@@ -256,7 +256,12 @@ function Controller() {
 
     /**************** MISC METHODS ******************/
     this.setUser = function () {
-        view.setUser(model.getUser());
+        var user = model.getUser();
+        if (user) {
+            view.setUser(user);
+        } else {
+            this.logout();
+        }
     };
 
     this.logout = function () {

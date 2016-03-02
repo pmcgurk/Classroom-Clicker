@@ -161,7 +161,6 @@ function Controller() {
     /**************** MISC METHODS ******************/
     this.setUser = function () {
         var user = model.getUser();
-        console.log(user);
         if (user) {
             view.setUser(user);
         } else {
