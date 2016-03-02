@@ -8,8 +8,8 @@ function Controller() {
         model.submitLog('initial', 'application loaded');
         this.pagesetup();
         this.setButtons();
-        this.update();
         this.setUser();
+        this.update();
     };
 
     this.pagesetup = function () {
@@ -88,8 +88,8 @@ function Controller() {
     this.selectQuestion = function (data) {
         var question = model.getQuestion(data);
         try {
-        view.setQuestion(JSON.parse(question));
-        model.submitLog('User change', 'User selected question: ' + data);
+            view.setQuestion(JSON.parse(question));
+            model.submitLog('User change', 'User selected question: ' + data);
         } catch (err) {
             view.toast("Question not avaliable");
         }
@@ -160,7 +160,13 @@ function Controller() {
 
     /**************** MISC METHODS ******************/
     this.setUser = function () {
-        view.setUser(model.getUser());
+        var user = model.getUser();
+        console.log(user);
+        if (user) {
+            view.setUser(user);
+        } else {
+            this.logout();
+        }
     };
 
     this.logout = function () {
