@@ -268,14 +268,16 @@
             <h6>Next</h6>
         </div>
     </div>
-    <div id="currentQuestion" class="center col s12">
-        <div class="questionDiv card green white-text col s12 ">
-            <div id="questionTextDiv" class="container" style="height: 45vh">
-                <h5 class="logo" id="questionText" class="flow-text">{{text}}</h5>
+    <div id="currentQuestion" class="col s12">
+        <div class="container">
+            <div class="questionDiv card green white-text col s12">
+                <div id="questionTextDiv" style="height: 45vh" class="valign-wrapper">
+                    <h5 class="logo flow-text">{{text}}</h5>
+                </div>
             </div>
-        </div>
-        <div class="buttonDiv center col s12">
-            {{{buttonHTML}}}
+            <div class="buttonDiv center col s12">
+                {{{buttonHTML}}}
+            </div>
         </div>
     </div>
 </script>
