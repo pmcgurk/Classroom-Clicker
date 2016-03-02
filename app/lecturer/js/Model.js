@@ -167,7 +167,7 @@ function Model() {
 
     // retrieves info about current user using SESSION ID in php
     this.getUser = function () {
-        user = $.getValues("../php/getUser.php", {});
+        user = $.getValues("php/getUser.php", {});
         return JSON.parse(user);
     };
 
