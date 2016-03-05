@@ -221,8 +221,10 @@ function View() {
             HTML = "";
         HTML = template({
             "qnum": data,
+            "bID": data + "-" + $(".buttonCreationForm[qnum='" + data + "'] > .createButtonJSONWrapper").length,
             "colour": colours[$(".buttonCreationForm[qnum='" + data + "'] > .createButtonJSONWrapper").length].name
         });
+        console.log(HTML);
         $('.buttonCreationForm[qnum="' + data + '"]').append(HTML);
         $('select').material_select();
     };
@@ -237,7 +239,7 @@ function View() {
 
     // removes specified button constructor form
     this.removeButton = function (data) {
-        $(".createButtonJSONWrapper[buttonID=" + data + "]").empty();
+        $(".createButtonJSONWrapper[buttonID=" + data + "]").remove();
     };
 
     // takes data from edit class button divs and constructs a JSON
@@ -359,10 +361,6 @@ function View() {
     // creates a Chart.js chart from data provided from responses database
     this.setResponses = function (ndata) {
         data = ndata;
-        //$(".responsesDisplay").text(JSON.stringify(data));
-        $(".responsesDisplayHeader").html("Question ID: " + data[0].qid + "<br>Question number: " + "NA");
-        $("#canvasWrapper").empty();
-        $("#canvasWrapper").append("<canvas id='responsesCanvas' class='responseDisplay center-align'></canvas>");
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
             labels = [],
@@ -389,6 +387,8 @@ function View() {
         });
         $('#js-legend').html(chart.generateLegend());
         $('#responsesNumber').html("Responses: " + chart.segments.length);
+        chart.displayed = (chart.segments.length != 0);
+
         //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
     };
 
@@ -414,31 +414,36 @@ function View() {
     };
 
     this.updateResponses = function (data, oldData) {
-        var oldDataLength = oldData.length;
-        if (oldDataLength != data.length) {
-            for (var i = oldDataLength; i < data.length; i++) {
-                var newLabel = this.getIsNewLabel(data[i].value);
-                //console.log(newLabel);
-                if (newLabel) {
-                    //console.log("New Label");
-                    chart.addData({
-                        value: 1,
-                        color: colours[chart.segments.length].value,
-                        label: data[i].value
-                    })
-                } else {
-                    for (var e = 0; e < chart.segments.length; e++) {
-                        if (chart.segments[e].label == data[i].value) {
-                            chart.segments[e].value = chart.segments[e].value + 1;
-                            //console.log("Existing label, label: " + chart.segments[e].label + ", value: " + chart.segments[e].value);
+        console.log(chart.displayed);
+        if (!chart.displayed) {
+            this.setResponses(data);
+        } else {
+            var oldDataLength = oldData.length;
+            if (oldDataLength != data.length) {
+                for (var i = oldDataLength; i < data.length; i++) {
+                    var newLabel = this.getIsNewLabel(data[i].value);
+                    //console.log(newLabel);
+                    if (newLabel) {
+                        //console.log("New Label");
+                        chart.addData({
+                            value: 1,
+                            color: colours[chart.segments.length].value,
+                            label: data[i].value
+                        })
+                    } else {
+                        for (var e = 0; e < chart.segments.length; e++) {
+                            if (chart.segments[e].label == data[i].value) {
+                                chart.segments[e].value = chart.segments[e].value + 1;
+                                //console.log("Existing label, label: " + chart.segments[e].label + ", value: " + chart.segments[e].value);
+                            }
                         }
                     }
                 }
             }
+            $('#js-legend').html(chart.generateLegend());
+            $('#responsesNumber').html("Responses: " + chart.total);
+            chart.update();
         }
-        $('#js-legend').html(chart.generateLegend());
-        $('#responsesNumber').html("Responses: " + chart.total);
-        chart.update();
     };
 
     // counts appearances of a value in array
