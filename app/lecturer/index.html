@@ -334,16 +334,16 @@
                 </label>
             </div>
             <div class="switch">
-                {{#if checked}}
+                {{#if unchecked}}
                 <label>
                     invisible
-                    <input name="visibleQuestionSwitch" type="checkbox" checked>
+                    <input name="visibleQuestionSwitch" type="checkbox">
                     <span class="lever"></span> visible
                 </label>
                 {{else}}
                 <label>
                     invisible
-                    <input name="visibleQuestionSwitch" type="checkbox">
+                    <input name="visibleQuestionSwitch" type="checkbox" checked>
                     <span class="lever"></span> visible
                 </label>
                 {{/if}}
@@ -382,7 +382,7 @@
                         <br>
                         <br>
                         <div class="input-field col s6" style="display: none;">
-                            <input value="{{text}}" name="buttonvalue" type="text">
+                            <input value="{{value}}" name="buttonvalue" type="text">
                             <label for="buttonvalue" class="white-text active">Button Value</label>
                         </div>
                         <div class="col s12">
