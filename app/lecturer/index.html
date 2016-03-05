@@ -298,20 +298,22 @@
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
     <div id="questionHeader" class="col s12 white-text green valign-wrapper">
-        <div class="{{#if qnump}}previousQuestionButton{{/if}} col s2 valign btn hidebtn">
-            <h6>{{#if qnump}}Previous{{/if}}</h6>
-        </div>
-        <div class="col s8">
+        <div class="col s12">
             <h4 id="questionNumber" class="center-align logo">Question {{qnum}}</h4>
         </div>
-        <div class="{{#if qnumn}}nextQuestionButton{{/if}} col s2 right-align valign btn hidebtn">
-            <h6>{{#if qnumn}}Next{{/if}}</h6>
-        </div>
     </div>
-    <div id="currentQuestion" class="center col s12">
-        <div class="questionDiv card green white-text col s12 ">
-            <div id="questionTextDiv" class="container" style="height: 45vh">
-                <h5 class="logo" id="questionText" class="flow-text">{{text}}</h5>
+    <div id="currentQuestion" class="col s12">
+        <div class="container valign-wrapper">
+            <div class="col s1">
+                <a class="btn-floating waves-effect waves-light purple previousQuestionButton right"><i class="material-icons">keyboard_arrow_left</i></a>
+            </div>
+            <div class="questionDiv card green white-text col s10">
+                <div id="questionTextDiv" style="height: 45vh" class="valign-wrapper">
+                    <h5 class="logo flow-text">{{text}}</h5>
+                </div>
+            </div>
+            <div class="col s1">
+                <a class="btn-floating waves-effect waves-light purple nextQuestionButton"><i class="material-icons">keyboard_arrow_right</i></a>
             </div>
         </div>
         <div class="buttonDiv center col s12">
