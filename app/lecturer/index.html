@@ -426,17 +426,19 @@
                     <label for="classDescriptionEdit" class="white-text active">Class Description</label>
                 </div>
                 <div class="center">
-                    <div class="switch col s12">
+                    <div class="switch col s6">
                         <label>
-                            invisible
-                            <input type="checkbox" name="classEditVisible">
+                            invisible {{# if visible}}
+                            <input type="checkbox" name="classEditVisible" checked> {{else}}
+                            <input type="checkbox" name="classEditVisible"> {{/if}}
                             <span class="lever"></span> visible
                         </label>
                     </div>
-                    <div class="switch col s12">
+                    <div class="switch col s6">
                         <label>
-                            closed
-                            <input type="checkbox" name="classEditJoinable">
+                            closed {{# if isjoinable}}
+                            <input type="checkbox" name="classEditJoinable" checked> {{else}}
+                            <input type="checkbox" name="classEditJoinable"> {{/if}}
                             <span class="lever"></span> joinable
                         </label>
                     </div>

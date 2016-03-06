@@ -68,11 +68,20 @@ function View() {
         var source = $("#classEditTemplate").html(),
             template = Handlebars.compile(source);
         HTML = "";
+
         if (data.lectures) {
             data.lecturesHTML = this.getLecturesHTML(data.lectures);
         }
         if (data.students) {
             data.studentHTML = this.getStudentHTML(data.students);
+        }
+
+        if (data.isvisible == 1) {
+            data.visible = true;
+        }
+
+        if (data.joinable == 1) {
+            data.isjoinable = true;
         }
 
         HTML = template(data);

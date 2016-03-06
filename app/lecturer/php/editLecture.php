@@ -27,7 +27,7 @@ if (isset($lid)) {
         echo "Error: You don't own this class.";
     }
 } else {
-    $result = mysql_query("SELECT * FROM owned INNER JOIN (lectures) ON (owned.cid = lectures.cid) WHERE uid = $uid AND owned.cid = $cid") or die(mysql_error());
+    $result = mysql_query("SELECT * FROM owned WHERE uid = $uid AND owned.cid = $cid") or die(mysql_error());
     if($row = mysql_fetch_array($result)) {
         mysql_query("INSERT INTO `lectures` (`lid`, `cid`, `title`, `date`, `description`, `isvisible`) VALUES (NULL, '$cid', '$name', '$date', '$description', '$isvisible')") or die(mysql_error());
     }

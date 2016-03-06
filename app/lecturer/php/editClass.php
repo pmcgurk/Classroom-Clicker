@@ -20,7 +20,7 @@ if (isset($_POST['cid'])) {
             echo "Deleted";
         } else {
             // else it modifies it with the new data.
-            mysql_query("UPDATE `classes` SET `name` = '$name', `code` = '$code', `description` = '$description', `isvisible` = '$isvisible' WHERE `classes`.`cid` = $_POST[cid]") or die(mysql_error());
+            mysql_query("UPDATE `classes` SET `name` = '$name', `code` = '$code', `description` = '$description', `isvisible` = '$isvisible', `joinable` = '$joinable' WHERE `classes`.`cid` = $_POST[cid]") or die(mysql_error());
             echo "Edit";
         }
     } else {
