@@ -241,7 +241,7 @@ function Controller() {
         this.endUpdateResponses();
         console.log("Responses Update Started for Question: " + data);
         model.setCurrentResponseQuestion(data);
-        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 1000);
+        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 2000);
     };
 
     this.endUpdateResponses = function () {
