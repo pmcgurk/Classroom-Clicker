@@ -3,8 +3,10 @@ function Model() {
         userClasses = [],
         userLectures = [],
         userQuestions = [],
+        curClass,
         curQuestion,
         curLecture,
+        curPage,
         searchType = "",
         lastSearch = "",
         logging = false;
@@ -45,6 +47,14 @@ function Model() {
         return $.getValues("php/leaveClass.php", data);
     };
 
+    this.setCurClass = function (cid) {
+        curClass = cid;
+    };
+
+    this.getCurClass = function () {
+        return curClass;
+    };
+
     /**************** LECTURE METHODS ******************/
     // gets information on saved user lecture with specified lid
     this.getUserLectureInfo = function (lid) {
@@ -77,6 +87,14 @@ function Model() {
         return $.getValues("php/getResponses.php", {
             "qid": qid
         });
+    };
+
+    this.setCurLecture = function (lid) {
+        curLecture = lid;
+    };
+
+    this.getCurLecture = function () {
+        return curLecture;
     };
 
     /**************** QUESTION METHODS ******************/

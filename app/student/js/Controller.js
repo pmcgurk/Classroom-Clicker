@@ -1,6 +1,7 @@
 function Controller() {
     var model = new Model(),
-        view = new View();
+        view = new View(),
+        updateInterval;
 
     this.init = function () {
         model.init();
@@ -10,6 +11,7 @@ function Controller() {
         this.setButtons();
         this.setUser();
         this.update();
+        setInterval($.proxy(this.update, this), 1000);
     };
 
     this.pagesetup = function () {
@@ -25,7 +27,7 @@ function Controller() {
         $(document).on("click", ".joinClassButton", $.proxy(this.joinClassesDisplay, this));
 
         // lectures page
-        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
+        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLectureEvent, this));
         $(document).on("click", ".classLeaveButton", $.proxy(this.leaveClass, this));
 
         // questions page
@@ -51,10 +53,18 @@ function Controller() {
 
     /**************** CLASS METHODS ******************/
     this.selectClass = function (event) {
-        var lectures = model.getLectures($(event.currentTarget).attr("cid"));
+        model.setCurClass($(event.currentTarget).attr("cid"));
+        var lectures = model.getLectures(model.getCurClass());
         view.setLectures(lectures);
         model.submitLog('User change', 'User selected class: ' + $(event.currentTarget).attr("cid"));
         this.switchView('lectures');
+        updateInterval = setInterval($.proxy(this.updateClass, this), 250);
+    };
+
+    this.updateClass = function () {
+        var lectures = model.getLectures(model.getCurClass());
+        view.setLectures(lectures);
+        console.log("Updated Class");
     };
 
     this.leaveClass = function (event) {
@@ -73,11 +83,25 @@ function Controller() {
     };
 
     /**************** LECTURE METHODS ******************/
-    this.selectLecture = function (event) {
-        var questions = model.getQuestions($(event.currentTarget).attr("value"));
+    this.selectLectureEvent = function (event) {
+        this.selectLecture($(event.currentTarget).attr("value"));
+    };
+
+    this.selectLecture = function (lid) {
+        this.switchView('questions');
+        model.setCurLecture(lid);
+        var questions = model.getQuestions(model.getCurLecture());
         view.setQuestions(JSON.parse(questions));
         model.submitLog('User change', 'User selected lecture: ' + $(event.currentTarget).attr("value"));
-        this.switchView('questions');
+        updateInterval = setInterval($.proxy(this.updateLecture, this), 250);
+        //this.setBackButton(this.test, model.getCurLecture());
+        this.updateQuestions();
+    }
+
+    this.updateLecture = function () {
+        var questions = model.getQuestions(model.getCurLecture());
+        view.setQuestions(JSON.parse(questions));
+        console.log("Updated Lecture");
     };
 
     /**************** QUESTIONS METHODS ******************/
@@ -179,6 +203,10 @@ function Controller() {
         view.goBack();
     };
 
+    this.setBackButton = function (func, id) {
+        console.log(func(id));
+    }
+
     this.update = function () {
         model.submitLog('update', 'view updated from model');
         view.update(model.update());
@@ -191,6 +219,8 @@ function Controller() {
     this.switchView = function (data) {
         view.switchView(data);
         model.submitLog('page change', data);
+        clearInterval(updateInterval);
+        console.log("Cleared Interval");
     }
 }
 
