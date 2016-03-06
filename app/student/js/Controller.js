@@ -109,7 +109,7 @@ function Controller() {
             'value': $(event.currentTarget).attr("value"),
             'qid': $(event.currentTarget).attr("qid")
         });
-        view.submitAnswer(data);
+        view.submitAnswer(data, $(event.currentTarget).attr("value"));
 
         model.submitLog('User change', 'User submitted answer: ' + $(event.currentTarget).attr("value") + ' to question: ' + $(event.currentTarget).attr("qid"));
     };
