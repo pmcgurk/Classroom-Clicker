@@ -148,8 +148,11 @@ function View() {
 
     // submit answer response display
     this.submitAnswer = function (data) {
-        // shows a toast with the response i.e. correct
-        Materialize.toast(data, 1000);
+        if (data == "correct") {
+            $('#buttonDiv').html('<div class="container">                <div class="green card white-text">                    <br>                    <h5 class="logo">Correct!</h5>                    <h5>The answer was .</h5>                    <br>                </div>            </div>');
+        } else {
+            $('#buttonDiv').html('<div class="container">                <div class="red card white-text">                    <br>                    <h5 class="logo">Incorrect!</h5>                    <h5>The answer was . </h5>                    <br>                </div>            </div>');
+        }
     };
 
     // toast message display function
