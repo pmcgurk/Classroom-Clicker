@@ -421,7 +421,7 @@ function View() {
             var oldDataLength = oldData.length;
             if (oldDataLength != data.length) {
                 for (var i = oldDataLength; i < data.length; i++) {
-                    var newLabel = this.getIsNewLabel(JSON.parse(data[i].value));
+                    var newLabel = this.getIsNewLabel(data[i].value);
                     //console.log(newLabel);
                     if (newLabel) {
                         //console.log("New Label");
