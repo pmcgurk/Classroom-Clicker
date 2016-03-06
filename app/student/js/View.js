@@ -72,7 +72,16 @@ function View() {
         var source = $("#questionTemplate").html(),
             template = Handlebars.compile(source),
             HTML = "";
+        console.log(data.responses);
         data.buttonHTML = this.constructButtons(JSON.parse(data.buttontype), data.qid);
+        if (data.responses.total < 1) {
+            data.notanswered = true;
+        } else if (data.responses.correctresponses > 0) {
+            data.correctanswer = true;
+        } else {
+            data.incorrectanswer = true;
+        }
+        //data.correctanswer = true;
         HTML = HTML + template(data);
         $("#question").html(HTML);
     };

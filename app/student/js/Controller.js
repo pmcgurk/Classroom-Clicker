@@ -86,9 +86,10 @@ function Controller() {
     };
 
     this.selectQuestion = function (data) {
-        var question = model.getQuestion(data);
         try {
-            view.setQuestion(JSON.parse(question));
+            var question = JSON.parse(model.getQuestion(data));
+            question.responses = JSON.parse(model.getUsersResponses(data));
+            view.setQuestion(question);
             model.submitLog('User change', 'User selected question: ' + data);
         } catch (err) {
             view.toast("Question not avaliable");

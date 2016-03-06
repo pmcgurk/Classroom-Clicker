@@ -7,7 +7,7 @@ function Model() {
         curLecture,
         searchType = "",
         lastSearch = "",
-        logging = true;
+        logging = false;
 
     this.init = function () {
         //console.log("Model Init");
@@ -71,6 +71,12 @@ function Model() {
 
     this.getCurLecture = function () {
         return curLecture;
+    };
+
+    this.getUsersResponses = function (qid) {
+        return $.getValues("php/getResponses.php", {
+            "qid": qid
+        });
     };
 
     /**************** QUESTION METHODS ******************/
