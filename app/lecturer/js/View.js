@@ -374,7 +374,7 @@ function View() {
             cdata.push({
                 "value": this.countValues(values, labels[i]),
                 "label": labels[i],
-                "color": colours[i].value
+                "color": this.getResponseColour(data[i])
             });
         }
         chart = new Chart(ctx).Pie(cdata, {
@@ -421,13 +421,13 @@ function View() {
             var oldDataLength = oldData.length;
             if (oldDataLength != data.length) {
                 for (var i = oldDataLength; i < data.length; i++) {
-                    var newLabel = this.getIsNewLabel(data[i].value);
+                    var newLabel = this.getIsNewLabel(JSON.parse(data[i].value));
                     //console.log(newLabel);
                     if (newLabel) {
                         //console.log("New Label");
                         chart.addData({
                             value: 1,
-                            color: colours[chart.segments.length].value,
+                            color: this.getResponseColour(data[i]),
                             label: data[i].value
                         })
                     } else {
@@ -443,6 +443,21 @@ function View() {
             $('#js-legend').html(chart.generateLegend());
             $('#responsesNumber').html("Responses: " + chart.total);
             chart.update();
+        }
+    };
+
+    this.getResponseColour = function (data) {
+        var buttontype = JSON.parse(data.buttontype);
+        for (var i = 0; i < buttontype.length; i++) {
+            if (data.value == buttontype[i].value) {
+                for (var e = 0; e < colours.length; e++) {
+                    if (colours[e].name == buttontype[i].colour) {
+                        console.log(colours[e].value);
+                        return colours[e].value;
+                    }
+                }
+            }
+
         }
     };
 
