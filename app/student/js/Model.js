@@ -79,10 +79,6 @@ function Model() {
         return userLectures;
     };
 
-    this.getCurLecture = function () {
-        return curLecture;
-    };
-
     this.getUsersResponses = function (qid) {
         return $.getValues("php/getResponses.php", {
             "qid": qid

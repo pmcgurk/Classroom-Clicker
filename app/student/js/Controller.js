@@ -60,7 +60,7 @@ function Controller() {
 
     this.selectClass = function (cid) {
         model.setCurClass(cid);
-        var lectures = model.getLectures(model.getCurClass());
+        var lectures = model.getLectures(cid);
         view.setLectures(lectures);
         model.submitLog('User change', 'User selected class: ' + cid);
         this.switchView('lectures');

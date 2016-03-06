@@ -1,7 +1,9 @@
 function Controller() {
     var model = new Model(),
         view = new View(),
-        responseUpdateInterval;
+        responseUpdateInterval,
+        backButtonFunc,
+        curID;
 
     this.init = function () {
         model.init();
@@ -11,6 +13,7 @@ function Controller() {
         this.setUser();
         this.update();
         this.debug();
+        setInterval($.proxy(this.update, this), 1000);
     };
 
     this.debug = function () {
@@ -26,7 +29,7 @@ function Controller() {
         // this uses a proxy to get the scope right within the button
 
         // classes page 
-        $(document).on("click", ".classSelectionButton", $.proxy(this.selectClass, this));
+        $(document).on("click", ".classSelectionButton", $.proxy(this.selectClassEvent, this));
         $(document).on("click", ".classEditButton", $.proxy(this.editClass, this));
         $(document).on("click", "#addClassButton", $.proxy(this.addClass, this));
 
@@ -38,7 +41,7 @@ function Controller() {
         $(document).on("click", "#addLectureButton", $.proxy(this.addLecture, this));
 
         // lectures page
-        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLecture, this));
+        $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLectureEvent, this));
 
         // lecture edit page
         $(document).on("click", "#addMoreQuestionsButton", $.proxy(view.addMoreEditQuestions, this));
@@ -60,7 +63,7 @@ function Controller() {
         //multipage buttons
         $(document).on("click", ".lectureEditButton", $.proxy(this.editLecture, this));
         $(document).on("click", '.pageChangerButton', $.proxy(this.switchViewButton, this));
-        $(document).on("click", ".backButton", this.backbutton);
+        $(document).on("click", ".backButton", this.back);
         $(document).on("click", ".logoutButton", this.logout);
 
         // misc / debug
@@ -71,10 +74,16 @@ function Controller() {
     };
 
     /**************** CLASS METHODS ******************/
-    this.selectClass = function (event) {
-        var lectures = model.getLectures($(event.currentTarget).attr("value"));
-        $('#classPageEditButton').attr("value", $(event.currentTarget).attr("value"));
+    this.selectClassEvent = function (event) {
+        this.selectClass($(event.currentTarget).attr("value"));
+    }
+
+    this.selectClass = function (cid) {
+        model.setCurClass(cid);
+        var lectures = model.getLectures(cid);
+        $('#classPageEditButton').attr("value", cid);
         view.setLectures(lectures);
+        this.setBackButton($.proxy(this.switchView, this), "home");
         this.switchView('lectures');
     };
 
@@ -134,11 +143,23 @@ function Controller() {
     };
 
     /**************** LECTURE METHODS ******************/
-    this.selectLecture = function (event) {
-        var questions = model.getQuestions($(event.currentTarget).attr("lid"));
-        $('#lecturePageEditButton').attr("lid", $(event.currentTarget).attr("lid"));
+    this.selectLectureEvent = function (event) {
+        this.selectLecture($(event.currentTarget).attr("lid"));
+    };
+
+    this.selectLecture = function (lid) {
+        var questions = model.getQuestions(lid);
+        $('#lecturePageEditButton').attr("lid", lid);
         view.setQuestions(JSON.parse(questions));
         this.switchView('questions');
+        updateInterval = setInterval($.proxy(this.updateLecture, this), 250);
+        this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
+    };
+
+    this.updateLecture = function () {
+        var questions = model.getQuestions(model.getCurLecture());
+        view.setQuestions(JSON.parse(questions));
+        //console.log("Updated Lecture");
     };
 
     /**************** LECTURE EDIT METHODS ******************/
@@ -200,6 +221,7 @@ function Controller() {
         var question = model.getQuestion(data);
         view.setQuestion(JSON.parse(question));
         this.switchView('question');
+        this.setBackButton($.proxy(this.selectLecture, this), model.getCurLecture());
     };
 
     this.getResponses = function (event) {
@@ -269,8 +291,18 @@ function Controller() {
     };
 
     this.backbutton = function () {
-        view.goBack();
+        model.submitLog('button press', 'back button pressed');
+        this.back();
     };
+
+    this.back = function () {
+        backButtonFunc(curID);
+    };
+
+    this.setBackButton = function (func, id) {
+        backButtonFunc = func;
+        curID = id;
+    }
 
     this.switchViewButton = function (event) {
         this.switchView($(event.currentTarget).attr("value"));

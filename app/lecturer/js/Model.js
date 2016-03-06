@@ -3,8 +3,10 @@ function Model() {
         userClasses = [],
         userLectures = [],
         userQuestions = [],
+        curClass,
         curQuestion,
         curLecture,
+        curPage,
         currentResponseQuestion,
         lastResponses = [];
 
@@ -87,6 +89,14 @@ function Model() {
         }
     };
 
+    this.setCurClass = function (cid) {
+        curClass = cid;
+    };
+
+    this.getCurClass = function () {
+        return curClass;
+    };
+
     /**************** LECTURE METHODS ******************/
     // gets information on saved user lecture with specified lid
     this.getUserLectureInfo = function (lid) {
@@ -148,6 +158,14 @@ function Model() {
             }
             buttons.push(button);
         }
+    };
+
+    this.setCurLecture = function (lid) {
+        curLecture = lid;
+    };
+
+    this.getCurLecture = function () {
+        return curLecture;
     };
 
 
