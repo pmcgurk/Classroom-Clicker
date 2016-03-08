@@ -2,6 +2,7 @@ function Controller() {
     var model = new Model(),
         view = new View(),
         responseUpdateInterval,
+        updateInterval,
         backButtonFunc,
         curID;
 
@@ -13,7 +14,7 @@ function Controller() {
         this.setUser();
         this.update();
         this.debug();
-        setInterval($.proxy(this.update, this), 1000);
+        setInterval($.proxy(this.update, this), 1500);
     };
 
     this.debug = function () {
@@ -54,7 +55,7 @@ function Controller() {
 
         // questions page
         $(document).on("click", ".questionSelectionButton", $.proxy(this.selectQuestionEvent, this));
-        $(document).on("click", ".getResponsesButton", $.proxy(this.getResponses, this));
+        $(document).on("click", ".getResponsesButton", $.proxy(this.getResponsesEvent, this));
 
         // question page
         $(document).on("click", ".nextQuestionButton", $.proxy(this.nextQuestion, this));
@@ -65,6 +66,9 @@ function Controller() {
         $(document).on("click", '.pageChangerButton', $.proxy(this.switchViewButton, this));
         $(document).on("click", ".backButton", this.back);
         $(document).on("click", ".logoutButton", this.logout);
+
+        //responses 
+        $(document).on("change", "#selectQuestions", $.proxy(this.getResponsesSelect, this));
 
         // misc / debug
         $(document).on("click", ".update", this.update);
@@ -152,7 +156,7 @@ function Controller() {
         $('#lecturePageEditButton').attr("lid", lid);
         view.setQuestions(JSON.parse(questions));
         this.switchView('questions');
-        updateInterval = setInterval($.proxy(this.updateLecture, this), 250);
+        updateInterval = setInterval($.proxy(this.updateLecture, this), 1500);
         this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
     };
 
@@ -224,11 +228,16 @@ function Controller() {
         this.setBackButton($.proxy(this.selectLecture, this), model.getCurLecture());
     };
 
-    this.getResponses = function (event) {
+    this.getResponsesEvent = function (event) {
+        this.getResponses($(event.currentTarget).attr("value"));
+    };
+
+    this.getResponses = function (qid) {
         this.switchView('responses');
-        var responses = model.getResponses($(event.currentTarget).attr("value"));
-        view.setResponses(JSON.parse(responses));
-        this.startResponsesUpdate($(event.currentTarget).attr("value"));
+        var responses = model.getResponses(qid),
+        questionNumber = model.getQuestionNumber(qid);
+        view.setResponses(JSON.parse(responses), questionNumber);
+        this.startResponsesUpdate(qid);
     };
 
     this.getResponsesSelect = function (event) {
@@ -255,10 +264,13 @@ function Controller() {
         var updatedResponses = JSON.parse(model.getUpdatedResponses());
         if (oldResponses != undefined) {
             oldResponses = JSON.parse(oldResponses);
-            console.log("Difference: " + (updatedResponses.length - oldResponses.length));
-            view.updateResponses(updatedResponses, oldResponses);
+            if (updatedResponses.length - oldResponses.length > 0) {
+                view.updateResponses(updatedResponses, oldResponses);
+            } else {
+                //console.log("Not changed");
+            }
         } else {
-            console.log("No old responses");
+            //console.log("No old responses");
         }
     };
 
@@ -309,6 +321,7 @@ function Controller() {
     };
 
     this.switchView = function (data) {
+        clearInterval(updateInterval);
         this.endUpdateResponses();
         view.switchView(data);
     }

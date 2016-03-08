@@ -320,6 +320,8 @@ function View() {
             HTML = "",
             selectHTML = "";
         $(".responseQuestionSelect").html("");
+        $("#selectQuestions").html("");
+
         for (var i = 0; i < data.length; i++) {
             data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
             data[i].qnum = i + 1; // gets question number
@@ -327,13 +329,14 @@ function View() {
                 data[i].greyed = true;
             }
             HTML = HTML + template(data[i]);
-            selectHTML = selectHTML + " <a class='btn getResponsesButton' value='" + data[i].qid + "'>Q" + data[i].qnum + "</a> ";
+            selectHTML = selectHTML + " <a class='btn purple getResponsesButton responseSelectionButton' value='" + data[i].qid + "' qnum='" + data[i].qnum + "'>Q" + data[i].qnum + "</a> ";
         }
         if (HTML == "") {
             HTML = "No Questions.";
         }
         $(".responseQuestionSelect").html(selectHTML);
         $(".questionList").html(HTML);
+        $('select').material_select();
     };
 
     /**************** QUESTION METHODS ******************/
@@ -368,7 +371,7 @@ function View() {
 
     /**************** RESPONSES METHODS ******************/
     // creates a Chart.js chart from data provided from responses database
-    this.setResponses = function (ndata) {
+    this.setResponses = function (ndata, qnum) {
         data = ndata;
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
@@ -394,10 +397,21 @@ function View() {
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%><%if(segments[i].value){%> - <%=segments[i].value%><%}%></li><%}%></ul>"
 
         });
+        $('#responseHeader').html("Question " + qnum);
         $('#js-legend').html(chart.generateLegend());
         $('#responsesNumber').html("Responses: " + chart.segments.length);
         chart.displayed = (chart.segments.length != 0);
 
+        var responseButtons = $('.responseSelectionButton');
+        for (var i = 0; i < responseButtons.length; i++) {
+            if ($(responseButtons[i]).attr("qnum") == qnum) {
+                $(responseButtons[i]).addClass("green");
+                $(responseButtons[i]).removeClass("purple");
+            } else {
+                $(responseButtons[i]).addClass("purple");
+                $(responseButtons[i]).removeClass("green");
+            }
+        }
         //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
     };
 
@@ -423,7 +437,6 @@ function View() {
     };
 
     this.updateResponses = function (data, oldData) {
-        console.log(chart.displayed);
         if (!chart.displayed) {
             this.setResponses(data);
         } else {
@@ -448,10 +461,11 @@ function View() {
                         }
                     }
                 }
+                $('#responseHeader').html("Question " + 1);
+                $('#js-legend').html(chart.generateLegend());
+                $('#responsesNumber').html("Responses: " + chart.total);
+                chart.update();
             }
-            $('#js-legend').html(chart.generateLegend());
-            $('#responsesNumber').html("Responses: " + chart.total);
-            chart.update();
         }
     };
 
@@ -461,7 +475,6 @@ function View() {
             if (data.value == buttontype[i].value) {
                 for (var e = 0; e < colours.length; e++) {
                     if (colours[e].name == buttontype[i].colour) {
-                        console.log(colours[e].value);
                         return colours[e].value;
                     }
                 }

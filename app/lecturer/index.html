@@ -121,13 +121,24 @@
             <p>You Shouldn't be seeing this.</p>
         </div>
         <div id="responses" class="page" style="display: none;">
-            <div class="center-align">
-                <h5 class="logo" class="responsesDisplayHeader"></h5>
-                <canvas id="responsesCanvas" class="responseDisplay center-align"></canvas>
-                <div id="responsesNumber"></div>
-                <div id="js-legend" class="chart-legend"></div>
-                <div class="responsesDisplay"></div>
-                <div class="responseQuestionSelect"></div>
+            <div class="col s12 center green white-text">
+                <br>
+                <h5 id="responseHeader" class="logo"></h5>
+                <br>
+            </div>
+            <div class="container valign-wrapper">
+                <div class="questionDiv col s12 m12 l12">
+                    <canvas id="responsesCanvas" class="responseDisplay"></canvas>
+                </div>
+                <div class="col s12 m12 l12">
+                    <div id="responsesNumber"></div>
+                    <div id="js-legend" class="chart-legend"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="col s12 center-align">
+                    <div id="responseSelection" class="responseQuestionSelect"></div>
+                </div>
             </div>
         </div>
         <div id="editClass" class="page" style="display: none;">

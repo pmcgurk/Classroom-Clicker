@@ -196,6 +196,19 @@ function Model() {
         });
     };
 
+    this.getCurQuestion = function () {
+        return curQuestion;  
+    };
+
+    this.getQuestionNumber = function (qid) {
+        var questions = JSON.parse(this.getQuestions(this.getCurLecture()));
+        for (var i = 0; i < questions.length; i++) {
+            if (questions[i].qid == qid) {
+                return i + 1;
+            }
+        }
+    };
+
     /********************* RESPONSES METHODS *******************/
     this.getUpdatedResponses = function () {
         var responses = $.getValues("php/getResponses.php", {
