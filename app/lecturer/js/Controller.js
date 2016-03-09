@@ -90,6 +90,11 @@ function Controller() {
             "qid": $(event.currentTarget).attr("qid"),
             "isvisible": this.booleanConvert(!event.target.checked)
         };
+        if (event.target.checked) {
+            $("label[for='" + $(event.currentTarget).attr("id") + "']").html("<i class='material-icons'>lock_outline</i>");
+        } else {
+            $("label[for='" + $(event.currentTarget).attr("id") + "']").html("<i class='material-icons'>lock_open</i>");
+        }
         model.changeVisibility(data);
     };
 

@@ -108,6 +108,9 @@ function View() {
             template = Handlebars.compile(source),
             HTML = "";
         for (var i = 0; i < data.length; i++) {
+            if (data[i].isvisible == 0) {
+                data[i].greyed = true;
+            }
             HTML = HTML + template(data[i]);
         }
         return HTML;

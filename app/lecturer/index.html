@@ -564,17 +564,26 @@
     </div>
 </script>
 <script id="classEditLectureTemplate" type="text/x-handlebars-template">
-    <li class="collection-item purple">
+    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}}">
         <div class="row">
             <div class="col s12">
                 <span class="logo white-text">{{date}}: {{title}}</span>
             </div>
-            <div class="col s12">
+            <div class="col s8">
                 <p class="white-text">{{description}}
                 </p>
             </div>
-            <div class="col s6">
-                <a class="waves-light waves-effect red btn lectureEditButton" lid="{{lid}}">Edit</a>
+            <div class="col s4">
+                <div class="switch right">
+                    <label>
+                        <input class="visibilityChanger" type="checkbox" lid="{{lid}}" id="vc{{lid}}" {{#if greyed}}checked{{/if}}/>
+                        <label for="vc{{lid}}"><i class="material-icons">{{#if greyed}}lock_outline{{else}}<i class="material-icons">lock_open</i>{{/if}}</i>
+                        </label>
+                    </label>
+                </div>
+            </div>
+            <div class="col s12">
+                <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
             </div>
         </div>
     </li>
