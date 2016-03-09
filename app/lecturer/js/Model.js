@@ -56,9 +56,16 @@ function Model() {
     // compiles the edit classes interfaces JSON and sends to database
     this.saveClass = function (data) {
         if (data.code != "" && data.name != "") {
-            console.log($.ajaxPOST("php/editClass.php", data));
+            $.ajaxPOST("php/editClass.php", data);
+            return {
+                "valid": true,
+                "message": "Class successfully editted."
+            };
         } else {
-            console.log("Invalid Class Name/code");
+            return {
+                "valid": false,
+                "reason": "Class code or name invalid"
+            };
         }
     };
 
@@ -140,16 +147,34 @@ function Model() {
 
     // compiles the edit classes interfaces JSON and sends to database
     this.saveEditLecture = function (data) {
-        console.log(data);
-        console.log($.ajaxPOST("php/editLecture.php", data));
-        for (var i = 0; i < data.questions.length; i++) {
-            data.questions[i].lid = data.lid;
-            var response = $.getValues("php/editQuestion.php", data.questions[i]);
+        if (data.date != "" && data.name != "") {
+            $.ajaxPOST("php/editLecture.php", data);
+            for (var i = 0; i < data.questions.length; i++) {
+                if ((data.questions[i].text != "" && data.questions[i].buttons != "" && data.questions[i].answer != "")) {
+                    data.questions[i].lid = data.lid;
+                    var response = $.getValues("php/editQuestion.php", data.questions[i]);
+                } else if (data.questions[i].removed != true) {
+                    return {
+                        "valid": false,
+                        "message": "Question " + (i + 1) +
+                            " invalid."
+                    };
+                }
+            }
+        } else {
+            return {
+                "valid": false,
+                "message": "Lecture date or name invalid."
+            };
         }
     };
 
     this.saveNewLecture = function (data) {
-        console.log($.ajaxPOST("php/editLecture.php", data));
+        if (data.date != "" && data.name != "") {
+            console.log($.ajaxPOST("php/editLecture.php", data));
+        } else {
+            return "Invalid Lecture name or date.";
+        }
     };
 
     this.createButtonJSON = function (qnum) {

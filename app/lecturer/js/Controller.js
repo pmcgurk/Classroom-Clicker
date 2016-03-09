@@ -132,10 +132,14 @@ function Controller() {
     this.saveEditClass = function (event) {
         var data = view.getEditClassInfo();
         data.cid = $(event.currentTarget).attr("cid");
-        model.saveClass(data);
-        this.update();
-        view.toast("Class Successfully Edited");
-        this.switchView('home');
+        var response = model.saveClass(data);
+        if (response.valid) {
+            this.update();
+            this.switchView('home');
+        } else {
+
+        }
+        view.toast(response.response);
     };
 
     this.saveNewClass = function () {
@@ -217,10 +221,17 @@ function Controller() {
     };
 
     this.saveEditLecture = function (event) {
-        model.saveEditLecture(view.getEditLectureInfo($(event.currentTarget).attr("lid")));
-        Materialize.toast("Lecture Edited.", 2000);
-        this.update();
-        this.switchView('home');
+        var response = model.saveEditLecture(view.getEditLectureInfo($(event.currentTarget).attr("lid")));
+        if (response) {
+            if (response.valid) {
+                this.update();
+                this.switchView('home');
+            }
+            view.toast(response.message);
+        } else {
+            this.update();
+            this.switchView('home');
+        }
     };
 
     this.saveNewLecture = function (event) {

@@ -490,72 +490,74 @@
     </div>
 </script>
 <script id="lectureEditTemplate" type="text/x-handlebars-template">
-    <div class="white-text">
-        <div class="green card">
-            <form id="lectureEditForm">
-                <br>
-                <div class="input-field col s6">
-                    <input value="{{title}}" name="lectureTitleEdit" type="text">
-                    <label for="lectureTitleEdit" class="white-text active">Lecture Title</label>
-                </div>
-                <div class="input-field col s6">
-                    <input value="{{date}}" type="date" class="datepicker">
-                </div>
-                <div class="input-field col s12">
-                    <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
-                    <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
-                </div>
-                <div class="switch col s12">
-                    <label>
-                        {{#if invisible}}
-                        <input type="checkbox" name="lectureEditVisible"> {{else}}
-                        <input type="checkbox" name="lectureEditVisible" checked> {{/if}}
-                        <span class="lever"></span>Public
-                    </label>
-                </div>
-                <br>
-                <br>
-                <div class="center">
-                    <div class="switch" style="display: none;">
+    <div class="container">
+        <div class="white-text">
+            <div class="green card">
+                <form id="lectureEditForm">
+                    <br>
+                    <div class="input-field col s6">
+                        <input value="{{title}}" name="lectureTitleEdit" type="text">
+                        <label for="lectureTitleEdit" class="white-text active">Lecture Title</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input value="{{date}}" type="date" class="datepicker">
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                        <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
+                    </div>
+                    <div class="switch col s12">
                         <label>
-                            <input type="checkbox" class="lectureEditRemove" lid="{{lid}}">
-                            <span class="lever"></span>
+                            {{#if invisible}}
+                            <input type="checkbox" name="lectureEditVisible"> {{else}}
+                            <input type="checkbox" name="lectureEditVisible" checked> {{/if}}
+                            <span class="lever"></span>Public
                         </label>
                     </div>
-                </div>
-                <p class="green-text">a</p>
-                <div class="container">
-                    {{#if lid}}
-                    <h3 class="logo">Questions</h3> {{else}}
-                    <h5 class="logo">Save Lecture To Add Questions</h5> {{/if}}
                     <br>
-                </div>
-            </form>
-        </div>
-        <div id="questionsEditList">
+                    <br>
+                    <div class="center">
+                        <div class="switch" style="display: none;">
+                            <label>
+                                <input type="checkbox" class="lectureEditRemove" lid="{{lid}}">
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="green-text">a</p>
+                    <div class="container">
+                        {{#if lid}}
+                        <h3 class="logo">Questions</h3> {{else}}
+                        <h5 class="logo">Save Lecture To Add Questions</h5> {{/if}}
+                        <br>
+                    </div>
+                </form>
+            </div>
+            <div id="questionsEditList">
 
+            </div>
+            <br> {{#if lid}}
+            <div class="center-align">
+                <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
+                <br>
+                <br>
+            </div>
+            {{/if}}
+            <div class="center-align">
+                {{#if lid}}
+                <a class="waves-effect waves-light btn green questionEditSaveButton" lid="{{lid}}">Save</a>
+                <a class="btn backButton red waves-effect waves-light">Cancel</a>
+                <br>
+                <br> {{else}}
+                <a class="waves-effect waves-light btn green newLectureSaveButton" cid="{{cid}}">Save</a>
+                <a class="btn backButton red waves-effect waves-light">Cancel</a>
+                <br>
+                <br>
+                <a class="waves-light waves-effect red btn lectureRemoveButton" lid="{{lid}}">MARK LECTURE FOR DELETION</a>
+                <br> {{/if}}
+            </div>
+            <br>
         </div>
-        <br> {{#if lid}}
-        <div class="center-align">
-            <a id="addMoreQuestionsButton" class="waves-effect waves-light btn purple">Add More Questions</a>
-            <br>
-            <br>
-        </div>
-        {{/if}}
-        <div class="center-align">
-            {{#if lid}}
-            <a class="waves-effect waves-light btn green questionEditSaveButton" lid="{{lid}}">Save</a>
-            <a class="btn backButton red waves-effect waves-light">Cancel</a>
-            <br>
-            <br> {{else}}
-            <a class="waves-effect waves-light btn green newLectureSaveButton" cid="{{cid}}">Save</a>
-            <a class="btn backButton red waves-effect waves-light">Cancel</a>
-            <br>
-            <br>
-            <a class="waves-light waves-effect red btn lectureRemoveButton" lid="{{lid}}">MARK LECTURE FOR DELETION</a>
-            <br> {{/if}}
-        </div>
-        <br>
     </div>
 </script>
 <script id="classEditLectureTemplate" type="text/x-handlebars-template">
