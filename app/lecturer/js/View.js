@@ -192,7 +192,6 @@ function View() {
                 buttons[e].colour = colours[e].name;
                 buttonsHTML = buttonsHTML + this.addMoreEditButtonsInit(buttons[e]);
             }
-            console.log(data);
             data.questions[i].buttonsHTML = buttonsHTML;
             HTML = template(data.questions[i]);
             $("#questionsEditList").append(HTML);
@@ -233,7 +232,6 @@ function View() {
             "bID": data + "-" + $(".buttonCreationForm[qnum='" + data + "'] > .createButtonJSONWrapper").length,
             "colour": colours[$(".buttonCreationForm[qnum='" + data + "'] > .createButtonJSONWrapper").length].name
         });
-        console.log(HTML);
         $('.buttonCreationForm[qnum="' + data + '"]').append(HTML);
         $('select').material_select();
     };
@@ -415,10 +413,6 @@ function View() {
         //var myRadarChart = new Chart(ctx).PolarArea(cdata, {});
     };
 
-    this.getRandomInt = function () {
-        return Math.floor((Math.random() * 3) + 1);
-    };
-
     this.getIsNewLabel = function (data) {
         for (var i = 0; i < chart.segments.length; i++) {
             if (chart.segments[i].label == data) {
@@ -426,14 +420,6 @@ function View() {
             }
         }
         return true;
-    };
-
-    this.addDummyData = function () {
-        var dummyData = {};
-        dummyData.qid = 1;
-        dummyData.value = "value" + this.getRandomInt();
-        data.push(dummyData);
-        console.log(data);
     };
 
     this.updateResponses = function (data, oldData) {
