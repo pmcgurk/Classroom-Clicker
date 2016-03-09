@@ -127,7 +127,7 @@
                 <br>
             </div>
             <div class="container valign-wrapper">
-                <div class="questionDiv col s12 m12 l12">
+                <div class="questionDiv col s12 m12 l12" style="margin: 50px 50px 50px 50px;">
                     <canvas id="responsesCanvas" class="responseDisplay"></canvas>
                 </div>
                 <div class="col s12 m12 l12">
@@ -302,9 +302,9 @@
     <form class="questionForm green">
         <div class="container">
             <br>
-            <h4 class="logo">Question {{qnum}}</h4> (QID: {{qid}})<a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
+            <h4 class="logo">Question {{qnum}}</h4><a class="waves-effect waves-light btn red questionEditRemoveButton right" qnum="{{qnum}}">Remove</a>
             <br>
-            <div class="switch">
+            <div class="switch" style="display: none;">
                 <label>
                     not removed
                     <input class="removeQuestionSwitch" type="checkbox" qnum="{{qnum}}">
@@ -314,15 +314,15 @@
             <div class="switch">
                 {{#if unchecked}}
                 <label>
-                    invisible
+                    <i class="material-icons">lock_outline</i>
                     <input name="visibleQuestionSwitch" type="checkbox">
-                    <span class="lever"></span> visible
+                    <span class="lever"></span> <i class="material-icons">lock_open</i>
                 </label>
                 {{else}}
                 <label>
-                    invisible
+                    <i class="material-icons">lock_outline</i>
                     <input name="visibleQuestionSwitch" type="checkbox" checked>
-                    <span class="lever"></span> visible
+                    <span class="lever"></span> <i class="material-icons">lock_open</i>
                 </label>
                 {{/if}}
             </div>
@@ -403,19 +403,23 @@
                 </div>
                 <div class="center">
                     <div class="switch col s6">
+                        accessible
+                        <br>
                         <label>
-                            invisible {{# if visible}}
+                            <i class="material-icons">lock_outline</i> {{# if visible}}
                             <input type="checkbox" name="classEditVisible" checked> {{else}}
                             <input type="checkbox" name="classEditVisible"> {{/if}}
-                            <span class="lever"></span> visible
+                            <span class="lever"></span> <i class="material-icons">lock_open</i>
                         </label>
                     </div>
                     <div class="switch col s6">
+                        joinable
+                        <br>
                         <label>
-                            closed {{# if isjoinable}}
+                            <i class="material-icons">security</i> {{# if isjoinable}}
                             <input type="checkbox" name="classEditJoinable" checked> {{else}}
                             <input type="checkbox" name="classEditJoinable"> {{/if}}
-                            <span class="lever"></span> joinable
+                            <span class="lever"></span> <i class="material-icons">group_add</i>
                         </label>
                     </div>
                     <div class="switch" style="display: none;">
@@ -431,7 +435,9 @@
         <div class="green card white-text">
             <ul class="collapsible green">
                 <li>
-                    <div class="collapsible-header"><i class="large material-icons">recent_actors</i>Enrolled Students</div>
+                    <div class="collapsible-header"><i class="large material-icons">recent_actors</i>Enrolled Students:
+                        <span id="enrolledStudentNumber">{{studentNumber}}</span>
+                    </div>
                     <div class="collapsible-body">
                         <table class="centered bordered">
                             <thead class="white-text">
@@ -495,23 +501,23 @@
             <div class="green card">
                 <form id="lectureEditForm">
                     <br>
-                    <div class="input-field col s6">
+                    <div class="input-field col s8">
                         <input value="{{title}}" name="lectureTitleEdit" type="text">
                         <label for="lectureTitleEdit" class="white-text active">Lecture Title</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         <input value="{{date}}" type="date" class="datepicker">
                     </div>
                     <div class="input-field col s12">
                         <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
                         <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
                     </div>
-                    <div class="switch col s12">
+                    <div class="switch col s12 center">
                         <label>
-                            {{#if invisible}}
+                            <i class="material-icons">lock_outline</i> {{#if invisible}}
                             <input type="checkbox" name="lectureEditVisible"> {{else}}
                             <input type="checkbox" name="lectureEditVisible" checked> {{/if}}
-                            <span class="lever"></span>Public
+                            <span class="lever"></span><i class="material-icons">lock_open</i>
                         </label>
                     </div>
                     <br>
@@ -526,8 +532,7 @@
                     </div>
                     <p class="green-text">a</p>
                     <div class="container">
-                        {{#if lid}}
-                        <h3 class="logo">Questions</h3> {{else}}
+                        {{#if lid}}{{else}}
                         <h5 class="logo">Save Lecture To Add Questions</h5> {{/if}}
                         <br>
                     </div>
@@ -548,13 +553,11 @@
                 <a class="waves-effect waves-light btn green questionEditSaveButton" lid="{{lid}}">Save</a>
                 <a class="btn backButton red waves-effect waves-light">Cancel</a>
                 <br>
-                <br> {{else}}
-                <a class="waves-effect waves-light btn green newLectureSaveButton" cid="{{cid}}">Save</a>
-                <a class="btn backButton red waves-effect waves-light">Cancel</a>
-                <br>
                 <br>
                 <a class="waves-light waves-effect red btn lectureRemoveButton" lid="{{lid}}">MARK LECTURE FOR DELETION</a>
-                <br> {{/if}}
+                <br> {{else}}
+                <a class="waves-effect waves-light btn green newLectureSaveButton" cid="{{cid}}">Save</a>
+                <a class="btn backButton red waves-effect waves-light">Cancel</a> {{/if}}
             </div>
             <br>
         </div>
@@ -572,9 +575,6 @@
             </div>
             <div class="col s6">
                 <a class="waves-light waves-effect red btn lectureEditButton" lid="{{lid}}">Edit</a>
-            </div>
-            <div class="col s6">
-                <a class="waves-light waves-effect red btn lectureRemoveButton right" lid="{{lid}}">Remove</a>
             </div>
         </div>
     </li>

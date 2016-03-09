@@ -78,6 +78,9 @@ function View() {
         if (data.lectures) {
             data.lecturesHTML = this.getLecturesHTML(data.lectures);
         }
+
+        data.studentNumber = data.students.length;
+
         if (data.students) {
             data.studentHTML = this.getStudentHTML(data.students);
         }
