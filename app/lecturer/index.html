@@ -45,7 +45,7 @@
                 <div class="green card">
                     <div class="container white-text">
                         <br>
-                        <h5 class="logo">Owned Classes<a class="update btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                        <h5 class="logo">Owned Classes</h5>
                         <br>
                     </div>
                     <div class="container">
@@ -101,7 +101,7 @@
                 <div class="green card">
                     <div class="container white-text">
                         <br>
-                        <h5 class="logo">Questions<a class="updateQuestions btn-floating purple right"><i class="material-icons left">update</i></a></h5>
+                        <h5 class="logo">Questions<a id="lectureResponse" class="waves-effect waves-light btn purple getResponsesButton right">Responses</a></h5>
                         <br>
                     </div>
                     <div class="container">
@@ -183,10 +183,8 @@
 <script id="buttonTemplate" type="text/x-handlebars-template">
     <a class='waves-effect waves-light btn {{colour}}' value='{{value}}' qid='{{qid}}'>{{value}}</a>
 </script>
-
 <script id="classesTemplate" type="text/x-handlebars-template">
-
-    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}}  white-text">
+    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}} white-text">
         <div class="row">
             <div class="col s12">
                 <span class="logo">{{code}}: {{name}}</span>
@@ -245,11 +243,11 @@
     </li>
 </script>
 <script id="questionsTemplate" type="text/x-handlebars-template">
-    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}}" value="{{qid}}" </li>
+    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}}" value="{{qid}}">
         <a class="white-text">
             <div class="row">
                 <div class="col s8">
-                    <span class="title">Question {{qnum}} </span>
+                    <h5 class="logo">Question {{qnum}} </h5>
                 </div>
                 <div class="col s4">
                     <div class="switch right">

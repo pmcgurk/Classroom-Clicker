@@ -174,24 +174,7 @@
     <a class='waves-effect waves-light btn submitAnswerButton {{colour}}' value='{{value}}' qid='{{qid}}'>{{value}}</a>
 </script>
 <script id="classesTemplate" type="text/x-handlebars-template">
-    {{#if greyed}}
-    <li class="collection-item grey">
-        <div class="row">
-            <div class="col s12">
-                <span class="logo">{{code}}: {{name}}</span>
-            </div>
-            <div class="col s10">
-                <p class="white-text">{{description}}
-                    <br> {{realname}}
-                </p>
-            </div>
-            <div class="col s2">
-                <a class="waves-light waves-effect green btn" onclick="Materialize.toast('Class not Public', 2000)">Open</a>
-            </div>
-        </div>
-    </li>
-    {{else}}
-    <li class="collection-item purple white-text">
+    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}} white-text">
         <div class="row">
             <div class="col s12">
                 <span class="logo">{{code}}: {{name}}</span>
@@ -201,25 +184,16 @@
                     <br> {{realname}}
                 </p>
             </div>
+            {{#unless greyed}}
             <div class="col s3">
                 <a class="waves-light waves-effect green btn classSelectionButton right" cid="{{cid}}">Open</a>
             </div>
+            {{/unless}}
         </div>
     </li>
-    {{/if}}
 </script>
 <script id="lecturesTemplate" type="text/x-handlebars-template">
-    {{#if greyed}}
-    <li class="collection-item grey" onclick="Materialize.toast('Lecture Not Public', 2000)">
-        <a class="white-text">
-            <span class="title">{{date}}: {{title}}</span>
-            <p>{{description}}
-            </p>
-        </a>
-        </div>
-    </li>
-    {{else}}
-    <li class="collection-item purple white-text">
+    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}} white-text">
         <div class="row">
             <div class="col s12">
                 <span class="logo">{{date}}: {{title}}</span>
@@ -230,31 +204,25 @@
                 </p>
             </div>
             <div class="col s4">
-                <a class="waves-light waves-effect green btn lectureSelectionButton right" value="{{lid}}">Open</a>
+                {{#unless greyed}}
+                <a class="waves-light waves-effect green btn lectureSelectionButton right" value="{{lid}}">Open</a> {{/unless}}
             </div>
         </div>
     </li>
-    {{/if}}
 </script>
 <script id="questionsTemplate" type="text/x-handlebars-template">
-    {{#if greyed}}
-    <li class="collection-item grey" onclick="Materialize.toast('Question Not Public', 2000)" </li>
-        <a class="white-text">
-            <span class="title">Question {{qnum}}</span>
-        </a>
-    </li>
-    {{else}}
-    <li class="collection-item questionSelectionButton purple" value="{{qid}}">
+    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}}" </li>
         <div class="row white-text">
             <div class="col s8">
                 <span class="logo">Question {{qnum}}</span>
             </div>
+            {{#unless greyed}}
             <div class="col s4">
                 <a class="waves-light waves-effect green btn questionSelectionButton right" value="{{qid}}">Open</a>
             </div>
+            {{/unless}}
         </div>
     </li>
-    {{/if}}
 </script>
 <script id="questionTemplate" type="text/x-handlebars-template">
     <div id="questionHeader" class="col s12 white-text green valign-wrapper">
