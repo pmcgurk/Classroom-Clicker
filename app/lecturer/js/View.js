@@ -35,7 +35,10 @@ function View() {
                 "name": "indigo",
                 "value": "#3f51b5"
             }
-                  ];
+                  ],
+        oldClassData,
+        oldLectureData,
+        oldQuestionsData;
 
 
     this.init = function () {
@@ -58,8 +61,11 @@ function View() {
                 HTML = HTML + template(data[i]);
             }
         }
-        $(".classes").html(HTML);
-        $('.className').html(data[0].code + ": " + data[0].name);
+        if (JSON.stringify(data) != JSON.stringify(oldClassData)) {
+            $(".classes").html(HTML);
+            $('.className').html(data[0].code + ": " + data[0].name);
+        }
+        oldClassData = data;
     };
 
     /**************** CLASS EDIT METHODS ******************/
@@ -85,10 +91,12 @@ function View() {
         }
 
         HTML = template(data);
+
         $("#editClassInfo").html(HTML);
         $('.collapsible').collapsible({
             accordion: false
         });
+
     };
 
     // constructs lecture HTML for class edit display
@@ -141,8 +149,11 @@ function View() {
                 }
                 HTML = HTML + template(data[i]);
             }
-            $(".lecturesList").html(HTML);
-            $('.lectureTitle').html(data[0].title);
+            if (JSON.stringify(oldLectureData) != JSON.stringify(data)) {
+                $(".lecturesList").html(HTML);
+                $('.lectureTitle').html(data[0].title);
+            }
+            oldLectureData = data;
         }
     };
 
@@ -319,7 +330,6 @@ function View() {
             selectHTML = "";
         $(".responseQuestionSelect").html("");
         $("#selectQuestions").html("");
-
         for (var i = 0; i < data.length; i++) {
             data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
             data[i].qnum = i + 1; // gets question number
@@ -333,8 +343,13 @@ function View() {
             HTML = "No Questions.";
         }
         $(".responseQuestionSelect").html(selectHTML);
-        $(".questionList").html(HTML);
-        $('select').material_select();
+        if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
+            $("#lectureResponse").attr("value", data[0].qid);
+            $(".questionList").html(HTML);
+            $('select').material_select();
+        }
+        oldQuestionsData = data;
+
     };
 
     /**************** QUESTION METHODS ******************/

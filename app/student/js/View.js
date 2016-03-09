@@ -1,7 +1,10 @@
 function View() {
     var chart,
         lastpage = [],
-        curpage;
+        curpage,
+        oldClassData,
+        oldLectureData,
+        oldQuestionsData;
 
     this.init = function () {
         //console.log("View Init");
@@ -22,8 +25,11 @@ function View() {
                 HTML = HTML + template(data[i]);
             }
         }
-        $(".classes").html(HTML);
-        $('.className').html(data[0].code + ": " + data[0].name);
+        if (JSON.stringify(data) != JSON.stringify(oldClassData)) {
+            $(".classes").html(HTML);
+            $('.className').html(data[0].code + ": " + data[0].name);
+        }
+        oldClassData = data;
     };
 
     /**************** LECTURE METHODS ******************/
@@ -40,9 +46,12 @@ function View() {
                 }
                 HTML = HTML + template(data[i]);
             }
-            $(".lecturesList").html(HTML);
-            $('.lectureTitle').html(data[0].title);
-            $('.classLeaveButton').attr("cid", data[0].cid);
+            if (JSON.stringify(oldLectureData) != JSON.stringify(data)) {
+                $(".lecturesList").html(HTML);
+                $('.lectureTitle').html(data[0].title);
+                $('.classLeaveButton').attr("cid", data[0].cid);
+            }
+            oldLectureData = data;
         }
     };
 
@@ -63,7 +72,10 @@ function View() {
         if (HTML == "") {
             HTML = "No Questions.";
         }
-        $(".questionList").html(HTML);
+        if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
+            $(".questionList").html(HTML);
+        }
+        oldQuestionsData = data;
     };
 
     /**************** QUESTION METHODS ******************/
