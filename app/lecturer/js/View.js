@@ -79,7 +79,9 @@ function View() {
             data.lecturesHTML = this.getLecturesHTML(data.lectures);
         }
 
-        data.studentNumber = data.students.length;
+        if (data.studentNumber) {
+            data.studentNumber = data.students.length;
+        }
 
         if (data.students) {
             data.studentHTML = this.getStudentHTML(data.students);
@@ -352,7 +354,6 @@ function View() {
         if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
             $("#lectureResponse").attr("value", data[0].qid);
             $(".questionList").html(HTML);
-            $('select').material_select();
         }
         oldQuestionsData = data;
 
