@@ -23,7 +23,7 @@ if (isset($_POST['cid'])) {
             echo "Edited Class";
         }
     } else {
-        echo "not your class to edit.";
+        echo "Error: You don't own this class.";
     }
 } else if (isset($lid)) {
     $result = mysql_query("SELECT * FROM owned INNER JOIN (lectures) ON (owned.cid = lectures.cid) WHERE uid = $uid AND lectures.lid = $lid") or die(mysql_error());
@@ -42,7 +42,12 @@ if (isset($_POST['cid'])) {
         echo "Error: You don't own this class.";
     }
 } else if (isset($qid)) {
-    mysql_query("UPDATE `questions` SET `isvisible` = '$isvisible' WHERE `questions`.`qid` = '$qid' ") or die(mysql_error());
-    echo "Edited Question";
+    $result = mysql_query("SELECT * FROM owned INNER JOIN (lectures) ON (owned.cid = lectures.cid) INNER JOIN (questions) on (lectures.lid = questions.lid) WHERE uid = $uid AND questions.qid = $qid") or die(mysql_error());
+    if($row = mysql_fetch_array($result)) {
+        mysql_query("UPDATE `questions` SET `isvisible` = '$isvisible' WHERE `questions`.`qid` = '$qid' ") or die(mysql_error());
+        echo "Edited Question";
+    } else {
+        echo "Error: You don't own this class.";
+    }
 }
 ?>
