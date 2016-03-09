@@ -40,6 +40,7 @@ function Controller() {
         $(document).on("click", ".classDeleteButton", $.proxy(this.removeClass, this));
         $(document).on("click", ".studentEnrolledRemoveButton", $.proxy(this.removeStudent, this));
         $(document).on("click", "#addLectureButton", $.proxy(this.addLecture, this));
+        $(document).on("click", ".visibilityChanger", $.proxy(this.changeVisibility, this));
 
         // lectures page
         $(document).on("click", ".lectureSelectionButton", $.proxy(this.selectLectureEvent, this));
@@ -80,7 +81,17 @@ function Controller() {
     /**************** CLASS METHODS ******************/
     this.selectClassEvent = function (event) {
         this.selectClass($(event.currentTarget).attr("value"));
-    }
+    };
+
+    this.changeVisibility = function (event) {
+        var data = {
+            "cid": $(event.currentTarget).attr("cid"),
+            "lid": $(event.currentTarget).attr("lid"),
+            "qid": $(event.currentTarget).attr("qid"),
+            "isvisible": this.booleanConvert(!event.target.checked)
+        };
+        model.changeVisibility(data);
+    };
 
     this.selectClass = function (cid) {
         model.setCurClass(cid);
@@ -89,6 +100,14 @@ function Controller() {
         view.setLectures(lectures);
         this.setBackButton($.proxy(this.switchView, this), "home");
         this.switchView('lectures');
+        updateInterval = setInterval($.proxy(this.updateClass, this), 1500);
+        this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
+    };
+
+    this.updateClass = function () {
+        var lectures = model.getLectures(model.getCurClass());
+        view.setLectures(lectures);
+        //console.log("Updated Class");
     };
 
     this.addClass = function (event) {
@@ -206,7 +225,7 @@ function Controller() {
 
     this.saveNewLecture = function (event) {
         var lectureInfo = view.getNewLectureInfo($(event.currentTarget).attr("cid"));
-        console.log(lectureInfo);
+        //console.log(lectureInfo);
         model.saveNewLecture(lectureInfo);
     };
 
@@ -235,7 +254,7 @@ function Controller() {
     this.getResponses = function (qid) {
         this.switchView('responses');
         var responses = model.getResponses(qid),
-        questionNumber = model.getQuestionNumber(qid);
+            questionNumber = model.getQuestionNumber(qid);
         view.setResponses(JSON.parse(responses), questionNumber);
         this.startResponsesUpdate(qid);
     };
@@ -248,13 +267,13 @@ function Controller() {
     /**************** RESPONSES METHODS *****************/
     this.startResponsesUpdate = function (data) {
         this.endUpdateResponses();
-        console.log("Responses Update Started for Question: " + data);
+        //console.log("Responses Update Started for Question: " + data);
         model.setCurrentResponseQuestion(data);
         responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 2000);
     };
 
     this.endUpdateResponses = function () {
-        console.log("Responses Update Ended");
+        //console.log("Responses Update Ended");
         clearInterval(responseUpdateInterval);
         model.clearOldResponses();
     };
@@ -329,6 +348,12 @@ function Controller() {
     this.update = function () {
         view.update(model.update());
     };
+
+    // converts true/false into PHP friendly 1 or 0
+    this.booleanConvert = function (boolean) {
+        if (boolean) return 1
+        else return 0;
+    }
 }
 
 $(document).ready(function () {

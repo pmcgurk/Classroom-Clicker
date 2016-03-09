@@ -30,6 +30,10 @@ function Model() {
         return userClasses;
     };
 
+    this.changeVisibility = function (data) {
+        console.log($.ajaxPOST("php/quickEdit.php", data));
+    };
+
     // retrieves classes that the user enrols in
     this.getClasses = function () {
         userClasses = JSON.parse($.getValues("php/getClasses.php", null));
@@ -197,7 +201,7 @@ function Model() {
     };
 
     this.getCurQuestion = function () {
-        return curQuestion;  
+        return curQuestion;
     };
 
     this.getQuestionNumber = function (qid) {
