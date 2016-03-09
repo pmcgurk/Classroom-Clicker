@@ -199,8 +199,9 @@
             <div class="col s4">
                 <div class="switch right">
                     <label>
-                        <input class="visibilityChanger" cid="{{cid}}" type="checkbox" {{#if greyed}}checked{{/if}}>
-                        <span class="lever"></span> hidden
+                        <input class="visibilityChanger" type="checkbox" cid="{{cid}}" id="vc{{cid}}" {{#if greyed}}checked{{/if}}/>
+                        <label for="vc{{cid}}"><i class="material-icons">{{#if greyed}}lock_outline{{else}}<i class="material-icons">lock_open</i>{{/if}}</i>
+                        </label>
                     </label>
                 </div>
             </div>
@@ -225,9 +226,10 @@
             </div>
             <div class="col s4">
                 <div class="switch right">
-                    <label>
-                        <input class="visibilityChanger" lid="{{lid}}" type="checkbox" {{#if greyed}}checked{{/if}}>
-                        <span class="lever"></span> hidden
+                    <label class="visibilityChangerLabel">
+                        <input class="visibilityChanger" type="checkbox" lid="{{lid}}" id="vc{{lid}}" {{#if greyed}}checked{{/if}}/>
+                        <label for="vc{{lid}}"><i class="material-icons">{{#if greyed}}lock_outline{{else}}<i class="material-icons">lock_open</i>{{/if}}</i>
+                        </label>
                     </label>
                 </div>
             </div>
@@ -237,6 +239,8 @@
             <div class="col s6">
                 <a class="waves-light waves-effect red btn lectureEditButton right" lid="{{lid}}">Edit</a>
             </div>
+            <br>
+            <br>
         </div>
     </li>
 </script>
@@ -249,9 +253,10 @@
                 </div>
                 <div class="col s4">
                     <div class="switch right">
-                        <label>
-                            <input class="visibilityChanger" qid="{{qid}}" type="checkbox" {{#if greyed}}checked{{/if}}>
-                            <span class="lever"></span> hidden
+                        <label class="visibilityChangerLabel">
+                            <input class="visibilityChanger" type="checkbox" qid="{{qid}}" id="vc{{qid}}" {{#if greyed}}checked{{/if}}/>
+                            <label for="vc{{qid}}"><i class="material-icons">{{#if greyed}}lock_outline{{else}}<i class="material-icons">lock_open</i>{{/if}}</i>
+                            </label>
                         </label>
                     </div>
                 </div>

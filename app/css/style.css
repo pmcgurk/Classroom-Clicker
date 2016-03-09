@@ -207,3 +207,26 @@
   .responseSelectionButton {
       margin-bottom: 10px;
   }
+  
+  [type="checkbox"]+label:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0px;
+      height: 0px;
+      z-index: 0;
+      border: 0px solid #5a5a5a;
+      border-radius: 0px;
+      margin-top: 0px;
+      transition: 0s;
+  }
+  
+  [type="checkbox"]+label:after {
+      color: green;
+  }
+  
+  [type="checkbox"]:checked+label:before {
+      border-right: 2px solid #9c27b0;
+      border-bottom: 2px solid #9c27b0;
+  }
