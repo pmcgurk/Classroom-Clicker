@@ -421,12 +421,21 @@ function View() {
         $('#js-legend').html(chart.generateLegend());
         $('#responsesNumber').html("Responses: " + chart.segments.length);
         chart.displayed = (chart.segments.length != 0);
-
         var responseButtons = $('.responseSelectionButton');
         for (var i = 0; i < responseButtons.length; i++) {
             if ($(responseButtons[i]).attr("qnum") == qnum) {
                 $(responseButtons[i]).addClass("green");
                 $(responseButtons[i]).removeClass("purple");
+                $('#vcr').attr("qid", $(responseButtons[i]).attr("value"));
+                try {
+                    if (data[i].isvisible) {
+                        $('#vcr').html("<i class='material-icons'>lock_open</i>");
+                    } else {
+                        $('#vcr').html("<i class='material-icons'>lock_outline</i>");
+                    }
+                } catch (err) {
+                    $('#vcr').html("<i class='material-icons'>lock_outline</i>");
+                }
             } else {
                 $(responseButtons[i]).addClass("purple");
                 $(responseButtons[i]).removeClass("green");

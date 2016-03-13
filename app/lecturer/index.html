@@ -118,16 +118,18 @@
             <br>
         </div>
         <div id="question" class="page" style="display: none;">
-            <p>You Shouldn't be seeing this.</p>
+
         </div>
         <div id="responses" class="page" style="display: none;">
             <div class="col s12 center green white-text">
-                <br>
                 <h5 id="responseHeader" class="logo"></h5>
-                <br>
+                <input class="visibilityChanger" type="checkbox" id="vcr" />
+                <label for="vcr">
+                    <i class="material-icons">lock_open</i>
+                </label>
             </div>
             <div class="container valign-wrapper">
-                <div class="questionDiv col s12 m12 l12" style="margin: 50px 50px 50px 50px;">
+                <div class="questionDiv col s12 m12 l12" style="margin: 50px 20px 50px 20px;">
                     <canvas id="responsesCanvas" class="responseDisplay"></canvas>
                 </div>
                 <div class="col s12 m12 l12">
@@ -140,6 +142,7 @@
                     <div id="responseSelection" class="responseQuestionSelect"></div>
                 </div>
             </div>
+
         </div>
         <div id="editClass" class="page" style="display: none;">
             <div id="editClassInfo">
