@@ -13,7 +13,7 @@ function Controller() {
         this.setButtons();
         this.setUser();
         this.update();
-        setInterval($.proxy(this.update, this), 1000);
+        setInterval($.proxy(this.update, this), 10000);
     };
 
     this.pagesetup = function () {
@@ -65,7 +65,7 @@ function Controller() {
         model.submitLog('User change', 'User selected class: ' + cid);
         this.switchView('lectures');
         this.setBackButton($.proxy(this.switchView, this), "home");
-        updateInterval = setInterval($.proxy(this.updateClass, this), 250);
+        updateInterval = setInterval($.proxy(this.updateClass, this), 1000);
     };
 
     this.updateClass = function () {
@@ -100,7 +100,7 @@ function Controller() {
         var questions = model.getQuestions(model.getCurLecture());
         view.setQuestions(JSON.parse(questions));
         model.submitLog('User change', 'User selected lecture: ' + $(event.currentTarget).attr("value"));
-        updateInterval = setInterval($.proxy(this.updateLecture, this), 250);
+        updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
         this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
         this.updateQuestions();
     }
