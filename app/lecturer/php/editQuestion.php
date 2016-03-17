@@ -1,10 +1,10 @@
 <?php
 include("connect.php");
 $qid = $_GET['qid'];
-$text = $_GET['text'];
-$buttons = $_GET['buttons'];
+$text = mysql_real_escape_string($_GET['text']);
+$buttons = mysql_real_escape_string($_GET['buttons']);
 $lid = $_GET['lid'];
-$answer = $_GET['answer'];
+$answer = mysql_real_escape_string($_GET['answer']);
 $removed = $_GET['removed'];
 $isvisible = $_GET['isvisible'];
 
