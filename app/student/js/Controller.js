@@ -99,7 +99,7 @@ function Controller() {
         model.setCurLecture(lid);
         var questions = model.getQuestions(model.getCurLecture());
         view.setQuestions(JSON.parse(questions));
-        model.submitLog('User change', 'User selected lecture: ' + $(event.currentTarget).attr("value"));
+        model.submitLog('User change', 'User selected lecture: ' + lid);
         updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
         this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
         this.updateQuestions();
