@@ -46,11 +46,32 @@
                     </div>
                     <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" class="loginButton">
                 </form>
-                Please log in or register to continue.
-                <br>
-                <br>
-                <a class="waves-effect waves-light btn purple loginButton">Login</a>
+                <form id="registerForm" class="col s12 container" method="post" style="display: none;">
+                    <br>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="realname" type="text" class="validate">
+                            <label for="realname">full name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="registerusername" type="text" class="validate">
+                            <label for="registerusername">username</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="registerpassword" type="password" class="validate">
+                            <label for="registerpassword">password<a class="red-text">*</a></label>
+                        </div>
+                    </div>
+                    <div class="white card">
+                        <a class="red-text">* PLEASE NOTE * <br>as this is a prototype, passwords are NOT encrypted.<br></a>
+                    </div>
+
+                    <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" class="registerConfirm">
+                </form>
+                <a id="loginButton" class="waves-effect waves-light btn purple">Login</a>
                 <a id="registerButton" class="waves-effect waves-light btn purple">Register</a>
+                <a id="registerConfirm" class="waves-effect waves-light btn purple" style="display: none;">Confirm</a>
+                <a id="registerCancel" class="waves-effect waves-light btn red" style="display: none;">Cancel</a>
                 <br>
                 <br>
             </div>
