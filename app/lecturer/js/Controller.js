@@ -182,7 +182,7 @@ function Controller() {
     this.selectLecture = function (lid) {
         var questions = model.getQuestions(lid);
         $('#lecturePageEditButton').attr("lid", lid);
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
         this.switchView('questions');
         updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
         this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
@@ -190,7 +190,7 @@ function Controller() {
 
     this.updateLecture = function () {
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
         //console.log("Updated Lecture");
     };
 
@@ -201,7 +201,7 @@ function Controller() {
 
     this.editLecture = function (event) {
         var lectureInfo = model.getUserLectureInfo($(event.currentTarget).attr("lid"));
-        var questions = JSON.parse(model.getQuestions($(event.currentTarget).attr("lid")));
+        var questions = model.getQuestions($(event.currentTarget).attr("lid"));
         lectureInfo.questions = questions;
         view.setEditLecture(lectureInfo);
         this.switchView('editLecture');
@@ -249,7 +249,7 @@ function Controller() {
     /**************** QUESTIONS METHODS ******************/
     this.updateQuestions = function () {
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
     };
 
     this.selectQuestionEvent = function (event) {
@@ -271,13 +271,13 @@ function Controller() {
         this.switchView('responses');
         var responses = model.getResponses(qid),
             questionNumber = model.getQuestionNumber(qid);
-        view.setResponses(JSON.parse(responses), questionNumber);
+        view.setResponses(responses, questionNumber);
         this.startResponsesUpdate(qid);
     };
 
     this.getResponsesSelect = function (event) {
         var responses = model.getResponses($(event.currentTarget).val());
-        view.setResponses(JSON.parse(responses));
+        view.setResponses(responses);
     };
 
     /**************** RESPONSES METHODS *****************/
@@ -296,9 +296,9 @@ function Controller() {
 
     this.updateResponses = function () {
         var oldResponses = model.getOldResponses();
-        var updatedResponses = JSON.parse(model.getUpdatedResponses());
+        var updatedResponses = model.getUpdatedResponses();
         if (oldResponses != undefined) {
-            oldResponses = JSON.parse(oldResponses);
+            oldResponses = oldResponses;
             if (updatedResponses.length - oldResponses.length > 0) {
                 view.updateResponses(updatedResponses, oldResponses);
             } else {

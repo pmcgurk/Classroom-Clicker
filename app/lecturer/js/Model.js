@@ -36,7 +36,7 @@ function Model() {
 
     // retrieves classes that the user enrols in
     this.getClasses = function () {
-        userClasses = JSON.parse($.getValues("php/getClasses.php", null));
+        userClasses = $.getValues("php/getClasses.php", null);
         return userClasses;
     };
 
@@ -70,7 +70,7 @@ function Model() {
     };
 
     this.getEnrolledStudents = function (data) {
-        return JSON.parse($.getValues("php/getEnrolled.php", data));
+        return $.getValues("php/getEnrolled.php", data);
     }
 
     this.editStudent = function (data) {
@@ -126,9 +126,9 @@ function Model() {
 
     // retrieves lectures for class cid from database
     this.getLectures = function (cid) {
-        userLectures = JSON.parse($.getValues("php/getLectures.php", {
+        userLectures = $.getValues("php/getLectures.php", {
             "cid": cid
-        }));
+        });
         return userLectures;
     };
 
@@ -215,7 +215,7 @@ function Model() {
     // retrieves info about current user using SESSION ID in php
     this.getUser = function () {
         user = $.getValues("php/getUser.php", {});
-        return JSON.parse(user);
+        return user;
     };
 
     // retrieves responses for question qid from database
@@ -230,7 +230,7 @@ function Model() {
     };
 
     this.getQuestionNumber = function (qid) {
-        var questions = JSON.parse(this.getQuestions(this.getCurLecture()));
+        var questions = this.getQuestions(this.getCurLecture());
         for (var i = 0; i < questions.length; i++) {
             if (questions[i].qid == qid) {
                 return i + 1;
@@ -292,7 +292,7 @@ function Model() {
     };
 
     this.getNextQuestion = function () {
-        var uQ = JSON.parse(userQuestions);
+        var uQ = userQuestions;
         for (var i = 0; i < uQ.length; i++) {
             if (uQ[i].qid == curQuestion) {
                 for (var e = i + 1; e < uQ.length; e++) {
@@ -306,7 +306,7 @@ function Model() {
     };
 
     this.getPreviousQuestion = function () {
-        var uQ = JSON.parse(userQuestions);
+        var uQ = userQuestions;
         for (var i = 0; i < uQ.length; i++) {
             if (uQ[i].qid == curQuestion) {
                 for (var e = i - 1; e >= 0; e--) {
@@ -325,7 +325,7 @@ function Model() {
         if (qid != null) {
             curQuestion = qid;
             // parses var containing questions of last lecture clicked on.
-            var q = JSON.parse(userQuestions);
+            var q = userQuestions;
             for (var i = 0; i < q.length; i++) {
                 if (q[i].qid == qid) {
                     // qid != qnum, so qnum is taken array index
