@@ -159,7 +159,7 @@ function View() {
             }
             if (JSON.stringify(oldLectureData) != JSON.stringify(data)) {
                 $(".lecturesList").html(HTML);
-                $('.lectureTitle').html(data[0].title);
+                $('.classTitle').html(data[0].name);
             }
             oldLectureData = data;
         }
@@ -353,6 +353,7 @@ function View() {
         $(".responseQuestionSelect").html(selectHTML);
         if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
             $("#lectureResponse").attr("value", data[0].qid);
+            $(".lectureTitle").html(data[0].title);
             $(".questionList").html(HTML);
         }
         oldQuestionsData = data;

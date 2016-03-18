@@ -87,6 +87,7 @@ function Controller() {
 
     this.joinClassesDisplay = function () {
         this.switchView('joinclass');
+        this.setBackButton($.proxy(this.switchView, this), "home");
     };
 
     /**************** LECTURE METHODS ******************/
@@ -184,7 +185,7 @@ function Controller() {
         });
         view.joinClass(data);
         this.update();
-
+        this.switchView("home");
         model.submitLog('User change', 'User joined class: ' + data.cid);
     };
 

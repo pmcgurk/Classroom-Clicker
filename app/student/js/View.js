@@ -48,7 +48,7 @@ function View() {
             }
             if (JSON.stringify(oldLectureData) != JSON.stringify(data)) {
                 $(".lecturesList").html(HTML);
-                $('.lectureTitle').html(data[0].title);
+                $('.classTitle').html(data[0].name);
                 $('.classLeaveButton').attr("cid", data[0].cid);
             }
             oldLectureData = data;
@@ -74,6 +74,7 @@ function View() {
         }
         if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
             $(".questionList").html(HTML);
+            $('.lectureTitle').html(data[0].title);
         }
         oldQuestionsData = data;
     };
