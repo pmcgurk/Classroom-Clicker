@@ -234,3 +234,7 @@
       border-right: 2px solid #4CAF50;
       border-bottom: 2px solid #4CAF50;
   }
+  
+  .table-of-contents a.active {
+      border-left: 2px solid #9c27b0;
+  }
