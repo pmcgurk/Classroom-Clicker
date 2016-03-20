@@ -5,7 +5,7 @@ function Controller() {
         $(document).on("click", "#registerConfirm", $.proxy(this.registerConfirm, this));
         $(document).on("click", "#registerCancel", $.proxy(this.registerCancel, this));
         try {
-            this.goToApp(JSON.parse($.getValues("php/checksession.php", {})).isLecturer);
+            this.goToApp($.getValues("php/checksession.php", {}).isLecturer);
         } catch (err) {
             $('#loginscreen').show();
         }
