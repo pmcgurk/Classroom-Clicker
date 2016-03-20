@@ -44,7 +44,7 @@ function Model() {
 
     // removes current user from class specified
     this.leaveClass = function (data) {
-        return $.getValues("php/leaveClass.php", data);
+        return $.ajaxPOST("php/leaveClass.php", data);
     };
 
     this.setCurClass = function (cid) {
