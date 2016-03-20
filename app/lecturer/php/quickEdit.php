@@ -8,7 +8,7 @@ $qid = $_POST['qid'];
 $remove = 'false';
 $isvisible = $_POST['isvisible'];
 
-if (isset($_POST['cid'])) {
+if (isset($cid)) {
     $result = mysql_query("SELECT * FROM owned WHERE uid = '$uid' AND '$cid'") or die(mysql_error());
     // checks to see if current session uid owns the class
     if($row = mysql_fetch_array($result)) {
