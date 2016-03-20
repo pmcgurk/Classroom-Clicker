@@ -163,8 +163,10 @@ function View() {
     this.submitAnswer = function (data, value) {
         if (data.response == "correct") {
             $('#buttonDiv').html('<div class="container"><div class="green card white-text"> <br><h5 class="logo">Correct!</h5><h5>The answer was ' + data.value + '</h5><br></div></div>');
-        } else {
+        } else if (data.response == "incorrect") {
             $('#buttonDiv').html('<div class="container"><div class="red card white-text"> <br><h5 class="logo">Incorrect!</h5><h5>The answer was ' + data.value + '</h5><br></div></div>');
+        } else {
+            Materialize.toast("Problem submitting answer, question may be closed.", 2000);
         }
     };
 
