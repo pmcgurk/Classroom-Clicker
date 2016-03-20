@@ -394,7 +394,6 @@ function View() {
     // creates a Chart.js chart from data provided from responses database
     this.setResponses = function (ndata, qnum, question) {
         data = ndata;
-        console.log(question);
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
             labels = [],
@@ -422,6 +421,7 @@ function View() {
         $('#responseHeader').html("Question " + qnum);
         $('#js-legend').html(chart.generateLegend());
         $('#responsesNumber').html("Responses: " + chart.segments.length);
+        $('#clearResponses').attr("qid", question.qid);
         chart.displayed = (chart.segments.length != 0);
         var responseButtons = $('.responseSelectionButton');
         for (var i = 0; i < responseButtons.length; i++) {
@@ -451,9 +451,10 @@ function View() {
         return true;
     };
 
-    this.updateResponses = function (data, oldData) {
+    this.updateResponses = function (data, oldData, question, qnum) {
+        console.log("Updated Responses");
         if (!chart.displayed) {
-            this.setResponses(data);
+            this.setResponses(data, qnum, question);
         } else {
             var oldDataLength = oldData.length;
             if (oldDataLength != data.length) {
@@ -480,6 +481,9 @@ function View() {
                 $('#js-legend').html(chart.generateLegend());
                 $('#responsesNumber').html("Responses: " + chart.total);
                 chart.update();
+            } else if (oldDataLength > data.length) {
+                console.log("Responses Deleted");
+                this.setResponses(data, qnum, question);
             }
         }
     };

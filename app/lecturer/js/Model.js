@@ -256,6 +256,12 @@ function Model() {
         return responses;
     };
 
+    this.clearResponses = function (qid) {
+        $.ajaxPOST("php/clearResponses.php", {
+            "qid": qid
+        });
+    };
+
     this.getRandomInt = function () {
         return Math.floor((Math.random() * 4) + 1);
     };

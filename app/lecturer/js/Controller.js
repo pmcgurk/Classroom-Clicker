@@ -70,6 +70,7 @@ function Controller() {
 
         //responses 
         $(document).on("change", "#selectQuestions", $.proxy(this.getResponsesSelect, this));
+        $(document).on("click", "#clearResponses", $.proxy(this.clearResponsesEvent, this));
 
         // misc / debug
         $(document).on("click", ".update", this.update);
@@ -288,9 +289,17 @@ function Controller() {
     /**************** RESPONSES METHODS *****************/
     this.startResponsesUpdate = function (data) {
         this.endUpdateResponses();
-        //console.log("Responses Update Started for Question: " + data);
+        console.log("Responses Update Started for Question: " + data);
         model.setCurrentResponseQuestion(data);
-        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 2000);
+        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 500);
+    };
+
+    this.clearResponsesEvent = function (event) {
+        this.clearResponses($(event.currentTarget).attr("qid"));
+    };
+
+    this.clearResponses = function (qid) {
+        console.log(model.clearResponses(qid));
     };
 
     this.endUpdateResponses = function () {
@@ -303,14 +312,9 @@ function Controller() {
         var oldResponses = model.getOldResponses();
         var updatedResponses = model.getUpdatedResponses();
         if (oldResponses != undefined) {
-            oldResponses = oldResponses;
-            if (updatedResponses.length - oldResponses.length > 0) {
-                view.updateResponses(updatedResponses, oldResponses);
-            } else {
-                //console.log("Not changed");
-            }
+            view.updateResponses(updatedResponses, oldResponses, model.getCurrentResponseQuestion(), JSON.parse(model.getQuestion(model.getCurrentResponseQuestion())).qnum);
         } else {
-            //console.log("No old responses");
+            console.log("No old responses");
         }
     };
 
