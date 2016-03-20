@@ -230,12 +230,12 @@ function Controller() {
         if (response) {
             if (response.valid) {
                 this.update();
-                this.switchView('home');
+                this.back();
             }
             view.toast(response.message);
         } else {
             this.update();
-            this.switchView('home');
+            this.back();
         }
     }
 
