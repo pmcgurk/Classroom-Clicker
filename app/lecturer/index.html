@@ -124,7 +124,7 @@
             <div class="col s12 center green white-text">
                 <h5 id="responseHeader" class="logo"></h5>
                 <input class="visibilityChanger" type="checkbox" id="vcr" />
-                <label for="vcr">
+                <label id="lvcr" for="vcr">
                     <i class="material-icons">lock_open</i>
                 </label>
             </div>
@@ -140,6 +140,7 @@
             <div class="container">
                 <div class="col s12 center-align">
                     <div id="responseSelection" class="responseQuestionSelect"></div>
+                    <a class="waves-light waves-effect red btn clearResponses" qid="">Clear Responses</a>
                 </div>
             </div>
 
@@ -330,7 +331,7 @@
                 {{/if}}
             </div>
             <div class="row">
-                <textarea name="text" id="textarea1" class="materialize-textarea">{{text}}</textarea>
+                <input name="text" id="textarea1" type="text" value="{{text}}"></input>
                 <label for="textarea1">Question</label>
             </div>
             <div class="row">
@@ -401,7 +402,7 @@
                 </div>
                 <br>
                 <div class="input-field col s12">
-                    <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                    <input name="classDescriptionEdit" type="text" value="{{description}}"></input>
                     <label for="classDescriptionEdit" class="white-text active">Class Description</label>
                 </div>
                 <div class="center">
@@ -512,7 +513,7 @@
                         <input value="{{date}}" type="date" class="datepicker">
                     </div>
                     <div class="input-field col s12">
-                        <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                        <input name="lectureDescriptionEdit" type="text" value="{{description}}"></input>
                         <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
                     </div>
                     <div class="switch col s12 center">
