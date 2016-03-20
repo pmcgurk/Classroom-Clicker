@@ -426,16 +426,17 @@ function View() {
         $('#responsesQuestionAnswer').html(question.answer);
         chart.displayed = (chart.segments.length != 0);
         var responseButtons = $('.responseSelectionButton');
+        $('#vcr').attr("qid", question.qid);
+        $('#vcr').prop('checked', question.isvisible == 0);
+        if (question.isvisible == 0) {
+            $('#lvcr').html("<i class='material-icons'>lock_outline</i>");
+        } else {
+            $('#lvcr').html("<i class='material-icons'>lock_open</i>");
+        }
         for (var i = 0; i < responseButtons.length; i++) {
             if ($(responseButtons[i]).attr("qnum") == qnum) {
                 $(responseButtons[i]).addClass("green");
                 $(responseButtons[i]).removeClass("purple");
-                $('#vcr').attr("qid", question.qid);
-                if (question.isvisible == 0) {
-                    $('#vcr').checked = true;
-                } else {
-                    $('#vcr').checked = false;
-                }
             } else {
                 $(responseButtons[i]).addClass("purple");
                 $(responseButtons[i]).removeClass("green");
@@ -479,6 +480,14 @@ function View() {
                         }
                     }
                 }
+                $('#vcr').attr("qid", question.qid);
+                $('#vcr').prop('checked', question.isvisible == 0);
+                if (question.isvisible == 0) {
+                    $('#vlcr').html("<i class='material-icons'>lock_outline</i>");
+                } else {
+                    $('#vlcr').html("<i class='material-icons'>lock_open</i>");
+                }
+                console.log($('#vcr').checked);
                 $('#responseHeader').html("Question " + 1);
                 $('#js-legend').html(chart.generateLegend());
                 $('#responsesNumber').html("Responses: " + chart.total);

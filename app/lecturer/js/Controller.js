@@ -316,22 +316,24 @@ function Controller() {
         if (oldResponses != undefined) {
             view.updateResponses(updatedResponses, oldResponses, model.getQuestionData(model.getCurrentResponseQuestion()), JSON.parse(model.getQuestion(model.getCurrentResponseQuestion())).qnum);
         } else {
-            console.log("No old responses");
+            //console.log("No old responses");
         }
     };
 
     this.revealAnswerButton = function (event) {
         if ($('#responsesQuestionAnswer').css('display') == 'none') {
             $('#responsesQuestionAnswer').show();
-            $(event.currentTarget).html("Show Answer");
+            $(event.currentTarget).html("Hide Answer");
         } else {
             $('#responsesQuestionAnswer').hide();
-            $(event.currentTarget).html("Hide Answer");
+            $(event.currentTarget).html("Show Answer");
+
         }
     };
 
     this.hideAnswer = function () {
         $('#responsesQuestionAnswer').hide();
+        $('#revealAnswerButton').html("Show Answer");
     };
 
     /**************** QUESTION METHODS ******************/
