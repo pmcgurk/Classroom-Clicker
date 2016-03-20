@@ -422,6 +422,8 @@ function View() {
         $('#js-legend').html(chart.generateLegend());
         $('#responsesNumber').html("Responses: " + chart.segments.length);
         $('#clearResponses').attr("qid", question.qid);
+        $('#responsesQuestionText').html(question.text);
+        $('#responsesQuestionAnswer').html(question.answer);
         chart.displayed = (chart.segments.length != 0);
         var responseButtons = $('.responseSelectionButton');
         for (var i = 0; i < responseButtons.length; i++) {
@@ -452,7 +454,7 @@ function View() {
     };
 
     this.updateResponses = function (data, oldData, question, qnum) {
-        console.log("Updated Responses");
+        //console.log("Updated Responses");
         if (!chart.displayed) {
             this.setResponses(data, qnum, question);
         } else {
@@ -480,6 +482,8 @@ function View() {
                 $('#responseHeader').html("Question " + 1);
                 $('#js-legend').html(chart.generateLegend());
                 $('#responsesNumber').html("Responses: " + chart.total);
+                $('#responsesQuestionInfo').html(question.text);
+                console.log(question);
                 chart.update();
             } else if (oldDataLength > data.length) {
                 console.log("Responses Deleted");

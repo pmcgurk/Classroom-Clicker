@@ -71,6 +71,7 @@ function Controller() {
         //responses 
         $(document).on("change", "#selectQuestions", $.proxy(this.getResponsesSelect, this));
         $(document).on("click", "#clearResponses", $.proxy(this.clearResponsesEvent, this));
+        $(document).on("click", "#revealAnswerButton", $.proxy(this.revealAnswerButton, this));
 
         // misc / debug
         $(document).on("click", ".update", this.update);
@@ -306,18 +307,32 @@ function Controller() {
         //console.log("Responses Update Ended");
         clearInterval(responseUpdateInterval);
         model.clearOldResponses();
+        this.hideAnswer();
     };
 
     this.updateResponses = function () {
         var oldResponses = model.getOldResponses();
         var updatedResponses = model.getUpdatedResponses();
         if (oldResponses != undefined) {
-            view.updateResponses(updatedResponses, oldResponses, model.getCurrentResponseQuestion(), JSON.parse(model.getQuestion(model.getCurrentResponseQuestion())).qnum);
+            view.updateResponses(updatedResponses, oldResponses, model.getQuestionData(model.getCurrentResponseQuestion()), JSON.parse(model.getQuestion(model.getCurrentResponseQuestion())).qnum);
         } else {
             console.log("No old responses");
         }
     };
 
+    this.revealAnswerButton = function (event) {
+        if ($('#responsesQuestionAnswer').css('display') == 'none') {
+            $('#responsesQuestionAnswer').show();
+            $(event.currentTarget).html("Show Answer");
+        } else {
+            $('#responsesQuestionAnswer').hide();
+            $(event.currentTarget).html("Hide Answer");
+        }
+    };
+
+    this.hideAnswer = function () {
+        $('#responsesQuestionAnswer').hide();
+    };
 
     /**************** QUESTION METHODS ******************/
     this.nextQuestion = function () {
