@@ -14,7 +14,7 @@ function Controller() {
         this.setUser();
         this.update();
         this.debug();
-        setInterval($.proxy(this.update, this), 10000);
+        setInterval($.proxy(this.update, this), 1000);
     };
 
     this.debug = function () {
@@ -237,12 +237,16 @@ function Controller() {
             this.update();
             this.switchView('home');
         }
-    };
+    }
 
     this.saveNewLecture = function (event) {
         var lectureInfo = view.getNewLectureInfo($(event.currentTarget).attr("cid"));
         //console.log(lectureInfo);
-        model.saveNewLecture(lectureInfo);
+        if (model.saveNewLecture(lectureInfo)) {
+            this.back();
+        } else {
+            view.toast('Error');
+        }
     };
 
 
@@ -270,8 +274,9 @@ function Controller() {
     this.getResponses = function (qid) {
         this.switchView('responses');
         var responses = model.getResponses(qid),
-            questionNumber = model.getQuestionNumber(qid);
-        view.setResponses(responses, questionNumber);
+            questionNumber = model.getQuestionNumber(qid),
+            question = model.getQuestionData(qid);
+        view.setResponses(responses, questionNumber, question);
         this.startResponsesUpdate(qid);
     };
 

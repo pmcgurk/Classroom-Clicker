@@ -306,7 +306,7 @@ function View() {
             var question = {},
                 buttons = [];
             question.isvisible = this.booleanConvert($('.questionForm').find('input[name="visibleQuestionSwitch"]')[i].checked);
-            question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
+            question.text = $('.questionForm').find('input[name="text"]')[i].value;
             question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
             question.removed = $('.questionForm').find('input[class="removeQuestionSwitch"]')[i].checked;
             question.buttons = this.getButtonInfo(i + 1);
@@ -392,8 +392,9 @@ function View() {
 
     /**************** RESPONSES METHODS ******************/
     // creates a Chart.js chart from data provided from responses database
-    this.setResponses = function (ndata, qnum) {
+    this.setResponses = function (ndata, qnum, question) {
         data = ndata;
+        console.log(question);
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
             labels = [],
@@ -427,15 +428,11 @@ function View() {
             if ($(responseButtons[i]).attr("qnum") == qnum) {
                 $(responseButtons[i]).addClass("green");
                 $(responseButtons[i]).removeClass("purple");
-                $('#vcr').attr("qid", $(responseButtons[i]).attr("value"));
-                try {
-                    if (data[i].isvisible) {
-                        $('#vcr').html("<i class='material-icons'>lock_open</i>");
-                    } else {
-                        $('#vcr').html("<i class='material-icons'>lock_outline</i>");
-                    }
-                } catch (err) {
-                    $('#vcr').html("<i class='material-icons'>lock_outline</i>");
+                $('#vcr').attr("qid", question.qid);
+                if (question.isvisible == 0) {
+                    $('#vcr').checked = true;
+                } else {
+                    $('#vcr').checked = false;
                 }
             } else {
                 $(responseButtons[i]).addClass("purple");

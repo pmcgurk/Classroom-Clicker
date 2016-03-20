@@ -171,9 +171,10 @@ function Model() {
 
     this.saveNewLecture = function (data) {
         if (data.date != "" && data.name != "") {
-            console.log($.ajaxPOST("php/editLecture.php", data));
+            $.ajaxPOST("php/editLecture.php", data);
+            return true;
         } else {
-            return "Invalid Lecture name or date.";
+            return false;
         }
     };
 
@@ -216,6 +217,14 @@ function Model() {
     this.getUser = function () {
         user = $.getValues("php/getUser.php", {});
         return user;
+    };
+
+    // retrieves info about current question with qid
+    this.getQuestionData = function (qid) {
+        question = $.getValues("php/getQuestion.php", {
+            "qid": qid
+        });
+        return question;
     };
 
     // retrieves responses for question qid from database
