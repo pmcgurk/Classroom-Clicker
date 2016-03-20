@@ -33,7 +33,7 @@ function Model() {
 
     // retrieves classes that the user enrols in
     this.getClasses = function () {
-        userClasses = JSON.parse($.getValues("php/getClasses.php", null));
+        userClasses = $.getValues("php/getClasses.php", null);
         return userClasses;
     };
 
@@ -44,7 +44,7 @@ function Model() {
 
     // removes current user from class specified
     this.leaveClass = function (data) {
-        return $.getValues("php/leaveClass.php", data);
+        return $.ajaxPOST("php/leaveClass.php", data);
     };
 
     this.setCurClass = function (cid) {
@@ -73,9 +73,9 @@ function Model() {
 
     // retrieves lectures for class cid from database
     this.getLectures = function (cid) {
-        userLectures = JSON.parse($.getValues("php/getLectures.php", {
+        userLectures = $.getValues("php/getLectures.php", {
             "cid": cid
-        }));
+        });
         return userLectures;
     };
 
@@ -114,7 +114,7 @@ function Model() {
     };
 
     this.getNextQuestion = function () {
-        var uQ = JSON.parse(userQuestions);
+        var uQ = userQuestions;
         for (var i = 0; i < uQ.length; i++) {
             if (uQ[i].qid == curQuestion) {
                 for (var e = i + 1; e < uQ.length; e++) {
@@ -128,7 +128,7 @@ function Model() {
     };
 
     this.getPreviousQuestion = function () {
-        var uQ = JSON.parse(userQuestions);
+        var uQ = userQuestions
         for (var i = 0; i < uQ.length; i++) {
             if (uQ[i].qid == curQuestion) {
                 for (var e = i - 1; e >= 0; e--) {
@@ -147,7 +147,7 @@ function Model() {
         if (qid != null) {
             curQuestion = qid;
             // parses var containing questions of last lecture clicked on.
-            var q = JSON.parse(userQuestions);
+            var q = userQuestions;
             for (var i = 0; i < q.length; i++) {
                 if (q[i].qid == qid) {
                     // qid != qnum, so qnum is taken array index
@@ -227,7 +227,7 @@ function Model() {
     // retrieves info about current user using SESSION ID in php
     this.getUser = function () {
         user = $.getValues("php/getUser.php", {});
-        return JSON.parse(user);
+        return user;
     };
 
     // simple log out function

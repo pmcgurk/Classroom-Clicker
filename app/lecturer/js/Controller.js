@@ -14,7 +14,7 @@ function Controller() {
         this.setUser();
         this.update();
         this.debug();
-        setInterval($.proxy(this.update, this), 10000);
+        setInterval($.proxy(this.update, this), 1000);
     };
 
     this.debug = function () {
@@ -70,6 +70,8 @@ function Controller() {
 
         //responses 
         $(document).on("change", "#selectQuestions", $.proxy(this.getResponsesSelect, this));
+        $(document).on("click", "#clearResponses", $.proxy(this.clearResponsesEvent, this));
+        $(document).on("click", "#revealAnswerButton", $.proxy(this.revealAnswerButton, this));
 
         // misc / debug
         $(document).on("click", ".update", this.update);
@@ -182,7 +184,7 @@ function Controller() {
     this.selectLecture = function (lid) {
         var questions = model.getQuestions(lid);
         $('#lecturePageEditButton').attr("lid", lid);
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
         this.switchView('questions');
         updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
         this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
@@ -190,7 +192,7 @@ function Controller() {
 
     this.updateLecture = function () {
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
         //console.log("Updated Lecture");
     };
 
@@ -201,7 +203,7 @@ function Controller() {
 
     this.editLecture = function (event) {
         var lectureInfo = model.getUserLectureInfo($(event.currentTarget).attr("lid"));
-        var questions = JSON.parse(model.getQuestions($(event.currentTarget).attr("lid")));
+        var questions = model.getQuestions($(event.currentTarget).attr("lid"));
         lectureInfo.questions = questions;
         view.setEditLecture(lectureInfo);
         this.switchView('editLecture');
@@ -230,26 +232,30 @@ function Controller() {
         if (response) {
             if (response.valid) {
                 this.update();
-                this.switchView('home');
+                this.back();
             }
             view.toast(response.message);
         } else {
             this.update();
-            this.switchView('home');
+            this.back();
         }
-    };
+    }
 
     this.saveNewLecture = function (event) {
         var lectureInfo = view.getNewLectureInfo($(event.currentTarget).attr("cid"));
         //console.log(lectureInfo);
-        model.saveNewLecture(lectureInfo);
+        if (model.saveNewLecture(lectureInfo)) {
+            this.back();
+        } else {
+            view.toast('Error');
+        }
     };
 
 
     /**************** QUESTIONS METHODS ******************/
     this.updateQuestions = function () {
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
     };
 
     this.selectQuestionEvent = function (event) {
@@ -270,45 +276,65 @@ function Controller() {
     this.getResponses = function (qid) {
         this.switchView('responses');
         var responses = model.getResponses(qid),
-            questionNumber = model.getQuestionNumber(qid);
-        view.setResponses(JSON.parse(responses), questionNumber);
+            questionNumber = model.getQuestionNumber(qid),
+            question = model.getQuestionData(qid);
+        view.setResponses(responses, questionNumber, question);
         this.startResponsesUpdate(qid);
     };
 
     this.getResponsesSelect = function (event) {
         var responses = model.getResponses($(event.currentTarget).val());
-        view.setResponses(JSON.parse(responses));
+        view.setResponses(responses);
     };
 
     /**************** RESPONSES METHODS *****************/
     this.startResponsesUpdate = function (data) {
         this.endUpdateResponses();
-        //console.log("Responses Update Started for Question: " + data);
+        console.log("Responses Update Started for Question: " + data);
         model.setCurrentResponseQuestion(data);
-        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 2000);
+        responseUpdateInterval = setInterval($.proxy(this.updateResponses, this), 500);
+    };
+
+    this.clearResponsesEvent = function (event) {
+        this.clearResponses($(event.currentTarget).attr("qid"));
+    };
+
+    this.clearResponses = function (qid) {
+        console.log(model.clearResponses(qid));
     };
 
     this.endUpdateResponses = function () {
         //console.log("Responses Update Ended");
         clearInterval(responseUpdateInterval);
         model.clearOldResponses();
+        this.hideAnswer();
     };
 
     this.updateResponses = function () {
         var oldResponses = model.getOldResponses();
-        var updatedResponses = JSON.parse(model.getUpdatedResponses());
+        var updatedResponses = model.getUpdatedResponses();
         if (oldResponses != undefined) {
-            oldResponses = JSON.parse(oldResponses);
-            if (updatedResponses.length - oldResponses.length > 0) {
-                view.updateResponses(updatedResponses, oldResponses);
-            } else {
-                //console.log("Not changed");
-            }
+            view.updateResponses(updatedResponses, oldResponses, model.getQuestionData(model.getCurrentResponseQuestion()), JSON.parse(model.getQuestion(model.getCurrentResponseQuestion())).qnum);
         } else {
             //console.log("No old responses");
         }
     };
 
+    this.revealAnswerButton = function (event) {
+        if ($('#responsesQuestionAnswer').css('display') == 'none') {
+            $('#responsesQuestionAnswer').show();
+            $(event.currentTarget).html("Hide Answer");
+        } else {
+            $('#responsesQuestionAnswer').hide();
+            $(event.currentTarget).html("Show Answer");
+
+        }
+    };
+
+    this.hideAnswer = function () {
+        $('#responsesQuestionAnswer').hide();
+        $('#revealAnswerButton').html("Show Answer");
+    };
 
     /**************** QUESTION METHODS ******************/
     this.nextQuestion = function () {

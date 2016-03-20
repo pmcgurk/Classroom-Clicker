@@ -159,7 +159,7 @@ function View() {
             }
             if (JSON.stringify(oldLectureData) != JSON.stringify(data)) {
                 $(".lecturesList").html(HTML);
-                $('.lectureTitle').html(data[0].title);
+                $('.classTitle').html(data[0].name);
             }
             oldLectureData = data;
         }
@@ -306,7 +306,7 @@ function View() {
             var question = {},
                 buttons = [];
             question.isvisible = this.booleanConvert($('.questionForm').find('input[name="visibleQuestionSwitch"]')[i].checked);
-            question.text = $('.questionForm').find('textarea[name="text"]')[i].value;
+            question.text = $('.questionForm').find('input[name="text"]')[i].value;
             question.qid = $('.questionForm').find('textarea[name="qid"]')[i].value;
             question.removed = $('.questionForm').find('input[class="removeQuestionSwitch"]')[i].checked;
             question.buttons = this.getButtonInfo(i + 1);
@@ -353,6 +353,7 @@ function View() {
         $(".responseQuestionSelect").html(selectHTML);
         if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
             $("#lectureResponse").attr("value", data[0].qid);
+            $(".lectureTitle").html(data[0].title);
             $(".questionList").html(HTML);
         }
         oldQuestionsData = data;
@@ -391,7 +392,7 @@ function View() {
 
     /**************** RESPONSES METHODS ******************/
     // creates a Chart.js chart from data provided from responses database
-    this.setResponses = function (ndata, qnum) {
+    this.setResponses = function (ndata, qnum, question) {
         data = ndata;
         var ctx = $("#responsesCanvas").get(0).getContext("2d");
         var values = [],
@@ -420,22 +421,22 @@ function View() {
         $('#responseHeader').html("Question " + qnum);
         $('#js-legend').html(chart.generateLegend());
         $('#responsesNumber').html("Responses: " + chart.segments.length);
+        $('#clearResponses').attr("qid", question.qid);
+        $('#responsesQuestionText').html(question.text);
+        $('#responsesQuestionAnswer').html(question.answer);
         chart.displayed = (chart.segments.length != 0);
         var responseButtons = $('.responseSelectionButton');
+        $('#vcr').attr("qid", question.qid);
+        $('#vcr').prop('checked', question.isvisible == 0);
+        if (question.isvisible == 0) {
+            $('#lvcr').html("<i class='material-icons'>lock_outline</i>");
+        } else {
+            $('#lvcr').html("<i class='material-icons'>lock_open</i>");
+        }
         for (var i = 0; i < responseButtons.length; i++) {
             if ($(responseButtons[i]).attr("qnum") == qnum) {
                 $(responseButtons[i]).addClass("green");
                 $(responseButtons[i]).removeClass("purple");
-                $('#vcr').attr("qid", $(responseButtons[i]).attr("value"));
-                try {
-                    if (data[i].isvisible) {
-                        $('#vcr').html("<i class='material-icons'>lock_open</i>");
-                    } else {
-                        $('#vcr').html("<i class='material-icons'>lock_outline</i>");
-                    }
-                } catch (err) {
-                    $('#vcr').html("<i class='material-icons'>lock_outline</i>");
-                }
             } else {
                 $(responseButtons[i]).addClass("purple");
                 $(responseButtons[i]).removeClass("green");
@@ -453,9 +454,10 @@ function View() {
         return true;
     };
 
-    this.updateResponses = function (data, oldData) {
+    this.updateResponses = function (data, oldData, question, qnum) {
+        //console.log("Updated Responses");
         if (!chart.displayed) {
-            this.setResponses(data);
+            this.setResponses(data, qnum, question);
         } else {
             var oldDataLength = oldData.length;
             if (oldDataLength != data.length) {
@@ -478,10 +480,23 @@ function View() {
                         }
                     }
                 }
+                $('#vcr').attr("qid", question.qid);
+                $('#vcr').prop('checked', question.isvisible == 0);
+                if (question.isvisible == 0) {
+                    $('#vlcr').html("<i class='material-icons'>lock_outline</i>");
+                } else {
+                    $('#vlcr').html("<i class='material-icons'>lock_open</i>");
+                }
+                console.log($('#vcr').checked);
                 $('#responseHeader').html("Question " + 1);
                 $('#js-legend').html(chart.generateLegend());
                 $('#responsesNumber').html("Responses: " + chart.total);
+                $('#responsesQuestionInfo').html(question.text);
+                console.log(question);
                 chart.update();
+            } else if (oldDataLength > data.length) {
+                console.log("Responses Deleted");
+                this.setResponses(data, qnum, question);
             }
         }
     };

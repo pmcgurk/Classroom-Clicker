@@ -65,7 +65,7 @@
             <div class="green">
                 <div class="container white-text">
                     <br>
-                    <h5 class="logo className">Class Name</h5>
+                    <h5 class="logo classTitle">Class Name</h5>
                     <br>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="green card">
                     <div class="container white-text">
                         <br>
-                        <h5 class="logo">Questions<a id="lectureResponse" class="waves-effect waves-light btn purple getResponsesButton right">Responses</a></h5>
+                        <h5 class="logo">Questions</h5>
                         <br>
                     </div>
                     <div class="container">
@@ -109,9 +109,13 @@
                         </ul>
                     </div>
                     <br>
+                    <div class="center">
+                        <a id="lectureResponse" class="waves-effect waves-light btn purple getResponsesButton">Responses</a>
+                    </div>
+                    <br>
+                    <br>
                 </div>
             </div>
-            <br>
             <div class="center">
                 <a id="lecturePageEditButton" class="waves-light waves-effect purple btn lectureEditButton center">Edit Lecture</a>
             </div>
@@ -123,26 +127,54 @@
         <div id="responses" class="page" style="display: none;">
             <div class="col s12 center green white-text">
                 <h5 id="responseHeader" class="logo"></h5>
-                <input class="visibilityChanger" type="checkbox" id="vcr" />
-                <label for="vcr">
-                    <i class="material-icons">lock_open</i>
-                </label>
             </div>
-            <div class="container valign-wrapper">
-                <div class="questionDiv col s12 m12 l12" style="margin: 50px 20px 50px 20px;">
-                    <canvas id="responsesCanvas" class="responseDisplay"></canvas>
+            <div class="container center">
+                <div class="questionDiv col s12 m12 l12 center valign-wrapper" style="margin: 10px 5px 10px 5px;">
+                    <div class="col s6">
+                        <canvas id="responsesCanvas" class="responseDisplay left"></canvas>
+                    </div>
+                    <div class="col s6">
+                        <div id="js-legend" class="chart-legend right valign"></div>
+                    </div>
                 </div>
-                <div class="col s12 m12 l12">
+                <div class="col s12">
                     <div id="responsesNumber"></div>
-                    <div id="js-legend" class="chart-legend"></div>
+                </div>
+                <div class="col s12 m12 l12 green card white-text">
+                    <br>
+                    <div id="responsesQuestionText"></div>
+                    <br>
+                    <input class="visibilityChanger" type="checkbox" id="vcr" />
+                    <label id="lvcr" for="vcr">
+                        <i class="material-icons">lock_open</i>
+                    </label>
+                    <br>
+                    <div class="container">
+                        <div class="white card purple-text">
+                            <br>
+                            <div class="col s6">
+                                <a id="revealAnswerButton" class="btn red left">Reveal Answer</a>
+                            </div>
+                            <div class="col s6">
+                                <h5 id="responsesQuestionAnswer" class="center" style="display: none;"></h5>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
                 </div>
             </div>
             <div class="container">
                 <div class="col s12 center-align">
                     <div id="responseSelection" class="responseQuestionSelect"></div>
+                    <a id="clearResponses" class="waves-light waves-effect red btn" qid="">Clear Responses</a>
                 </div>
+                <br>
             </div>
-
+            <br>
+            <br>
         </div>
         <div id="editClass" class="page" style="display: none;">
             <div id="editClassInfo">
@@ -167,11 +199,11 @@
 <footer class="page-footer green darken-1 ">
     <div class="footer-copyright">
         <div class="container">
-            <div class="col s6 left">
+            <div class="left">
                 <a class="white-text" href="../about.html">About</a>
             </div>
-            <div class="col s6 right">
-                <a class="white-text">© Paul McGurk</a>
+            <div class="right">
+                <a class="white-text" href="../help.html">Help</a>
             </div>
         </div>
     </div>
@@ -330,7 +362,7 @@
                 {{/if}}
             </div>
             <div class="row">
-                <textarea name="text" id="textarea1" class="materialize-textarea">{{text}}</textarea>
+                <input name="text" id="textarea1" type="text" value="{{text}}"></input>
                 <label for="textarea1">Question</label>
             </div>
             <div class="row">
@@ -401,7 +433,7 @@
                 </div>
                 <br>
                 <div class="input-field col s12">
-                    <textarea name="classDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                    <input name="classDescriptionEdit" type="text" value="{{description}}"></input>
                     <label for="classDescriptionEdit" class="white-text active">Class Description</label>
                 </div>
                 <div class="center">
@@ -512,7 +544,7 @@
                         <input value="{{date}}" type="date" class="datepicker">
                     </div>
                     <div class="input-field col s12">
-                        <textarea name="lectureDescriptionEdit" class="materialize-textarea">{{description}}</textarea>
+                        <input name="lectureDescriptionEdit" type="text" value="{{description}}"></input>
                         <label for="lectureDescriptionEdit" class="white-text active">Lecture Description</label>
                     </div>
                     <div class="switch col s12 center">

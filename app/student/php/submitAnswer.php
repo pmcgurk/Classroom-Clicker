@@ -2,24 +2,33 @@
 include("connect.php");
 session_start();
 $uid = $_SESSION['id'];
-// finds all responses by the current user for the current question
-$result = mysql_query("SELECT * FROM responses WHERE responses.qid=$_GET[qid] AND responses.uid=$uid");
-if(mysql_num_rows($result) < 1) { 
-    // if it is less than 1, i.e. no responses by the user, it inserts the response into the database.
-    mysql_query ("INSERT INTO `responses` (`rid`, `uid`, `qid`, `time`, `value`) VALUES (NULL, '2', '$_GET[qid]', CURRENT_TIMESTAMP, '$_GET[value]')") or die(mysql_error());
-    // it end checks if the question's answer is the value given
-    $result2 = mysql_query("SELECT * FROM questions WHERE questions.qid=$_GET[qid] AND questions.answer='$_GET[value]'");
-    $answerQuery = mysql_fetch_assoc(mysql_query("SELECT questions.answer FROM questions WHERE questions.qid=$_GET[qid]"));
-    $answer = $answerQuery['answer'];
-    // and then responds accordingly
-    if(mysql_num_rows($result2) > 0 ) { 
-        echo '{"response": "correct", "value": "'.$answer.'"}';
-    }
-    else {
-        echo '{"response": "incorrect", "value": "'.$answer.'"}';
+if(isset($uid)) {
+    // finds all responses by the current user for the current question
+    $result = mysql_query("SELECT * FROM responses WHERE responses.qid=$_GET[qid] AND responses.uid=$uid");
+    if(mysql_num_rows($result) < 1) { 
+        $result2 = mysql_query("SELECT * FROM questions WHERE questions.qid=$_GET[qid] AND questions.isvisible = 0");
+        if (mysql_num_rows($result2) < 1) {
+            // if it is less than 1, i.e. no responses by the user, it inserts the response into the database.
+            mysql_query ("INSERT INTO `responses` (`rid`, `uid`, `qid`, `time`, `value`) VALUES (NULL, '$uid', '$_GET[qid]', CURRENT_TIMESTAMP, '$_GET[value]')") or die(mysql_error());
+            // it end checks if the question's answer is the value given
+            $result3 = mysql_query("SELECT * FROM questions WHERE questions.qid=$_GET[qid] AND questions.answer='$_GET[value]'");
+            $answerQuery = mysql_fetch_assoc(mysql_query("SELECT questions.answer FROM questions WHERE questions.qid=$_GET[qid]"));
+            $answer = $answerQuery['answer'];
+            // and then responds accordingly
+            if(mysql_num_rows($result3) > 0 ) { 
+                echo '{"response": "correct", "value": "'.$answer.'"}';
+            }
+            else {
+                echo '{"response": "incorrect", "value": "'.$answer.'"}';
+            }
+        } else {
+            echo '{"response": "invalid", "value": "Question Not available to Answer."}';
+        }
+    } else {
+        // if it is more than or equal to 1, then there is already a response by this user.
+        echo '{"response": "invalid", "value": "You\'ve already answered this questions."}';
     }
 } else {
-    // if it is more than or equal to 1, then there is already a response by this user.
-    echo "You've already answered this questions.";
+    echo "Not logged in";
 }
 ?>

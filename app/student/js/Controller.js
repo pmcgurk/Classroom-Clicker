@@ -64,6 +64,7 @@ function Controller() {
         view.setLectures(lectures);
         model.submitLog('User change', 'User selected class: ' + cid);
         this.switchView('lectures');
+        $('.classLeaveButton').attr('cid', model.getCurClass());
         this.setBackButton($.proxy(this.switchView, this), "home");
         updateInterval = setInterval($.proxy(this.updateClass, this), 1000);
     };
@@ -87,6 +88,7 @@ function Controller() {
 
     this.joinClassesDisplay = function () {
         this.switchView('joinclass');
+        this.setBackButton($.proxy(this.switchView, this), "home");
     };
 
     /**************** LECTURE METHODS ******************/
@@ -95,19 +97,24 @@ function Controller() {
     };
 
     this.selectLecture = function (lid) {
-        this.switchView('questions');
+
         model.setCurLecture(lid);
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
-        model.submitLog('User change', 'User selected lecture: ' + lid);
-        updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
-        this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
-        this.updateQuestions();
+        if (questions.length > 0) {
+            this.switchView('questions');
+            view.setQuestions(questions);
+            model.submitLog('User change', 'User selected lecture: ' + lid);
+            updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
+            this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
+            this.updateQuestions();
+        } else {
+            view.toast("Lecture contains no questions.");
+        }
     }
 
     this.updateLecture = function () {
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
         //console.log("Updated Lecture");
     };
 
@@ -117,21 +124,18 @@ function Controller() {
     };
 
     this.selectQuestion = function (data) {
-        try {
-            var question = JSON.parse(model.getQuestion(data));
-            question.responses = JSON.parse(model.getUsersResponses(data));
-            view.setQuestion(question);
-            model.submitLog('User change', 'User selected question: ' + data);
-            this.setBackButton($.proxy(this.selectLecture, this), model.getCurLecture());
-        } catch (err) {
-            view.toast("Question not avaliable");
-        }
+        var question = JSON.parse(model.getQuestion(data));
+        question.responses = model.getUsersResponses(data);
+        view.setQuestion(question);
+        model.submitLog('User change', 'User selected question: ' + data);
+        this.setBackButton($.proxy(this.selectLecture, this), model.getCurLecture());
+
         this.switchView('question');
     };
 
     this.updateQuestions = function () {
         var questions = model.getQuestions(model.getCurLecture());
-        view.setQuestions(JSON.parse(questions));
+        view.setQuestions(questions);
         model.submitLog('update', 'updated questions');
     };
 
@@ -141,7 +145,7 @@ function Controller() {
             'value': $(event.currentTarget).attr("value"),
             'qid': $(event.currentTarget).attr("qid")
         });
-        view.submitAnswer(JSON.parse(data));
+        view.submitAnswer(data);
 
         model.submitLog('User change', 'User submitted answer: ' + $(event.currentTarget).attr("value") + ' to question: ' + $(event.currentTarget).attr("qid"));
     };
@@ -174,7 +178,7 @@ function Controller() {
     this.searchClasses = function (input) {
         if (input.length > 0) {
             var data = model.getClassSearchResult(input);
-            view.setClassSearchResult(JSON.parse(data));
+            view.setClassSearchResult(data);
         } else {
             model.setLastSearch("");
             view.setClassSearchResult({});
@@ -187,8 +191,8 @@ function Controller() {
         });
         view.joinClass(data);
         this.update();
-
-        model.submitLog('User change', 'User joined class: ' + data.cid);
+        this.switchView("home");
+        model.submitLog('User change', 'User joined class: ' + $(event.currentTarget).attr("value"));
     };
 
     /**************** MISC METHODS ******************/

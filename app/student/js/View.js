@@ -48,7 +48,7 @@ function View() {
             }
             if (JSON.stringify(oldLectureData) != JSON.stringify(data)) {
                 $(".lecturesList").html(HTML);
-                $('.lectureTitle').html(data[0].title);
+                $('.classTitle').html(data[0].name);
                 $('.classLeaveButton').attr("cid", data[0].cid);
             }
             oldLectureData = data;
@@ -74,6 +74,7 @@ function View() {
         }
         if (JSON.stringify(oldQuestionsData) != JSON.stringify(data)) {
             $(".questionList").html(HTML);
+            $('.lectureTitle').html(data[0].title);
         }
         oldQuestionsData = data;
     };
@@ -162,8 +163,10 @@ function View() {
     this.submitAnswer = function (data, value) {
         if (data.response == "correct") {
             $('#buttonDiv').html('<div class="container"><div class="green card white-text"> <br><h5 class="logo">Correct!</h5><h5>The answer was ' + data.value + '</h5><br></div></div>');
-        } else {
+        } else if (data.response == "incorrect") {
             $('#buttonDiv').html('<div class="container"><div class="red card white-text"> <br><h5 class="logo">Incorrect!</h5><h5>The answer was ' + data.value + '</h5><br></div></div>');
+        } else {
+            Materialize.toast("Problem submitting answer, question may be closed.", 2000);
         }
     };
 
