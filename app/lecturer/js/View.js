@@ -50,7 +50,7 @@ function View() {
     // uses handlebar templates to display list of classes
     this.setClasses = function (data) {
         var HTML = "No Classes";
-        if (data != {}) {
+        if (data.length > 0) {
             var source = $("#classesTemplate").html(),
                 template = Handlebars.compile(source);
             HTML = "";
@@ -60,12 +60,14 @@ function View() {
                 }
                 HTML = HTML + template(data[i]);
             }
+            if (JSON.stringify(data) != JSON.stringify(oldClassData)) {
+                $(".classes").html(HTML);
+                $('.className').html(data[0].code + ": " + data[0].name);
+            }
+            oldClassData = data;
+        } else {
+            $(".classes").html("");
         }
-        if (JSON.stringify(data) != JSON.stringify(oldClassData)) {
-            $(".classes").html(HTML);
-            $('.className').html(data[0].code + ": " + data[0].name);
-        }
-        oldClassData = data;
     };
 
     /**************** CLASS EDIT METHODS ******************/
@@ -407,7 +409,7 @@ function View() {
             cdata.push({
                 "value": this.countValues(values, labels[i]),
                 "label": labels[i],
-                "color": this.getResponseColour(data[i])
+                "color": this.getResponseColour(labels[i], data[0].buttontype)
             });
         }
         chart = new Chart(ctx).Pie(cdata, {
@@ -420,7 +422,7 @@ function View() {
         });
         $('#responseHeader').html("Question " + qnum);
         $('#js-legend').html(chart.generateLegend());
-        $('#responsesNumber').html("Responses: " + chart.segments.length);
+        $('#responsesNumber').html("Responses: " + chart.total);
         $('#clearResponses').attr("qid", question.qid);
         $('#responsesQuestionText').html(question.text);
         $('#responsesQuestionAnswer').html(question.answer);
@@ -501,10 +503,10 @@ function View() {
         }
     };
 
-    this.getResponseColour = function (data) {
-        var buttontype = JSON.parse(data.buttontype);
+    this.getResponseColour = function (data, buttontype) {
+        var buttontype = JSON.parse(buttontype);
         for (var i = 0; i < buttontype.length; i++) {
-            if (data.value == buttontype[i].value) {
+            if (data == buttontype[i].value) {
                 for (var e = 0; e < colours.length; e++) {
                     if (colours[e].name == buttontype[i].colour) {
                         return colours[e].value;
