@@ -2,9 +2,9 @@
 include("connect.php");
 session_start();
 $uid = $_SESSION['id'];
-$name = $_POST['name'];
+$name = mysql_real_escape_string($_POST['name']);
 $date = $_POST['date'];
-$description = $_POST['description'];
+$description = mysql_real_escape_string($_POST['description']);
 $isvisible = $_POST['isvisible'];
 $removed = $_POST['removed'];
 $cid = $_POST['cid'];

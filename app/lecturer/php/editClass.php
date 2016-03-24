@@ -2,15 +2,15 @@
 include("connect.php");
 session_start();
 $uid = $_SESSION['id'];
-$name = $_POST['name'];
-$code = $_POST['code'];
-$description = $_POST['description'];
+$name = mysql_real_escape_string($_POST['name']);
+$code = mysql_real_escape_string($_POST['code']);
+$description = mysql_real_escape_string($_POST['description']);
 $isvisible = $_POST['isvisible'];
 $joinable = $_POST['joinable'];
 $removed = $_POST['removed'];
 
 if (isset($_POST['cid'])) {
-    $result = mysql_query("SELECT * FROM owned WHERE uid = '$uid' AND '$_POST[cid]'") or die(mysql_error());
+    $result = mysql_query("SELECT * FROM owned WHERE uid = '$uid' AND cid = '$_POST[cid]'") or die(mysql_error());
     // checks to see if current session uid owns the class
     if($row = mysql_fetch_array($result)) {
         if (strcmp($removed, 'true') == 0) {
@@ -21,7 +21,7 @@ if (isset($_POST['cid'])) {
         } else {
             // else it modifies it with the new data.
             mysql_query("UPDATE `classes` SET `name` = '$name', `code` = '$code', `description` = '$description', `isvisible` = '$isvisible', `joinable` = '$joinable' WHERE `classes`.`cid` = $_POST[cid]") or die(mysql_error());
-            echo "Edit";
+            echo $result;
         }
     } else {
         echo "not your class to edit.";
