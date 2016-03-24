@@ -199,7 +199,11 @@ function Controller() {
     this.setUser = function () {
         var user = model.getUser();
         if (user) {
-            view.setUser(user);
+            if (user.isLecturer == 1) {
+                window.location.href = '..';
+            } else {
+                view.setUser(user);
+            }
         } else {
             this.logout();
         }
