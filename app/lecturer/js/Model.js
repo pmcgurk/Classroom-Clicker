@@ -59,7 +59,7 @@ function Model() {
             $.ajaxPOST("php/editClass.php", data);
             return {
                 "valid": true,
-                "message": "Class successfully editted."
+                "message": "Class successfully edited."
             };
         } else {
             return {

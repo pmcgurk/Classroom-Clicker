@@ -94,8 +94,10 @@ function Controller() {
         };
         if (event.target.checked) {
             $("label[for='" + $(event.currentTarget).attr("id") + "']").html("<i class='material-icons'>lock_outline</i>");
+            view.toast("Visibility changed to closed.");
         } else {
             $("label[for='" + $(event.currentTarget).attr("id") + "']").html("<i class='material-icons'>lock_open</i>");
+            view.toast("Visibility changed to open.");
         }
         model.changeVisibility(data);
     };
@@ -132,6 +134,7 @@ function Controller() {
         classData.students = students;
         view.setClassesEdit(classData);
         this.switchView('editClass');
+        this.setBackButton($.proxy(this.switchView, this), 'home');
     };
 
     /**************** CLASS EDIT METHODS ******************/
@@ -146,7 +149,7 @@ function Controller() {
         } else {
 
         }
-        view.toast(response.response);
+        view.toast(response.message);
     };
 
     this.saveNewClass = function () {
@@ -184,10 +187,14 @@ function Controller() {
     this.selectLecture = function (lid) {
         var questions = model.getQuestions(lid);
         $('#lecturePageEditButton').attr("lid", lid);
-        view.setQuestions(questions);
-        this.switchView('questions');
-        updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
-        this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
+        if (questions[0]) {
+            view.setQuestions(questions);
+            this.switchView('questions');
+            updateInterval = setInterval($.proxy(this.updateLecture, this), 1000);
+            this.setBackButton($.proxy(this.selectClass, this), model.getCurClass());
+        } else {
+            view.toast("No questions to view.");
+        }
     };
 
     this.updateLecture = function () {
@@ -238,6 +245,7 @@ function Controller() {
         } else {
             this.update();
             this.back();
+            view.toast('Lecture saved.');
         }
     }
 
@@ -246,8 +254,9 @@ function Controller() {
         //console.log(lectureInfo);
         if (model.saveNewLecture(lectureInfo)) {
             this.back();
+            view.toast('Lecture saved.');
         } else {
-            view.toast('Error');
+            view.toast('Error saving lecture.');
         }
     };
 
@@ -353,7 +362,11 @@ function Controller() {
     this.setUser = function () {
         var user = model.getUser();
         if (user) {
-            view.setUser(user);
+            if (user.isLecturer == 0) {
+                window.location.href = '..';
+            } else {
+                view.setUser(user);
+            }
         } else {
             this.logout();
         }
