@@ -60,7 +60,10 @@ function View() {
     this.setQuestions = function (data) {
         var source = $("#questionsTemplate").html(),
             template = Handlebars.compile(source),
-            HTML = "";
+            HTML = "",
+            correctanswers = 0,
+            notanswered = 0,
+            incorrectanswers = 0;
         for (var i = 0; i < data.length; i++) {
             data[i].buttonHTML = this.constructButtons(JSON.parse(data[i].buttontype));
             data[i].qnum = i + 1; // gets question number
@@ -69,10 +72,13 @@ function View() {
             }
             if (data[i].responses.total < 1) {
                 data[i].notanswered = true;
+                notanswered++;
             } else if (data[i].responses.correctresponses > 0) {
                 data[i].correctanswer = true;
+                correctanswers++;
             } else {
                 data[i].incorrectanswer = true;
+                incorrectanswers++;
             }
             HTML = HTML + template(data[i]);
         }
@@ -84,6 +90,10 @@ function View() {
             $('.lectureTitle').html(data[0].title);
         }
         oldQuestionsData = data;
+        $("#correct").html(correctanswers);
+        $("#incorrect").html(incorrectanswers);
+        $("#notanswered").html(notanswered);
+        $("#percentage").html(correctanswers / data.length * 100);
     };
 
     /**************** QUESTION METHODS ******************/
