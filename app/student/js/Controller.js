@@ -97,9 +97,11 @@ function Controller() {
     };
 
     this.selectLecture = function (lid) {
-
         model.setCurLecture(lid);
         var questions = model.getQuestions(model.getCurLecture());
+        for (var i = 0; i < questions.length; i++) {
+            questions[i].responses = model.getUsersResponses(questions[i].qid);
+        };
         if (questions.length > 0) {
             this.switchView('questions');
             view.setQuestions(questions);
@@ -114,6 +116,9 @@ function Controller() {
 
     this.updateLecture = function () {
         var questions = model.getQuestions(model.getCurLecture());
+        for (var i = 0; i < questions.length; i++) {
+            questions[i].responses = model.getUsersResponses(questions[i].qid);
+        };
         view.setQuestions(questions);
         //console.log("Updated Lecture");
     };
@@ -124,17 +129,24 @@ function Controller() {
     };
 
     this.selectQuestion = function (data) {
-        var question = JSON.parse(model.getQuestion(data));
-        question.responses = model.getUsersResponses(data);
-        view.setQuestion(question);
-        model.submitLog('User change', 'User selected question: ' + data);
-        this.setBackButton($.proxy(this.selectLecture, this), model.getCurLecture());
-
-        this.switchView('question');
+        try {
+            var question = JSON.parse(model.getQuestion(data));
+            question.responses = model.getUsersResponses(data);
+            view.setQuestion(question);
+            model.submitLog('User change', 'User selected question: ' + data);
+            this.setBackButton($.proxy(this.selectLecture, this), model.getCurLecture());
+            this.switchView('question');
+        } catch (err) {
+            view.toast("No more accessible questions available.");
+            this.switchView("questions");
+        }
     };
 
     this.updateQuestions = function () {
         var questions = model.getQuestions(model.getCurLecture());
+        for (var i = 0; i < questions.length; i++) {
+            questions[i].responses = model.getUsersResponses(questions[i].qid);
+        };
         view.setQuestions(questions);
         model.submitLog('update', 'updated questions');
     };

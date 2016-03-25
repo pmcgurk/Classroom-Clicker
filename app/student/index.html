@@ -213,7 +213,18 @@
     </li>
 </script>
 <script id="questionsTemplate" type="text/x-handlebars-template">
-    <li class="collection-item {{#if greyed}}grey{{else}}purple{{/if}}" </li>
+    <li class="collection-item 
+      {{#if notanswered}}
+           {{#if greyed}}
+               grey
+           {{else}}
+               purple
+           {{/if}}
+       {{else if correctanswer}}
+           green darken-2
+        {{else if incorrectanswer}}
+           red darken-2
+        {{/if}}" </li>
         <div class="row white-text">
             <div class="col s8">
                 <span class="logo">Question {{qnum}}</span>

@@ -67,6 +67,13 @@ function View() {
             if (data[i].isvisible == 0) {
                 data[i].greyed = true;
             }
+            if (data[i].responses.total < 1) {
+                data[i].notanswered = true;
+            } else if (data[i].responses.correctresponses > 0) {
+                data[i].correctanswer = true;
+            } else {
+                data[i].incorrectanswer = true;
+            }
             HTML = HTML + template(data[i]);
         }
         if (HTML == "") {
